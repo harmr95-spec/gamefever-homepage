@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spielolympiade – Dein Spieleabend, legendär</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,500;0,700;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #1D9E75;
+      --green-light: #E1F5EE;
+      --green-dark: #085041;
+      --black: #0a0a0a;
+      --white: #fafaf8;
+      --grey: #888;
+      --grey-light: #f0f0f0;
+      --border: #e8e8e5;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--black);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 32px;
+      background: rgba(250,250,248,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Fraunces', serif;
+      font-size: 18px; font-weight: 700;
+      color: var(--black);
+      text-decoration: none;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .nav-logo span { font-size: 22px; }
+    .nav-cta {
+      background: var(--green);
+      color: white; text-decoration: none;
+      padding: 9px 20px; border-radius: 100px;
+      font-size: 14px; font-weight: 500;
+      transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--green-dark); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      position: relative;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 0%, rgba(29,158,117,0.12) 0%, transparent 70%),
+        var(--white);
+    }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--green-light); color: var(--green-dark);
+      padding: 6px 14px; border-radius: 100px;
+      font-size: 13px; font-weight: 500;
+      margin-bottom: 24px;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .hero h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(42px, 8vw, 80px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -1px;
+      max-width: 800px;
+      animation: fadeUp 0.6s ease 0.1s both;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--green);
+    }
+
+    .hero-sub {
+      font-size: clamp(16px, 2.5vw, 20px);
+      color: var(--grey);
+      font-weight: 300;
+      max-width: 520px;
+      line-height: 1.6;
+      margin-top: 20px;
+      animation: fadeUp 0.6s ease 0.2s both;
+    }
+
+    .hero-btns {
+      display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+      margin-top: 36px;
+      animation: fadeUp 0.6s ease 0.3s both;
+    }
+    .btn-primary {
+      background: var(--black); color: white;
+      text-decoration: none; padding: 15px 32px;
+      border-radius: 12px; font-size: 16px; font-weight: 500;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+    .btn-secondary {
+      background: transparent; color: var(--black);
+      text-decoration: none; padding: 15px 32px;
+      border-radius: 12px; font-size: 16px; font-weight: 500;
+      border: 1.5px solid var(--border);
+      transition: border-color 0.2s;
+    }
+    .btn-secondary:hover { border-color: #bbb; }
+
+    /* ── SCREENSHOTS ── */
+    .phone-mockup {
+      margin-top: 64px;
+      display: flex; justify-content: center; align-items: flex-end;
+      gap: -20px;
+      animation: fadeUp 0.7s ease 0.4s both;
+    }
+    .phone-frame {
+      width: 220px;
+      border-radius: 32px;
+      overflow: hidden;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.08);
+      border: 2px solid rgba(255,255,255,0.8);
+      position: relative;
+      transition: transform 0.3s;
+    }
+    .phone-frame:hover { transform: translateY(-8px) rotate(-1deg); }
+    .phone-frame.center {
+      transform: scale(1.05) translateY(-16px);
+      z-index: 2;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.2);
+    }
+    .phone-frame.center:hover { transform: scale(1.05) translateY(-24px) rotate(0.5deg); }
+    .phone-frame img {
+      width: 100%; display: block;
+    }
+    .phone-frame.side { opacity: 0.85; }
+
+    /* ── SECTION BASE ── */
+    section { padding: 80px 24px; }
+    .container { max-width: 960px; margin: 0 auto; }
+    .section-label {
+      font-size: 12px; font-weight: 500; letter-spacing: 1.5px;
+      text-transform: uppercase; color: var(--green);
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(28px, 5vw, 44px);
+      font-weight: 500; line-height: 1.15;
+      letter-spacing: -0.5px;
+    }
+
+    /* ── FEATURES ── */
+    .features { background: var(--white); }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      margin-top: 48px;
+    }
+    .feature-card {
+      background: var(--grey-light);
+      border-radius: 18px; padding: 28px;
+      border: 1px solid var(--border);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .feature-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+    .feature-icon { font-size: 32px; margin-bottom: 16px; }
+    .feature-card h3 { font-size: 17px; font-weight: 500; margin-bottom: 8px; }
+    .feature-card p { font-size: 14px; color: var(--grey); line-height: 1.6; }
+
+    /* ── HOW IT WORKS ── */
+    .how { background: var(--black); color: var(--white); }
+    .how .section-label { color: var(--green); }
+    .how .section-title { color: var(--white); }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 32px;
+      margin-top: 52px;
+    }
+    .step { display: flex; flex-direction: column; gap: 14px; }
+    .step-num {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: var(--green); color: white;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Fraunces', serif;
+      font-size: 20px; font-weight: 700;
+    }
+    .step h3 { font-size: 17px; font-weight: 500; color: var(--white); }
+    .step p { font-size: 14px; color: #888; line-height: 1.6; }
+
+    /* ── SCREENSHOTS SECTION ── */
+    .screenshots { background: #f5f5f3; }
+    .screenshot-row {
+      display: flex; gap: 20px; overflow-x: auto;
+      padding-bottom: 16px; margin-top: 48px;
+      scrollbar-width: none;
+    }
+    .screenshot-row::-webkit-scrollbar { display: none; }
+    .screenshot-item {
+      flex-shrink: 0; width: 200px;
+      border-radius: 24px; overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+      border: 2px solid rgba(255,255,255,0.9);
+    }
+    .screenshot-item img { width: 100%; display: block; }
+    .screenshot-caption { margin-top: 48px; }
+    .screenshot-caption p { font-size: 16px; color: var(--grey); line-height: 1.7; max-width: 600px; }
+
+    /* ── DOWNLOAD CTA ── */
+    .cta-section {
+      text-align: center;
+      background: linear-gradient(135deg, var(--green-dark) 0%, var(--green) 100%);
+      color: white; padding: 80px 24px;
+    }
+    .cta-section .section-label { color: rgba(255,255,255,0.6); }
+    .cta-section .section-title { color: white; margin-bottom: 20px; }
+    .cta-section p { color: rgba(255,255,255,0.75); font-size: 17px; max-width: 480px; margin: 0 auto 36px; line-height: 1.6; }
+    .btn-white {
+      background: white; color: var(--green-dark);
+      text-decoration: none; padding: 15px 36px;
+      border-radius: 12px; font-size: 16px; font-weight: 500;
+      display: inline-block;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black); color: #888;
+      padding: 40px 24px;
+      display: flex; flex-direction: column; align-items: center; gap: 20px;
+      text-align: center;
+    }
+    .footer-logo {
+      font-family: 'Fraunces', serif;
+      font-size: 20px; color: white; font-weight: 700;
+    }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; }
+    .footer-links a {
+      color: #888; text-decoration: none;
+      font-size: 14px; transition: color 0.2s;
+    }
+    .footer-links a:hover { color: white; }
+    .footer-copy { font-size: 12px; color: #555; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      nav { padding: 14px 20px; }
+      .hero { padding: 100px 20px 60px; }
+      .phone-mockup { gap: 8px; }
+      .phone-frame { width: 140px; border-radius: 22px; }
+      .phone-frame.center { transform: scale(1.04) translateY(-10px); }
+      .features-grid { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr 1fr; }
+      .screenshot-item { width: 160px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo"><span>🏆</span> Spielolympiade</a>
+    <a href="https://apps.apple.com" class="nav-cta">App laden</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">🎲 Kostenlos verfügbar</div>
+    <h1>Spieleabende werden <em>legendär</em></h1>
+    <p class="hero-sub">Tracke Punkte, erkläre einen Sieger und führe deine Spielolympiade – ganz ohne Stift und Zettel.</p>
+    <div class="hero-btns">
+      <a href="https://apps.apple.com" class="btn-primary">📱 Jetzt herunterladen</a>
+      <a href="#features" class="btn-secondary">Mehr erfahren</a>
+    </div>
+
+    <div class="phone-mockup">
+      <div class="phone-frame side">
+        <img src="screenshots/screen4.jpeg" alt="Spieler hinzufügen" loading="lazy">
+      </div>
+      <div class="phone-frame center">
+        <img src="screenshots/screen2.jpeg" alt="Olympiade spielen" loading="lazy">
+      </div>
+      <div class="phone-frame side">
+        <img src="screenshots/screen3.jpeg" alt="Profil & Statistiken" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <div class="container">
+      <p class="section-label">Was drin steckt</p>
+      <h2 class="section-title">Alles was du für einen epischen Spieleabend brauchst.</h2>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🏆</div>
+          <h3>Olympiade-Modus</h3>
+          <p>Wähle Spiele, lege die Reihenfolge fest und tracke live wer gerade führt. Mit Siegpunkten wird jede Runde wertvoller.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3>Statistiken & Profil</h3>
+          <p>Deine Stärken werden analysiert: Glück, Strategie, Schnelligkeit – sieht genau wo du glänzt (und wo nicht).</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">👥</div>
+          <h3>Gäste & echte Spieler</h3>
+          <p>Ohne Anmeldung als Gast mitspielen oder mit echtem Account dauerhaft Statistiken sammeln.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎲</div>
+          <h3>Werkzeuge an Bord</h3>
+          <p>Würfel, Timer, Schachuhr, QR-Code-Generator und ein Starter-Picker – alles in der App, nichts googeln.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📱</div>
+          <h3>Offline-First</h3>
+          <p>Kein Internet, kein Problem. Die App läuft vollständig offline und sync t im Hintergrund sobald Verbindung besteht.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🗂</div>
+          <h3>Eigener Spielpool</h3>
+          <p>Pflege deinen persönlichen Spielpool mit Links, Beschreibungen und Kategorien. Direkt beim Erstellen filterbar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how" id="how">
+    <div class="container">
+      <p class="section-label">So läuft's ab</p>
+      <h2 class="section-title">In 3 Schritten zur Olympiade</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h3>Spieler wählen</h3>
+          <p>Tipp deinen Namen oder lade Freunde per E-Mail-Suche ein. Auch Gäste können ohne Account mitspielen.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h3>Spiele festlegen</h3>
+          <p>Wähle aus deinem Pool, füge spontan Spiele hinzu oder lass die App zufällig auswählen. Reihenfolge per Drag anpassen.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h3>Los geht's!</h3>
+          <p>Nach jedem Spiel den Sieger eintragen – die App berechnet Punkte live und zeigt wer zuerst das Ziel erreicht.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREENSHOTS -->
+  <section class="screenshots" id="screenshots">
+    <div class="container">
+      <p class="section-label">Einblicke</p>
+      <h2 class="section-title">Schlank, klar, auf das Wesentliche fokussiert.</h2>
+
+      <div class="screenshot-row">
+        <div class="screenshot-item">
+          <img src="screenshots/screen1.jpeg" alt="Spielolympiade Hauptscreen" loading="lazy">
+        </div>
+        <div class="screenshot-item">
+          <img src="screenshots/screen2.jpeg" alt="Aktive Olympiade" loading="lazy">
+        </div>
+        <div class="screenshot-item">
+          <img src="screenshots/screen5.jpeg" alt="Neue Olympiade erstellen" loading="lazy">
+        </div>
+        <div class="screenshot-item">
+          <img src="screenshots/screen4.jpeg" alt="Spieler hinzufügen" loading="lazy">
+        </div>
+        <div class="screenshot-item">
+          <img src="screenshots/screen6.jpeg" alt="Spielpool auswählen" loading="lazy">
+        </div>
+        <div class="screenshot-item">
+          <img src="screenshots/screen3.jpeg" alt="Profil & Statistiken" loading="lazy">
+        </div>
+      </div>
+
+      <div class="screenshot-caption">
+        <p>Von der Spielauswahl bis zum Siegertreppchen – Spielolympiade begleitet euch durch den ganzen Abend. Kein Zettel, keine Diskussionen, nur spielen.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <p class="section-label">Jetzt starten</p>
+      <h2 class="section-title">Bereit für den nächsten Spieleabend?</h2>
+      <p>Kostenlos herunterladen und sofort losspielen. Kein Account nötig.</p>
+      <a href="https://apps.apple.com" class="btn-white">📱 App herunterladen</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo">🏆 Spielolympiade</div>
+    <div class="footer-links">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutzerklärung</a>
+      <a href="agb.html">AGB</a>
+    </div>
+    <p class="footer-copy">© 2025 Spielolympiade. Alle Rechte vorbehalten.</p>
+  </footer>
+
+</body>
+</html>
