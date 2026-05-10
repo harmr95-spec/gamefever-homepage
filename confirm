@@ -1,0 +1,31 @@
+<!-- confirm.html -->
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>E-Mail bestätigt</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <h1 id="status">Wird bestätigt…</h1>
+  <script>
+    const { createClient } = supabase;
+    const client = createClient('https://ytouhihzxqyyyfsakgym.supabase.co', 'DEIN_ANON_KEY');
+
+    const params = new URLSearchParams(window.location.search);
+    const tokenHash = params.get('token_hash');
+    const type = params.get('type'); // 'signup' oder 'email'
+
+    if (tokenHash) {
+      client.auth.verifyOtp({ token_hash: tokenHash, type: type ?? 'signup' })
+        .then(({ error }) => {
+          document.getElementById('status').textContent = error
+            ? '❌ Fehler: ' + error.message
+            : '✅ E-Mail erfolgreich bestätigt! Du kannst die App öffnen.';
+        });
+    } else {
+      document.getElementById('status').textContent = '❌ Kein Token gefunden.';
+    }
+  </script>
+</body>
+</html>
