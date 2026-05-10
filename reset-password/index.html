@@ -17,17 +17,22 @@
     const { createClient } = supabase;
     const client = createClient('https://ytouhihzxqyyyfsakgym.supabase.co', 'sb_publishable_Dd1WBx9H8M5DwidvoP5-Iw__dSaBz3P');
 
-    // Supabase JS liest den #access_token Fragment automatisch aus
-    client.auth.onAuthStateChange((event, session) => {
-      if (event !== 'PASSWORD_RECOVERY') {
-        document.getElementById('msg').textContent = '❌ Kein gültiger Reset-Link.';
-        document.getElementById('form').querySelector('button').disabled = true;
-      }
-    });
+    const params = new URLSearchParams(window.location.search);
+    const tokenHash = params.get('token_hash');
+
+    if (!tokenHash) {
+      document.getElementById('msg').textContent = '❌ Kein gültiger Reset-Link.';
+      document.getElementById('form').querySelector('button').disabled = true;
+    }
 
     async function reset() {
       const pw = document.getElementById('pw').value;
       if (!pw) return;
+      const { error: verifyError } = await client.auth.verifyOtp({ 
+        token_hash: tokenHash, 
+        type: 'recovery' 
+      });
+      if (verifyError) { document.getElementById('msg').textContent = '❌ ' + verifyError.message; return; }
       const { error } = await client.auth.updateUser({ password: pw });
       document.getElementById('msg').textContent = error
         ? '❌ ' + error.message
