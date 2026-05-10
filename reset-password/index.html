@@ -1,43 +1,412 @@
-<!-- reset-password.html -->
 <!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Passwort zurücksetzen</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spielolympiade – Passwort zurücksetzen</title>
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,500;0,700;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #1D9E75;
+      --green-light: #E1F5EE;
+      --green-dark: #085041;
+      --black: #0a0a0a;
+      --white: #fafaf8;
+      --grey: #888;
+      --grey-light: #f0f0f0;
+      --border: #e8e8e5;
+      --red: #E24B4A;
+      --red-light: #FEE2E2;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--black);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 32px;
+      background: rgba(250,250,248,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Fraunces', serif;
+      font-size: 18px; font-weight: 700;
+      color: var(--black);
+      text-decoration: none;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .nav-logo img { width: 40px; height: 40px; object-fit: contain; }
+
+    /* ── MAIN ── */
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 24px;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 0%, rgba(29,158,117,0.10) 0%, transparent 70%),
+        var(--white);
+    }
+
+    .card {
+      background: white;
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.07);
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .card-icon {
+      font-size: 40px;
+      margin-bottom: 16px;
+    }
+
+    .card h1 {
+      font-family: 'Fraunces', serif;
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 8px;
+    }
+
+    .card-sub {
+      font-size: 15px;
+      color: var(--grey);
+      font-weight: 300;
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+
+    /* ── FORM ── */
+    .field {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: #555;
+      margin-bottom: 6px;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    input[type="password"] {
+      width: 100%;
+      padding: 12px 44px 12px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      background: var(--white);
+      color: var(--black);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+
+    input[type="password"]:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(29,158,117,0.12);
+    }
+
+    input[type="password"].error {
+      border-color: var(--red);
+      box-shadow: 0 0 0 3px rgba(226,75,74,0.10);
+    }
+
+    .toggle-pw {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      color: var(--grey);
+      padding: 2px;
+      line-height: 1;
+    }
+
+    /* ── REQUIREMENTS ── */
+    .requirements {
+      background: var(--grey-light);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .req {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--grey);
+      transition: color 0.2s;
+    }
+
+    .req.ok { color: var(--green); }
+    .req.fail { color: var(--red); }
+
+    .req-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #ccc;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+    .req.ok .req-dot { background: var(--green); }
+    .req.fail .req-dot { background: var(--red); }
+
+    /* ── BUTTON ── */
+    .btn-submit {
+      width: 100%;
+      background: var(--black);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 14px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s, background 0.2s;
+      margin-top: 4px;
+    }
+
+    .btn-submit:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+
+    .btn-submit:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    /* ── MESSAGE ── */
+    .msg {
+      margin-top: 16px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-size: 14px;
+      line-height: 1.5;
+      display: none;
+    }
+
+    .msg.show { display: block; }
+    .msg.success { background: var(--green-light); color: var(--green-dark); }
+    .msg.error-msg { background: var(--red-light); color: var(--red); }
+
+    /* ── INVALID STATE ── */
+    .invalid-state {
+      text-align: center;
+      padding: 16px 0;
+    }
+    .invalid-state .card-icon { font-size: 48px; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black); color: #888;
+      padding: 28px 24px;
+      display: flex; flex-direction: column; align-items: center; gap: 16px;
+      text-align: center;
+    }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; }
+    .footer-links a {
+      color: #888; text-decoration: none;
+      font-size: 13px; transition: color 0.2s;
+    }
+    .footer-links a:hover { color: white; }
+    .footer-copy { font-size: 12px; color: #555; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 480px) {
+      nav { padding: 14px 20px; }
+      .card { padding: 32px 24px; border-radius: 18px; }
+    }
+  </style>
 </head>
 <body>
-  <h1>Neues Passwort</h1>
-  <div id="form">
-    <input id="pw" type="password" placeholder="Neues Passwort" />
-    <button onclick="reset()">Speichern</button>
-    <p id="msg"></p>
-  </div>
+
+  <nav>
+    <a href="/" class="nav-logo">
+      <img src="../logo-transperent-background.png" alt="Logo">
+      Spielolympiade
+    </a>
+  </nav>
+
+  <main>
+    <div class="card" id="card">
+      <!-- Wird per JS befüllt -->
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-links">
+      <a href="../impressum.html">Impressum</a>
+      <a href="../datenschutz.html">Datenschutzerklärung</a>
+      <a href="../agb.html">AGB</a>
+    </div>
+    <p class="footer-copy">© 2026 Spielolympiade. Alle Rechte vorbehalten.</p>
+  </footer>
+
   <script>
     const { createClient } = supabase;
-    const client = createClient('https://ytouhihzxqyyyfsakgym.supabase.co', 'sb_publishable_Dd1WBx9H8M5DwidvoP5-Iw__dSaBz3P');
+    const client = createClient(
+      'https://ytouhihzxqyyyfsakgym.supabase.co',
+      'sb_publishable_Dd1WBx9H8M5DwidvoP5-Iw__dSaBz3P'
+    );
 
     const params = new URLSearchParams(window.location.search);
     const tokenHash = params.get('token_hash');
+    const card = document.getElementById('card');
 
     if (!tokenHash) {
-      document.getElementById('msg').textContent = '❌ Kein gültiger Reset-Link.';
-      document.getElementById('form').querySelector('button').disabled = true;
+      card.innerHTML = `
+        <div class="invalid-state">
+          <div class="card-icon">🔒</div>
+          <h1>Ungültiger Link</h1>
+          <p class="card-sub">Dieser Link ist nicht gültig oder bereits abgelaufen. Bitte fordere in der App einen neuen Link an.</p>
+        </div>
+      `;
+    } else {
+      card.innerHTML = `
+        <div class="card-icon">🔑</div>
+        <h1>Neues Passwort</h1>
+        <p class="card-sub">Wähle ein sicheres Passwort für dein Spielolympiade-Konto.</p>
+
+        <div class="field">
+          <label for="pw">Neues Passwort</label>
+          <div class="input-wrap">
+            <input type="password" id="pw" placeholder="Mindestens 8 Zeichen" oninput="pruefePasswort()" />
+            <button class="toggle-pw" onclick="toggleSicht('pw', this)" type="button">👁</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="pw2">Passwort wiederholen</label>
+          <div class="input-wrap">
+            <input type="password" id="pw2" placeholder="Passwort bestätigen" oninput="pruefePasswort()" />
+            <button class="toggle-pw" onclick="toggleSicht('pw2', this)" type="button">👁</button>
+          </div>
+        </div>
+
+        <div class="requirements">
+          <div class="req" id="req-len"><div class="req-dot"></div>Mindestens 8 Zeichen</div>
+          <div class="req" id="req-lower"><div class="req-dot"></div>Kleinbuchstabe (a–z)</div>
+          <div class="req" id="req-upper"><div class="req-dot"></div>Großbuchstabe (A–Z)</div>
+          <div class="req" id="req-digit"><div class="req-dot"></div>Ziffer (0–9)</div>
+          <div class="req" id="req-match"><div class="req-dot"></div>Passwörter stimmen überein</div>
+        </div>
+
+        <button class="btn-submit" id="submit-btn" onclick="reset()" disabled>Passwort speichern</button>
+        <div class="msg" id="msg"></div>
+      `;
+    }
+
+    function toggleSicht(fieldId, btn) {
+      const input = document.getElementById(fieldId);
+      const isHidden = input.type === 'password';
+      input.type = isHidden ? 'text' : 'password';
+      btn.textContent = isHidden ? '🙈' : '👁';
+    }
+
+    function pruefePasswort() {
+      const pw = document.getElementById('pw')?.value ?? '';
+      const pw2 = document.getElementById('pw2')?.value ?? '';
+
+      const checks = {
+        len:   pw.length >= 8,
+        lower: /[a-z]/.test(pw),
+        upper: /[A-Z]/.test(pw),
+        digit: /[0-9]/.test(pw),
+        match: pw.length > 0 && pw === pw2,
+      };
+
+      for (const [key, ok] of Object.entries(checks)) {
+        const el = document.getElementById(`req-${key}`);
+        if (!el) continue;
+        el.className = 'req' + (ok ? ' ok' : '');
+      }
+
+      const allOk = Object.values(checks).every(Boolean);
+      const btn = document.getElementById('submit-btn');
+      if (btn) btn.disabled = !allOk;
+
+      const pw2Input = document.getElementById('pw2');
+      if (pw2Input && pw2.length > 0) {
+        pw2Input.className = checks.match ? '' : 'error';
+      }
     }
 
     async function reset() {
-      const pw = document.getElementById('pw').value;
-      if (!pw) return;
-      const { error: verifyError } = await client.auth.verifyOtp({ 
-        token_hash: tokenHash, 
-        type: 'recovery' 
+      const pw = document.getElementById('pw')?.value;
+      const btn = document.getElementById('submit-btn');
+      const msgEl = document.getElementById('msg');
+      if (!pw || !btn || !msgEl) return;
+
+      btn.disabled = true;
+      btn.textContent = 'Wird gespeichert…';
+
+      const { error: verifyError } = await client.auth.verifyOtp({
+        token_hash: tokenHash,
+        type: 'recovery'
       });
-      if (verifyError) { document.getElementById('msg').textContent = '❌ ' + verifyError.message; return; }
+
+      if (verifyError) {
+        msgEl.textContent = '❌ ' + verifyError.message;
+        msgEl.className = 'msg show error-msg';
+        btn.textContent = 'Passwort speichern';
+        btn.disabled = false;
+        return;
+      }
+
       const { error } = await client.auth.updateUser({ password: pw });
-      document.getElementById('msg').textContent = error
-        ? '❌ ' + error.message
-        : '✅ Passwort geändert! Du kannst dich in der App anmelden.';
+
+      if (error) {
+        msgEl.textContent = '❌ ' + error.message;
+        msgEl.className = 'msg show error-msg';
+        btn.textContent = 'Passwort speichern';
+        btn.disabled = false;
+      } else {
+        msgEl.innerHTML = '✅ Passwort geändert! Du kannst dich jetzt in der App anmelden.';
+        msgEl.className = 'msg show success';
+        btn.textContent = '✓ Gespeichert';
+        document.getElementById('pw').disabled = true;
+        document.getElementById('pw2').disabled = true;
+      }
     }
   </script>
+
 </body>
 </html>
