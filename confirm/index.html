@@ -7,7 +7,7 @@
   <link rel="icon" type="image/png" href="../favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,500;0,700;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.2/dist/umd/supabase.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -156,49 +156,61 @@
     <div class="footer-links">
       <a href="../impressum.html">Impressum</a>
       <a href="../datenschutz.html">Datenschutzerklärung</a>
-      <a href="../agb.html">AGB</a>
     </div>
     <p class="footer-copy">© 2026 Spielolympiade. Alle Rechte vorbehalten.</p>
   </footer>
 
   <script>
-    const { createClient } = supabase;
-    const client = createClient(
+    // Die Bestätigungsmail von Supabase verlinkt hierher mit ?token_hash=…&type=signup (bzw. email / email_change).
+    // Die Sitzung wird im Browser nicht gespeichert – angemeldet wird man danach in der App.
+    const client = supabase.createClient(
       'https://ytouhihzxqyyyfsakgym.supabase.co',
-      'sb_publishable_Dd1WBx9H8M5DwidvoP5-Iw__dSaBz3P'
+      'sb_publishable_Dd1WBx9H8M5DwidvoP5-Iw__dSaBz3P',
+      { auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false } }
     );
 
     const params = new URLSearchParams(window.location.search);
     const tokenHash = params.get('token_hash');
-    const type = params.get('type') ?? 'signup';
+    const type = params.get('type') ?? 'email';
     const card = document.getElementById('card');
 
-    if (!tokenHash) {
+    function zeige(symbol, titel, text, badge) {
       card.innerHTML = `
-        <span class="card-icon">🔒</span>
-        <h1>Kein Token gefunden</h1>
-        <p>Dieser Link ist ungültig. Bitte registriere dich erneut in der App.</p>
-      `;
-    } else {
-      client.auth.verifyOtp({ token_hash: tokenHash, type })
-        .then(({ error }) => {
-          if (error) {
-            card.innerHTML = `
-              <span class="card-icon">❌</span>
-              <h1>Bestätigung fehlgeschlagen</h1>
-              <p>${error.message}</p>
-              <span class="badge error">Link abgelaufen oder bereits verwendet</span>
-            `;
-          } else {
-            card.innerHTML = `
-              <span class="card-icon">🏆</span>
-              <h1>E-Mail bestätigt!</h1>
-              <p>Dein Konto ist aktiviert. Öffne die Spielolympiade-App und melde dich an.</p>
-              <span class="badge success">✓ Erfolgreich verifiziert</span>
-            `;
-          }
-        });
+        <span class="card-icon"></span>
+        <h1></h1>
+        <p></p>
+        ${badge ? '<span class="badge"></span>' : ''}`;
+      card.querySelector('.card-icon').textContent = symbol;
+      card.querySelector('h1').textContent = titel;
+      card.querySelector('p').textContent = text;
+      if (badge) {
+        const el = card.querySelector('.badge');
+        el.textContent = badge.text;
+        el.classList.add(badge.art);
+      }
     }
+
+    async function start() {
+      if (!tokenHash) {
+        return zeige('🔒', 'Link unvollständig',
+          'Dieser Link ist nicht vollständig. Öffne den Link direkt aus der Mail oder registriere dich erneut in der App.');
+      }
+      const { error } = await client.auth.verifyOtp({ token_hash: tokenHash, type });
+      if (error) {
+        const abgelaufen = error.code === 'otp_expired' || /expired|invalid/i.test(error.message ?? '');
+        return zeige('⏰', 'Bestätigung fehlgeschlagen',
+          abgelaufen
+            ? 'Der Link ist abgelaufen oder wurde schon benutzt. Wenn du dich in der App anmelden kannst, ist alles in Ordnung. Sonst melde dich in der App an – dort kannst du dir die Bestätigungsmail erneut schicken lassen.'
+            : 'Die Bestätigung hat nicht geklappt. Bitte versuche es später erneut oder lass dir in der App eine neue Bestätigungsmail schicken.',
+          { text: 'Link abgelaufen oder bereits verwendet', art: 'error' });
+      }
+      const text = type === 'email_change'
+        ? 'Deine neue E-Mail-Adresse ist bestätigt. Du kannst dieses Fenster schließen.'
+        : 'Dein Konto ist aktiviert. Öffne die Spielolympiade-App und melde dich an.';
+      zeige('🏆', 'E-Mail bestätigt!', text, { text: '✓ Erfolgreich bestätigt', art: 'success' });
+    }
+
+    start();
   </script>
 
 </body>

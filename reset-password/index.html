@@ -7,7 +7,7 @@
   <link rel="icon" type="image/png" href="../favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,500;0,700;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.2/dist/umd/supabase.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -223,6 +223,16 @@
     .msg.success { background: var(--green-light); color: var(--green-dark); }
     .msg.error-msg { background: var(--red-light); color: var(--red); }
 
+    .spinner {
+      width: 40px; height: 40px;
+      border: 3px solid var(--border);
+      border-top-color: var(--green);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 8px auto 20px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
     /* ── INVALID STATE ── */
     .invalid-state {
       text-align: center;
@@ -275,137 +285,186 @@
     <div class="footer-links">
       <a href="../impressum.html">Impressum</a>
       <a href="../datenschutz.html">Datenschutzerklärung</a>
-      <a href="../agb.html">AGB</a>
     </div>
     <p class="footer-copy">© 2026 Spielolympiade. Alle Rechte vorbehalten.</p>
   </footer>
 
   <script>
-    const { createClient } = supabase;
-    const client = createClient(
+    // Ablauf: Die Mail von Supabase verlinkt auf diese Seite mit ?token_hash=…&type=recovery.
+    // 1. Link sofort prüfen (verifyOtp) – ungültige/abgelaufene Links fallen direkt auf.
+    // 2. Formular zeigen, neues Passwort setzen (updateUser).
+    // 3. Abmelden: Die Anmeldung im Browser wird nur für diesen Vorgang gebraucht.
+    // Die Sitzung liegt nur im sessionStorage, damit ein Neuladen der Seite nicht den Link „verbraucht“.
+    const client = supabase.createClient(
       'https://ytouhihzxqyyyfsakgym.supabase.co',
-      'sb_publishable_Dd1WBx9H8M5DwidvoP5-Iw__dSaBz3P'
+      'sb_publishable_Dd1WBx9H8M5DwidvoP5-Iw__dSaBz3P',
+      { auth: { storage: window.sessionStorage, persistSession: true, autoRefreshToken: false, detectSessionInUrl: false } }
     );
 
     const params = new URLSearchParams(window.location.search);
     const tokenHash = params.get('token_hash');
     const card = document.getElementById('card');
 
-    if (!tokenHash) {
-      card.innerHTML = `
+    // Gleiche Regeln wie in der App (src/auth/fehlertexte.ts → pruefePasswort)
+    const REGELN = {
+      len:   (pw) => pw.length >= 8,
+      lower: (pw) => /[a-z]/.test(pw),
+      upper: (pw) => /[A-Z]/.test(pw),
+      digit: (pw) => /[0-9]/.test(pw),
+    };
+
+    function fehlertext(error) {
+      const code = error?.code ?? '';
+      const msg = (error?.message ?? '').toLowerCase();
+      if (code === 'otp_expired' || msg.includes('expired') || msg.includes('invalid'))
+        return 'Dieser Link ist abgelaufen oder wurde schon benutzt. Bitte fordere in der App über „Passwort vergessen?“ einen neuen Link an.';
+      if (code === 'same_password' || msg.includes('different from the old'))
+        return 'Das neue Passwort muss sich von deinem bisherigen unterscheiden.';
+      if (code === 'weak_password' || msg.includes('weak'))
+        return 'Das Passwort ist zu schwach. Bitte wähle ein längeres oder weniger gängiges Passwort.';
+      if (msg.includes('rate limit') || msg.includes('too many'))
+        return 'Zu viele Versuche. Bitte warte einen Moment und versuche es dann erneut.';
+      if (msg.includes('fetch') || msg.includes('network'))
+        return 'Keine Verbindung. Bitte prüfe deine Internetverbindung.';
+      return 'Etwas ist schiefgelaufen. Bitte fordere in der App einen neuen Link an.';
+    }
+
+    function zeige(html) { card.innerHTML = html; }
+
+    function zeigeLaden() {
+      zeige(`
+        <div class="invalid-state">
+          <div class="spinner"></div>
+          <h1>Link wird geprüft…</h1>
+          <p class="card-sub">Einen Moment bitte.</p>
+        </div>`);
+    }
+
+    function zeigeUngueltig(text) {
+      zeige(`
         <div class="invalid-state">
           <div class="card-icon">🔒</div>
-          <h1>Ungültiger Link</h1>
-          <p class="card-sub">Dieser Link ist nicht gültig oder bereits abgelaufen. Bitte fordere in der App einen neuen Link an.</p>
-        </div>
-      `;
-    } else {
-      card.innerHTML = `
+          <h1>Link ungültig</h1>
+          <p class="card-sub" id="grund"></p>
+        </div>`);
+      document.getElementById('grund').textContent = text;
+    }
+
+    function zeigeErfolg() {
+      zeige(`
+        <div class="invalid-state">
+          <div class="card-icon">✅</div>
+          <h1>Passwort geändert</h1>
+          <p class="card-sub">Du kannst dich jetzt in der Spielolympiade-App mit deinem neuen Passwort anmelden. Dieses Fenster kannst du schließen.</p>
+        </div>`);
+    }
+
+    function zeigeFormular() {
+      zeige(`
         <div class="card-icon">🔑</div>
         <h1>Neues Passwort</h1>
         <p class="card-sub">Wähle ein sicheres Passwort für dein Spielolympiade-Konto.</p>
 
-        <div class="field">
-          <label for="pw">Neues Passwort</label>
-          <div class="input-wrap">
-            <input type="password" id="pw" placeholder="Mindestens 8 Zeichen" oninput="pruefePasswort()" />
-            <button class="toggle-pw" onclick="toggleSicht('pw', this)" type="button">👁</button>
+        <form id="formular" novalidate>
+          <div class="field">
+            <label for="pw">Neues Passwort</label>
+            <div class="input-wrap">
+              <input type="password" id="pw" placeholder="Mindestens 8 Zeichen" autocomplete="new-password" />
+              <button class="toggle-pw" data-feld="pw" type="button" aria-label="Passwort anzeigen">👁</button>
+            </div>
           </div>
-        </div>
 
-        <div class="field">
-          <label for="pw2">Passwort wiederholen</label>
-          <div class="input-wrap">
-            <input type="password" id="pw2" placeholder="Passwort bestätigen" oninput="pruefePasswort()" />
-            <button class="toggle-pw" onclick="toggleSicht('pw2', this)" type="button">👁</button>
+          <div class="field">
+            <label for="pw2">Passwort wiederholen</label>
+            <div class="input-wrap">
+              <input type="password" id="pw2" placeholder="Passwort bestätigen" autocomplete="new-password" />
+              <button class="toggle-pw" data-feld="pw2" type="button" aria-label="Passwort anzeigen">👁</button>
+            </div>
           </div>
-        </div>
 
-        <div class="requirements">
-          <div class="req" id="req-len"><div class="req-dot"></div>Mindestens 8 Zeichen</div>
-          <div class="req" id="req-lower"><div class="req-dot"></div>Kleinbuchstabe (a–z)</div>
-          <div class="req" id="req-upper"><div class="req-dot"></div>Großbuchstabe (A–Z)</div>
-          <div class="req" id="req-digit"><div class="req-dot"></div>Ziffer (0–9)</div>
-          <div class="req" id="req-match"><div class="req-dot"></div>Passwörter stimmen überein</div>
-        </div>
+          <div class="requirements" aria-live="polite">
+            <div class="req" id="req-len"><div class="req-dot"></div>Mindestens 8 Zeichen</div>
+            <div class="req" id="req-lower"><div class="req-dot"></div>Kleinbuchstabe (a–z)</div>
+            <div class="req" id="req-upper"><div class="req-dot"></div>Großbuchstabe (A–Z)</div>
+            <div class="req" id="req-digit"><div class="req-dot"></div>Ziffer (0–9)</div>
+            <div class="req" id="req-match"><div class="req-dot"></div>Passwörter stimmen überein</div>
+          </div>
 
-        <button class="btn-submit" id="submit-btn" onclick="reset()" disabled>Passwort speichern</button>
-        <div class="msg" id="msg"></div>
-      `;
-    }
+          <button class="btn-submit" id="submit-btn" type="submit" disabled>Passwort speichern</button>
+          <div class="msg" id="msg" role="alert"></div>
+        </form>`);
 
-    function toggleSicht(fieldId, btn) {
-      const input = document.getElementById(fieldId);
-      const isHidden = input.type === 'password';
-      input.type = isHidden ? 'text' : 'password';
-      btn.textContent = isHidden ? '🙈' : '👁';
+      const pw = document.getElementById('pw');
+      const pw2 = document.getElementById('pw2');
+      pw.addEventListener('input', pruefePasswort);
+      pw2.addEventListener('input', pruefePasswort);
+      document.querySelectorAll('.toggle-pw').forEach((btn) =>
+        btn.addEventListener('click', () => {
+          const input = document.getElementById(btn.dataset.feld);
+          const verdeckt = input.type === 'password';
+          input.type = verdeckt ? 'text' : 'password';
+          btn.textContent = verdeckt ? '🙈' : '👁';
+          btn.setAttribute('aria-label', verdeckt ? 'Passwort verbergen' : 'Passwort anzeigen');
+        }));
+      document.getElementById('formular').addEventListener('submit', (e) => {
+        e.preventDefault();
+        speichern();
+      });
+      pw.focus();
     }
 
     function pruefePasswort() {
-      const pw = document.getElementById('pw')?.value ?? '';
-      const pw2 = document.getElementById('pw2')?.value ?? '';
-
+      const pw = document.getElementById('pw').value;
+      const pw2 = document.getElementById('pw2').value;
       const checks = {
-        len:   pw.length >= 8,
-        lower: /[a-z]/.test(pw),
-        upper: /[A-Z]/.test(pw),
-        digit: /[0-9]/.test(pw),
+        len: REGELN.len(pw), lower: REGELN.lower(pw), upper: REGELN.upper(pw), digit: REGELN.digit(pw),
         match: pw.length > 0 && pw === pw2,
       };
-
       for (const [key, ok] of Object.entries(checks)) {
-        const el = document.getElementById(`req-${key}`);
-        if (!el) continue;
-        el.className = 'req' + (ok ? ' ok' : '');
+        document.getElementById(`req-${key}`).className = 'req' + (ok ? ' ok' : '');
       }
-
-      const allOk = Object.values(checks).every(Boolean);
-      const btn = document.getElementById('submit-btn');
-      if (btn) btn.disabled = !allOk;
-
-      const pw2Input = document.getElementById('pw2');
-      if (pw2Input && pw2.length > 0) {
-        pw2Input.className = checks.match ? '' : 'error';
-      }
+      document.getElementById('submit-btn').disabled = !Object.values(checks).every(Boolean);
+      document.getElementById('pw2').className = pw2.length > 0 && !checks.match ? 'error' : '';
+      return checks;
     }
 
-    async function reset() {
-      const pw = document.getElementById('pw')?.value;
+    async function speichern() {
+      if (!Object.values(pruefePasswort()).every(Boolean)) return;
       const btn = document.getElementById('submit-btn');
       const msgEl = document.getElementById('msg');
-      if (!pw || !btn || !msgEl) return;
-
       btn.disabled = true;
       btn.textContent = 'Wird gespeichert…';
+      msgEl.className = 'msg';
 
-      const { error: verifyError } = await client.auth.verifyOtp({
-        token_hash: tokenHash,
-        type: 'recovery'
-      });
-
-      if (verifyError) {
-        msgEl.textContent = '❌ ' + verifyError.message;
+      const { error } = await client.auth.updateUser({ password: document.getElementById('pw').value });
+      if (error) {
+        msgEl.textContent = fehlertext(error);
         msgEl.className = 'msg show error-msg';
         btn.textContent = 'Passwort speichern';
         btn.disabled = false;
         return;
       }
-
-      const { error } = await client.auth.updateUser({ password: pw });
-
-      if (error) {
-        msgEl.textContent = '❌ ' + error.message;
-        msgEl.className = 'msg show error-msg';
-        btn.textContent = 'Passwort speichern';
-        btn.disabled = false;
-      } else {
-        msgEl.innerHTML = '✅ Passwort geändert! Du kannst dich jetzt in der App anmelden.';
-        msgEl.className = 'msg show success';
-        btn.textContent = '✓ Gespeichert';
-        document.getElementById('pw').disabled = true;
-        document.getElementById('pw2').disabled = true;
-      }
+      await client.auth.signOut();
+      zeigeErfolg();
     }
+
+    async function start() {
+      // Seite neu geladen? Dann ist der Link schon bestätigt und die Sitzung noch da.
+      const { data } = await client.auth.getSession();
+      if (data.session) return zeigeFormular();
+
+      if (!tokenHash) {
+        return zeigeUngueltig('Dieser Link ist unvollständig. Bitte fordere in der App über „Passwort vergessen?“ einen neuen Link an.');
+      }
+      zeigeLaden();
+      const { error } = await client.auth.verifyOtp({ token_hash: tokenHash, type: 'recovery' });
+      if (error) return zeigeUngueltig(fehlertext(error));
+      // token_hash aus der Adresszeile entfernen (er ist jetzt verbraucht)
+      history.replaceState(null, '', window.location.pathname);
+      zeigeFormular();
+    }
+
+    start();
   </script>
 
 </body>
