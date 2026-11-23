@@ -181,6 +181,8 @@
     .karte p { font-size: 15px; color: var(--text-leise); margin-top: 6px; }
     .bald { font-size: 11px; font-weight: 800; letter-spacing: .6px; text-transform: uppercase; color: var(--blau); background: color-mix(in srgb, var(--blau) 14%, transparent); padding: 3px 8px; border-radius: 100px; }
     .quelle { margin-top: 22px; font-size: 15px; color: var(--text-leise); max-width: 760px; }
+    .bgg-logo { display: inline-block; margin-top: 14px; }
+    .bgg-logo img { width: 180px; height: auto; }
 
     /* Grundsätze */
     .grundsaetze { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 40px; }
@@ -477,12 +479,20 @@
           <p>Fehlt ein Spiel, kann es jede:r anlegen. Falsche Angaben lassen sich mit einem Tipp melden und werden geprüft.</p>
         </div>
       </div>
-      <p class="quelle">
-        <strong>Woher die Spieledaten kommen:</strong> Für Brett- und Kartenspiele ist eine Anbindung an
-        <a href="https://boardgamegeek.com" rel="noopener">BoardGameGeek</a> geplant (Name, Spielerzahl, Dauer, Erscheinungsjahr, Bild).
-        Die Daten werden einmal übernommen und im Katalog zwischengespeichert, damit die App die BGG-Schnittstelle so wenig wie möglich belastet.
-        BoardGameGeek wird in der App als Quelle genannt.
-      </p>
+      <div class="quelle">
+        <p>
+          <strong>Woher die Spieledaten kommen:</strong> Für Brett- und Kartenspiele ist eine Anbindung an
+          <a href="https://boardgamegeek.com" rel="noopener">BoardGameGeek</a> geplant (Name, Spielerzahl, Dauer, Erscheinungsjahr, Bild).
+          Die Angaben werden unverändert übernommen und mit Quelle angezeigt, Bilder lädt die App direkt von BoardGameGeek.
+          Beschreibungen und Einordnungen wie „Glück“ oder „Strategie“ schreiben wir selbst.
+        </p>
+        <a href="https://boardgamegeek.com" rel="noopener" class="bgg-logo" aria-label="Powered by BoardGameGeek">
+          <picture>
+            <source srcset="powered-by-bgg-hell.png" media="(prefers-color-scheme: dark)">
+            <img src="powered-by-bgg.png" alt="Powered by BGG" width="180" height="40" loading="lazy">
+          </picture>
+        </a>
+      </div>
     </div>
   </section>
 
