@@ -18,14 +18,14 @@
     .label { font-size: 12px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--green); margin-bottom: 12px; }
     h1 { font-family: 'Nunito', system-ui, sans-serif; font-size: clamp(32px, 6vw, 52px); font-weight: 700; line-height: 1.1; letter-spacing: -0.5px; margin-bottom: 8px; }
     .updated { font-size: 13px; color: var(--grey); margin-bottom: 48px; padding-bottom: 32px; border-bottom: 1px solid var(--border); }
-    h2 { font-family: 'Nunito', system-ui, sans-serif; font-size: 22px; font-weight: 500; margin-top: 48px; margin-bottom: 12px; }
-    h3 { font-family: 'Nunito', system-ui, sans-serif; font-size: 15px; font-weight: 500; color: var(--black); margin-top: 24px; margin-bottom: 8px; }
+    h2 { font-family: 'Nunito', system-ui, sans-serif; font-size: 22px; font-weight: 800; margin-top: 48px; margin-bottom: 12px; }
+    h3 { font-family: 'Nunito', system-ui, sans-serif; font-size: 16px; font-weight: 700; color: var(--black); margin-top: 24px; margin-bottom: 8px; }
     p { font-size: 15px; color: #333; margin-bottom: 14px; }
     ul { margin: 0 0 14px 0; padding-left: 20px; }
     ul li { font-size: 15px; color: #333; margin-bottom: 6px; }
     a { color: var(--green); text-decoration: none; word-break: break-all; }
     a:hover { text-decoration: underline; }
-    strong { color: var(--black); font-weight: 500; }
+    strong { color: var(--black); font-weight: 700; }
     .placeholder { background: #f0f0f0; border: 1.5px dashed #ccc; border-radius: 10px; padding: 16px 20px; font-size: 14px; color: var(--grey); font-style: italic; margin-bottom: 14px; line-height: 1.9; }
     .toc { background: #f5f5f3; border-radius: 12px; padding: 24px 28px; margin-bottom: 48px; }
     .toc-title { font-size: 12px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: var(--grey); margin-bottom: 14px; }
@@ -51,25 +51,28 @@
   <div class="wrap">
     <p class="label">Rechtliches</p>
     <h1>Datenschutz&shy;erklärung</h1>
-    <p class="updated">Stand: Mai 2026</p>
+    <p class="updated">Stand: November 2026</p>
 
     <div class="toc">
       <p class="toc-title">Inhalt</p>
       <ol>
         <li><a href="#verantwortlicher">Verantwortlicher</a></li>
+        <li><a href="#ueberblick">Das Wichtigste in Kürze</a></li>
         <li><a href="#geltungsbereich">Geltungsbereich</a></li>
-        <li><a href="#grundsaetze">Grundsätze der Datenverarbeitung</a></li>
-        <li><a href="#gastbetrieb">Nutzung ohne Konto (Gastbetrieb)</a></li>
-        <li><a href="#registrierung">Datenerhebung bei freiwilliger Registrierung</a></li>
-        <li><a href="#supabase">Auftragsverarbeiter – Supabase</a></li>
+        <li><a href="#konto">Konto und Anmeldung</a></li>
+        <li><a href="#inhalte">Was du in der App anlegst – und wer es sieht</a></li>
+        <li><a href="#bilder">Profilbild, Spielfotos und Kamera</a></li>
+        <li><a href="#ort">Ort und Umkreissuche</a></li>
+        <li><a href="#bgg">Spieledaten von BoardGameGeek</a></li>
+        <li><a href="#supabase">Server und Auftragsverarbeitung (Supabase)</a></li>
+        <li><a href="#geraet">Speicherung auf deinem Gerät</a></li>
+        <li><a href="#testphase">Testphase mit Expo Go und Google Play</a></li>
         <li><a href="#loeschung">Löschung des Kontos</a></li>
-        <li><a href="#weitergabe">Keine Weitergabe an Dritte</a></li>
-        <li><a href="#tracking">Keine Tracking- oder Analysedienste</a></li>
+        <li><a href="#weitergabe">Keine Weitergabe, kein Tracking, keine Werbung</a></li>
         <li><a href="#sicherheit">Datensicherheit</a></li>
-        <li><a href="#playstore">Google Play Store</a></li>
         <li><a href="#website">Website spielolympiade.de</a></li>
         <li><a href="#email">Kontaktaufnahme per E-Mail</a></li>
-        <li><a href="#rechte">Betroffenenrechte</a></li>
+        <li><a href="#rechte">Deine Rechte</a></li>
         <li><a href="#beschwerde">Beschwerderecht</a></li>
         <li><a href="#aenderungen">Änderungen dieser Datenschutzerklärung</a></li>
       </ol>
@@ -79,107 +82,140 @@
     <p>Verantwortlich für die Datenverarbeitung im Sinne der Datenschutz-Grundverordnung (DSGVO):</p>
     <div class="placeholder">[Vor- und Nachname]<br>[Straße, Hausnummer]<br>[PLZ, Ort]<br>E-Mail: <a href="mailto:kontakt@beispiel.de">kontakt@beispiel.de</a></div>
 
-    <h2 id="geltungsbereich">2. Geltungsbereich</h2>
+    <h2 id="ueberblick">2. Das Wichtigste in Kürze</h2>
+    <ul>
+      <li>Für die App brauchst du ein Konto mit E-Mail-Adresse, Passwort und einem frei wählbaren Alias. Einen Klarnamen brauchst du nicht.</li>
+      <li>Was du anlegst (Sammlung, Spieleabende, Chats, Ergebnisse), sehen nur die Personen, für die es gedacht ist – Details in <a href="#inhalte">Abschnitt 5</a>.</li>
+      <li>Die Daten liegen bei unserem Dienstleister Supabase auf Servern in Frankfurt am Main.</li>
+      <li>Kein Tracking, keine Werbung, keine Analyse-Dienste.</li>
+      <li>Du kannst dein Konto jederzeit selbst in der App löschen.</li>
+    </ul>
+
+    <h2 id="geltungsbereich">3. Geltungsbereich</h2>
     <p>Diese Datenschutzerklärung gilt für:</p>
     <ul>
-      <li>die Android-App <strong>Spielolympiade</strong> (verfügbar im Google Play Store)</li>
-      <li>die Website <strong>https://www.spielolympiade.de</strong></li>
+      <li>die App „Spielolympiade“ – derzeit in einer Testphase und noch nicht in einem App-Store veröffentlicht,</li>
+      <li>die Website <a href="https://www.spielolympiade.de">www.spielolympiade.de</a> einschließlich der Seiten zum Bestätigen der E-Mail-Adresse und zum Zurücksetzen des Passworts.</li>
     </ul>
 
-    <h2 id="grundsaetze">3. Grundsätze der Datenverarbeitung</h2>
-    <p>Die App kann vollständig ohne Registrierung und ohne Angabe personenbezogener Daten genutzt werden. In diesem Fall werden keinerlei personenbezogene Daten erhoben oder gespeichert.</p>
-    <p>Eine freiwillige Registrierung ermöglicht zusätzliche Funktionen (z. B. geräteübergreifende Synchronisation, persönliche Statistiken).</p>
-
-    <h2 id="gastbetrieb">4. Datenerhebung bei Nutzung ohne Konto (Gastbetrieb)</h2>
-    <p>Bei der Nutzung der App ohne Registrierung werden <strong>keine personenbezogenen Daten</strong> erhoben oder an externe Server übertragen. Alle Daten (z. B. Olympiaden, Spielstände) werden ausschließlich lokal auf dem Gerät des Nutzers gespeichert.</p>
-
-    <h2 id="registrierung">5. Datenerhebung bei freiwilliger Registrierung</h2>
-
-    <h3>5.1 Erhobene Daten</h3>
-    <p>Bei freiwilliger Registrierung werden folgende Daten erhoben:</p>
+    <h2 id="konto">4. Konto und Anmeldung</h2>
+    <p>Die App kann nur mit einem Konto genutzt werden. Dabei verarbeiten wir:</p>
     <ul>
-      <li><strong>Pseudonym</strong> (frei wählbarer Anzeigename)</li>
-      <li><strong>E-Mail-Adresse</strong></li>
+      <li><strong>E-Mail-Adresse</strong> – für die Anmeldung, die Bestätigung des Kontos und das Zurücksetzen des Passworts. Andere Nutzer sehen deine E-Mail-Adresse nicht.</li>
+      <li><strong>Passwort</strong> – wird nur verschlüsselt (als Hash) gespeichert; niemand, auch wir nicht, kann es im Klartext lesen.</li>
+      <li><strong>Alias und Anzeigename</strong> – unter diesem Namen bist du in der App für andere sichtbar und auffindbar. Du kannst ein Pseudonym verwenden.</li>
+      <li><strong>Profilbild</strong> – freiwillig, siehe <a href="#bilder">Abschnitt 6</a>.</li>
     </ul>
-    <p>Es werden keine Klarnamen, Telefonnummern oder sonstigen personenbezogenen Pflichtangaben erhoben.</p>
+    <p>Für die Bestätigung des Kontos und das Zurücksetzen des Passworts senden wir dir E-Mails. Der Versand erfolgt über Supabase (siehe <a href="#supabase">Abschnitt 9</a>).</p>
+    <p>Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Bereitstellung der App, die du nutzen möchtest).</p>
 
-    <h3>5.2 Zweck der Verarbeitung</h3>
-    <p>Die Daten werden ausschließlich für folgende Zwecke verwendet:</p>
+    <h2 id="inhalte">5. Was du in der App anlegst – und wer es sieht</h2>
+    <p>Die App ist für Spieleabende mit Freunden gemacht. Was du anlegst, wird gespeichert, damit du und deine Mitspieler es auf allen Geräten sehen. Sichtbar ist es nur angemeldeten Nutzern der App – und auch dort nur im folgenden Umfang:</p>
     <ul>
-      <li>Authentifizierung und Kontoverwaltung</li>
-      <li>Geräteübergreifende Synchronisation von Spielständen und Olympiaden</li>
-      <li>Anzeige des Pseudonyms für andere Nutzer innerhalb gemeinsamer Spielsitzungen</li>
+      <li><strong>Profil</strong> (Anzeigename, Alias, Profilbild): für alle angemeldeten Nutzer, damit man dich finden und einladen kann.</li>
+      <li><strong>Freundschaften, Anfragen und Blockierungen:</strong> nur für die beteiligten Personen.</li>
+      <li><strong>Spielesammlung und Ausgaben</strong> (welche Spiele du hast): für dich, deine Freunde und Personen, mit denen du an einem Spieleabend teilnimmst.</li>
+      <li><strong>Spieleabende:</strong> je nach deiner Einstellung nur für Eingeladene, für deine Freunde oder öffentlich. Bei öffentlichen Abenden sehen alle angemeldeten Nutzer Titel, Beschreibung, Zeitpunkt, Stadt und die ungefähre Entfernung. <strong>Die genaue Adresse sehen nur der Gastgeber und Personen mit Zusage.</strong></li>
+      <li><strong>Chat-Nachrichten:</strong> für die Teilnehmenden des jeweiligen Spieleabends bzw. Wettbewerbs.</li>
+      <li><strong>Wettbewerbe, Ergebnisse und Statistiken:</strong> für die Mitspielenden und die Teilnehmenden des zugehörigen Spieleabends.</li>
+      <li><strong>Bewertungen von Spielen und Empfehlungen für Mitspieler:</strong> für alle angemeldeten Nutzer, zusammen mit deinem Anzeigenamen.</li>
+      <li><strong>Beiträge zum Spielekatalog</strong> (angelegte Spiele, Namen, Ausgaben mit Barcode, Fotos, Stimmen „stimmt / stimmt nicht“): Öffentliche Spiele sind für alle angemeldeten Nutzer sichtbar, private nur für dich und deine Freunde bzw. Mitspieler.</li>
+      <li><strong>Meldungen</strong> (z. B. „falsche Angaben“ oder „unpassender Inhalt“): nur für die Administratoren der App, die sie prüfen.</li>
     </ul>
+    <p>Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO. Die Prüfung von Meldungen erfolgt zusätzlich auf Grundlage unseres berechtigten Interesses an einem sicheren und korrekten Angebot (Art. 6 Abs. 1 lit. f DSGVO).</p>
 
-    <h3>5.3 Rechtsgrundlage</h3>
-    <p>Die Verarbeitung erfolgt auf Grundlage von <strong>Art. 6 Abs. 1 lit. b DSGVO</strong> (Vertragserfüllung), da die Registrierung für die Nutzung der Cloud-Funktionen erforderlich ist.</p>
+    <h2 id="bilder">6. Profilbild, Spielfotos und Kamera</h2>
+    <p>Ein Profilbild oder ein Foto für ein Spiel kannst du freiwillig aus der Fotogalerie deines Geräts auswählen. Das Bild wird <strong>auf deinem Gerät</strong> verkleinert und in das Format WebP umgewandelt; nur dieses neue Bild wird hochgeladen. Zusatzinformationen des Originalfotos (z. B. Aufnahmeort) werden dabei nicht übertragen.</p>
+    <p>Profilbilder und Spielfotos werden bei Supabase gespeichert und sind über eine nicht erratbare Internetadresse abrufbar, damit sie in der App schnell angezeigt werden können.</p>
+    <p>Die Kamera nutzt die App nur, wenn du einen QR-Code einer anderen Person scannst, um euch zu befreunden. Dabei werden keine Bilder gespeichert oder übertragen. Auf deine Fotos greift die App nur zu, wenn du selbst ein Bild auswählst; die Kamera nutzt sie erst nach deiner Erlaubnis.</p>
 
-    <h3>5.4 Speicherdauer</h3>
-    <p>Die Daten werden gespeichert, solange das Konto aktiv ist. Nach Löschung des Kontos werden alle personenbezogenen Daten unverzüglich gelöscht. Sofern Daten in Sicherungs-Backups enthalten sind, werden diese durch reguläres Überschreiben im Rahmen des Backup-Zyklus ebenfalls gelöscht.</p>
-
-    <h2 id="supabase">6. Auftragsverarbeiter – Supabase</h2>
-    <p>Zur Speicherung und Verwaltung der Kontodaten wird der Dienst <strong>Supabase</strong> (Supabase, Inc., San Francisco, USA) verwendet. Mit Supabase besteht ein Auftragsverarbeitungsvertrag (AVV) gemäß Art. 28 DSGVO. Die Datenspeicherung erfolgt auf Servern in der AWS-Region <strong>eu-central-1 (Frankfurt, Deutschland)</strong>. Supabase kann zur Leistungserbringung Unterauftragsverarbeiter einsetzen; eine aktuelle Liste ist unter <a href="https://supabase.com/privacy" target="_blank" rel="noopener">supabase.com/privacy</a> einsehbar.</p>
-    <p>Supabase verarbeitet folgende Daten im Auftrag:</p>
+    <h2 id="ort">7. Ort und Umkreissuche</h2>
+    <p>Die App fragt nicht nach deinem Standort und verfolgt ihn nicht. Für die Suche nach Spieleabenden in deiner Nähe gibst du selbst ein Land und eine Stadt ein. Daraus werden ungefähre Koordinaten (auf etwa 1 km gerundet) ermittelt. <strong>Dein Suchort wird nur auf deinem Gerät gespeichert.</strong></p>
+    <p>Legst du einen Spieleabend an, werden die ungefähren Koordinaten von Stadt und Postleitzahl ermittelt und beim Abend gespeichert, damit andere ihn in der Umkreissuche finden. Die Straße wird dafür nicht verwendet.</p>
+    <p>Zur Ermittlung der Koordinaten wird der eingegebene Ort übermittelt:</p>
     <ul>
-      <li>E-Mail-Adresse</li>
-      <li>Pseudonym</li>
-      <li>Spielstände und Olympiaden-Daten (sofern Konto vorhanden)</li>
+      <li>auf dem iPhone an den Ortsdienst von Apple, auf Android-Geräten an den Ortsdienst des Geräts (in der Regel Google), sofern die App dort bereits eine Standort-Berechtigung hat;</li>
+      <li>andernfalls (und in der Web-Version) an den Dienst Nominatim der OpenStreetMap Foundation (St John’s Innovation Centre, Cambridge, Vereinigtes Königreich). Dabei werden Stadt, Postleitzahl und Land sowie technisch bedingt deine IP-Adresse übertragen. Für das Vereinigte Königreich besteht ein Angemessenheitsbeschluss der EU-Kommission.</li>
     </ul>
-    <p>Da Supabase in den USA ansässig ist, erfolgt eine Datenübertragung in ein Drittland außerhalb der EU. Die Übertragung ist auf Basis der <strong>EU-Standardvertragsklauseln (SCC)</strong> gemäß Art. 46 Abs. 2 lit. c DSGVO abgesichert. Soweit der zugrundeliegende Infrastrukturanbieter (AWS) unter dem <strong>EU-U.S. Data Privacy Framework</strong> zertifiziert ist, bildet dieses zusätzlich eine Rechtsgrundlage für den Datentransfer gemäß Art. 45 DSGVO.</p>
+    <p>Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, da die Umkreissuche eine Funktion ist, die du aktiv nutzt.</p>
 
-    <h2 id="loeschung">7. Löschung des Kontos</h2>
-    <p>Registrierte Nutzer können ihr Konto und alle damit verbundenen personenbezogenen Daten <strong>jederzeit direkt in der App</strong> löschen (Einstellungen → Profil → Konto löschen). Die Löschung erfolgt unmittelbar und unwiderruflich.</p>
+    <h2 id="bgg">8. Spieledaten von BoardGameGeek</h2>
+    <p>Der Spielekatalog soll künftig Angaben und Bilder von <a href="https://boardgamegeek.com" rel="noopener">BoardGameGeek</a> (BoardGameGeek, LLC, USA) enthalten. Die Spieldaten ruft unser Server ab; dabei werden keine Daten über dich an BoardGameGeek übermittelt.</p>
+    <p>Bilder von BoardGameGeek werden jedoch <strong>direkt von den Servern von BoardGameGeek</strong> geladen, wenn du ein solches Spiel ansiehst. Dabei erhält BoardGameGeek technisch bedingt deine IP-Adresse und Informationen über dein Gerät bzw. deinen Browser. Rechtsgrundlage ist unser berechtigtes Interesse, Spielbilder entsprechend den Nutzungsbedingungen von BoardGameGeek anzuzeigen (Art. 6 Abs. 1 lit. f DSGVO). Es gilt die Datenschutzerklärung von BoardGameGeek.</p>
+    <p>Öffnest du in der App einen Link zu einer anderen Website (z. B. zu BoardGameGeek oder einem hinterlegten Spiel-Link), gelten dort die Datenschutzbestimmungen des jeweiligen Anbieters.</p>
 
-    <h2 id="weitergabe">8. Keine Weitergabe an Dritte</h2>
-    <p>Personenbezogene Daten werden nicht an Dritte verkauft, vermietet oder zu Werbezwecken weitergegeben. Eine Weitergabe erfolgt ausschließlich an den unter Punkt 6 genannten Auftragsverarbeiter (Supabase) im Rahmen der technischen Bereitstellung des Dienstes.</p>
+    <h2 id="supabase">9. Server und Auftragsverarbeitung (Supabase)</h2>
+    <p>Für Konten, Datenbank, Dateispeicher, Live-Aktualisierungen und den Versand der Konto-E-Mails nutzen wir den Dienst Supabase (Supabase, Inc., San Francisco, USA). Mit Supabase besteht ein Auftragsverarbeitungsvertrag gemäß Art. 28 DSGVO. Die Daten werden in der Region eu-central-1 (Frankfurt am Main, Deutschland) gespeichert.</p>
+    <p>Beim Zugriff der App auf den Server fallen technisch bedingt Protokolldaten an (z. B. IP-Adresse, Zeitpunkt, aufgerufene Schnittstelle). Sie dienen dem sicheren Betrieb und werden von Supabase nur für kurze Zeit aufbewahrt (Art. 6 Abs. 1 lit. f DSGVO).</p>
+    <p>Supabase kann Unterauftragsverarbeiter einsetzen; eine aktuelle Liste findest du unter <a href="https://supabase.com/privacy" rel="noopener">supabase.com/privacy</a>. Soweit dabei Daten in die USA übermittelt werden, ist dies durch EU-Standardvertragsklauseln (Art. 46 Abs. 2 lit. c DSGVO) bzw. – soweit die Anbieter zertifiziert sind – durch das EU-U.S. Data Privacy Framework (Art. 45 DSGVO) abgesichert.</p>
 
-    <h2 id="tracking">9. Keine Tracking- oder Analysedienste</h2>
-    <p>Die App verwendet <strong>keine</strong> Tracking-, Analytics- oder Werbedienste (z. B. kein Firebase, kein Google Analytics, kein Facebook SDK).</p>
+    <h2 id="geraet">10. Speicherung auf deinem Gerät</h2>
+    <p>Die App speichert auf deinem Gerät nur, was sie für den Betrieb braucht:</p>
+    <ul>
+      <li>deine Anmeldung, damit du nicht bei jedem Start dein Passwort eingeben musst,</li>
+      <li>deinen Suchort für die Umkreissuche (siehe <a href="#ort">Abschnitt 7</a>),</li>
+      <li>zwischengespeicherte Bilder und Daten, damit die App schneller lädt.</li>
+    </ul>
+    <p>Beim Abmelden wird die Anmeldung entfernt. Alles Übrige kannst du löschen, indem du die App deinstallierst oder ihre Daten in den Einstellungen des Geräts löschst.</p>
 
-    <h2 id="sicherheit">10. Datensicherheit</h2>
-    <p>Die Übertragung von Daten zwischen der App und den Servern von Supabase sowie der Aufruf der Website erfolgen ausschließlich über <strong>SSL-/TLS-verschlüsselte Verbindungen</strong> (HTTPS). Es werden geeignete technische und organisatorische Maßnahmen (TOM) gemäß Art. 32 DSGVO getroffen, um die verarbeiteten Daten gegen unbefugten Zugriff, Verlust oder Missbrauch zu schützen.</p>
+    <h2 id="testphase">11. Testphase mit Expo Go und Google Play</h2>
+    <p>Während der Testphase läuft die App innerhalb der App „Expo Go“ der Expo (650 Industries, Inc., Palo Alto, USA). Für Expo Go selbst gelten die Datenschutzbestimmungen von Expo (<a href="https://expo.dev/privacy" rel="noopener">expo.dev/privacy</a>).</p>
+    <p>Sobald die App im Google Play Store veröffentlicht ist, verarbeitet Google beim Herunterladen Daten wie dein Google-Konto und den Zeitpunkt des Downloads. Darauf haben wir keinen Einfluss; es gelten die Datenschutzbestimmungen von Google (<a href="https://policies.google.com/privacy" rel="noopener">policies.google.com/privacy</a>).</p>
 
-    <h2 id="playstore">11. Google Play Store</h2>
-    <p>Die App ist im <strong>Google Play Store</strong> (Google LLC, Mountain View, USA) verfügbar. Beim Herunterladen der App werden dabei personenbezogene Daten (z. B. Nutzername, E-Mail-Adresse, Kundennummer, Zeitpunkt des Downloads) an den Play Store übertragen. Auf diese Datenverarbeitung hat der Anbieter keinen Einfluss und ist hierfür nicht verantwortlich. Es gelten die Datenschutzbestimmungen von Google: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a></p>
+    <h2 id="loeschung">12. Löschung des Kontos</h2>
+    <p>Du kannst dein Konto jederzeit selbst in der App löschen (Profil → „Konto löschen“). Dabei werden sofort gelöscht:</p>
+    <ul>
+      <li>E-Mail-Adresse, Passwort, Alias, Anzeigename und Profilbild,</li>
+      <li>deine Freundschaften, Anfragen und Blockierungen,</li>
+      <li>deine Spielesammlung einschließlich der Ausgaben,</li>
+      <li>deine Teilnahme an künftigen Spieleabenden und die künftigen Abende, die du angelegt hast.</li>
+    </ul>
+    <p>Erhalten bleiben – ohne deinen Namen, angezeigt als „Gelöschter Spieler“ – Inhalte, die zu gemeinsamen Erlebnissen mit anderen gehören: Ergebnisse vergangener Wettbewerbe, die Teilnahme an vergangenen Spieleabenden und vergangene Abende, die du angelegt hast, Chat-Nachrichten, Bewertungen, Empfehlungen sowie deine Beiträge zum Spielekatalog. So bleiben Ranglisten und Verläufe für deine Mitspieler vollständig (Art. 6 Abs. 1 lit. f DSGVO). Möchtest du, dass auch diese Inhalte gelöscht werden, schreib uns eine E-Mail.</p>
+    <p>In Sicherungskopien enthaltene Daten werden im Rahmen des regulären Sicherungszyklus überschrieben.</p>
 
-    <h2 id="website">12. Website spielolympiade.de</h2>
+    <h2 id="weitergabe">13. Keine Weitergabe, kein Tracking, keine Werbung</h2>
+    <p>Wir verkaufen keine Daten und geben sie nicht zu Werbezwecken weiter. Daten gehen nur an die in dieser Erklärung genannten Dienste, soweit es für die jeweilige Funktion nötig ist.</p>
+    <p>Die App und die Website verwenden keine Tracking-, Analyse- oder Werbedienste (z. B. kein Google Analytics, kein Firebase Analytics, kein Facebook SDK) und keine Cookies zu Tracking-Zwecken.</p>
 
-    <h3>12.1 Hosting</h3>
-    <p>Die Website wird über <strong>GitHub Pages</strong> (GitHub, Inc., San Francisco, USA) bereitgestellt und über <strong>Strato AG</strong> (Berlin, Deutschland) als Domain-Anbieter betrieben. Mit beiden Anbietern bestehen Auftragsverarbeitungsverträge (AVV) gemäß Art. 28 DSGVO.</p>
-    <p>Beim Aufruf der Website werden durch GitHub Pages automatisch sogenannte <strong>Server-Logfiles</strong> erfasst. Dazu können folgende Daten gehören:</p>
+    <h2 id="sicherheit">14. Datensicherheit</h2>
+    <p>Alle Verbindungen zwischen App, Website und Servern sind verschlüsselt (HTTPS/TLS). In der Datenbank regeln Zugriffsregeln für jede Tabelle, wer welche Daten lesen und ändern darf; sie gelten unabhängig von der App. Darüber hinaus treffen wir technische und organisatorische Maßnahmen gemäß Art. 32 DSGVO.</p>
+
+    <h2 id="website">15. Website spielolympiade.de</h2>
+    <h3>15.1 Hosting</h3>
+    <p>Die Website wird über GitHub Pages (GitHub, Inc., San Francisco, USA) bereitgestellt; die Domain wird über die Strato AG (Berlin, Deutschland) betrieben. Beim Aufruf erfasst GitHub automatisch Server-Protokolle, die folgende Daten enthalten können:</p>
     <ul>
       <li>IP-Adresse des anfragenden Geräts</li>
       <li>Datum und Uhrzeit des Zugriffs</li>
-      <li>Aufgerufene URL</li>
+      <li>aufgerufene Adresse</li>
       <li>Browsertyp und Betriebssystem</li>
       <li>Referrer-URL</li>
     </ul>
-    <p>Die Erfassung dieser Daten erfolgt auf Grundlage von <strong>Art. 6 Abs. 1 lit. f DSGVO</strong> (berechtigtes Interesse). Das berechtigte Interesse liegt in der Sicherstellung des technischen Betriebs, der Stabilität und der Sicherheit der Website. Diese Daten werden von GitHub erhoben und liegen außerhalb des direkten Einflussbereichs des Anbieters. GitHub speichert Logfiles nach eigenen Angaben für bis zu <strong>90 Tage</strong>. GitHub kann zur Leistungserbringung Unterauftragsverarbeiter einsetzen; weitere Informationen hierzu finden sich in der GitHub-Datenschutzerklärung.</p>
-    <p>Da GitHub in den USA ansässig ist, erfolgt eine Datenübertragung in ein Drittland. Die Übertragung ist auf Basis der <strong>EU-Standardvertragsklauseln (SCC)</strong> abgesichert. Soweit GitHub (Microsoft) unter dem <strong>EU-U.S. Data Privacy Framework</strong> zertifiziert ist, bildet dieses zusätzlich eine Rechtsgrundlage gemäß Art. 45 DSGVO. Weitere Informationen: <a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement" target="_blank" rel="noopener">GitHub Privacy Statement</a></p>
+    <p>Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einem sicheren und stabilen Betrieb). GitHub speichert diese Protokolle nach eigenen Angaben bis zu 90 Tage. Soweit dabei Daten in die USA übermittelt werden, ist dies durch EU-Standardvertragsklauseln bzw. das EU-U.S. Data Privacy Framework abgesichert. Weitere Informationen: <a href="https://docs.github.com/de/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener">GitHub-Datenschutzerklärung</a>.</p>
+    <h3>15.2 Keine Cookies, keine externen Inhalte</h3>
+    <p>Die Website setzt keine Cookies und nutzt kein Tracking. Schriftarten, Skripte und Bilder werden direkt von spielolympiade.de geladen, nicht von fremden Servern (z. B. keine Google Fonts).</p>
+    <h3>15.3 E-Mail bestätigen und Passwort zurücksetzen</h3>
+    <p>Die Links in den Konto-E-Mails führen auf Seiten dieser Website. Dort wird der Code aus dem Link an Supabase übermittelt, um deine E-Mail-Adresse zu bestätigen bzw. dein neues Passwort zu speichern. Die Anmeldung wird dabei nicht im Browser gespeichert. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO.</p>
 
-    <h3>12.2 Keine Cookies, kein Tracking</h3>
-    <p>Die Website verwendet <strong>keine Cookies</strong>, kein Tracking und keine externen Ressourcen (z. B. keine Google Fonts, keine CDNs). Es werden durch den Anbieter selbst keine personenbezogenen Daten auf der Website erhoben.</p>
+    <h2 id="email">16. Kontaktaufnahme per E-Mail</h2>
+    <p>Wenn du uns per E-Mail kontaktierst, verarbeiten wir deine E-Mail-Adresse und den Inhalt der Nachricht, um deine Anfrage zu beantworten (Art. 6 Abs. 1 lit. f DSGVO bzw. lit. b, wenn es um dein Konto geht). Die Daten werden gelöscht, sobald die Anfrage erledigt ist und keine gesetzlichen Aufbewahrungspflichten entgegenstehen.</p>
 
-    <h2 id="email">13. Kontaktaufnahme per E-Mail</h2>
-    <p>Bei einer Kontaktaufnahme per E-Mail werden die Angaben des Nutzers (E-Mail-Adresse sowie Inhalt der Nachricht) zur Bearbeitung der Anfrage und deren Abwicklung verarbeitet. Die Rechtsgrundlage hierfür ist <strong>Art. 6 Abs. 1 lit. f DSGVO</strong> (berechtigtes Interesse an der Beantwortung von Anfragen) bzw. <strong>Art. 6 Abs. 1 lit. b DSGVO</strong>, sofern die Anfrage im Zusammenhang mit einem bestehenden oder vorvertraglichen Verhältnis steht. Die Daten werden nach abschließender Bearbeitung der Anfrage gelöscht, sofern keine gesetzlichen Aufbewahrungspflichten entgegenstehen. Bitte beachten Sie, dass die Kommunikation per E-Mail technisch bedingte Sicherheitslücken aufweisen kann; eine vollständig vertrauliche Übertragung kann nicht garantiert werden.</p>
-
-    <h2 id="rechte">14. Betroffenenrechte</h2>
-    <p>Als betroffene Person stehen Ihnen folgende Rechte zu:</p>
+    <h2 id="rechte">17. Deine Rechte</h2>
+    <p>Du hast das Recht auf:</p>
     <ul>
-      <li><strong>Auskunftsrecht</strong> (Art. 15 DSGVO)</li>
-      <li><strong>Recht auf Berichtigung</strong> (Art. 16 DSGVO)</li>
-      <li><strong>Recht auf Löschung</strong> (Art. 17 DSGVO)</li>
-      <li><strong>Recht auf Einschränkung der Verarbeitung</strong> (Art. 18 DSGVO)</li>
-      <li><strong>Recht auf Datenübertragbarkeit</strong> (Art. 20 DSGVO)</li>
-      <li><strong>Widerspruchsrecht</strong> (Art. 21 DSGVO)</li>
+      <li>Auskunft über die zu dir gespeicherten Daten (Art. 15 DSGVO)</li>
+      <li>Berichtigung unrichtiger Daten (Art. 16 DSGVO)</li>
+      <li>Löschung (Art. 17 DSGVO)</li>
+      <li>Einschränkung der Verarbeitung (Art. 18 DSGVO)</li>
+      <li>Datenübertragbarkeit (Art. 20 DSGVO)</li>
+      <li>Widerspruch gegen Verarbeitungen, die auf berechtigtem Interesse beruhen (Art. 21 DSGVO)</li>
     </ul>
-    <p>Zur Ausübung dieser Rechte wenden Sie sich an: <a href="mailto:kontakt@beispiel.de">kontakt@beispiel.de</a></p>
+    <p>Schreib uns dazu einfach an die in <a href="#verantwortlicher">Abschnitt 1</a> genannte E-Mail-Adresse.</p>
 
-    <h2 id="beschwerde">15. Beschwerderecht bei einer Aufsichtsbehörde</h2>
-    <p>Sie haben das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren. Die zuständige Behörde richtet sich nach Ihrem Wohnort bzw. dem Sitz des Verantwortlichen.</p>
+    <h2 id="beschwerde">18. Beschwerderecht bei einer Aufsichtsbehörde</h2>
+    <p>Du hast das Recht, dich bei einer Datenschutz-Aufsichtsbehörde zu beschweren, insbesondere in dem Bundesland, in dem du wohnst, oder am Sitz des Verantwortlichen.</p>
 
-    <h2 id="aenderungen">16. Änderungen dieser Datenschutzerklärung</h2>
-    <p>Diese Datenschutzerklärung kann bei Änderungen der App oder gesetzlichen Anforderungen angepasst werden. Die jeweils aktuelle Version ist auf der Website unter <a href="https://www.spielolympiade.de">www.spielolympiade.de</a> abrufbar.</p>
+    <h2 id="aenderungen">19. Änderungen dieser Datenschutzerklärung</h2>
+    <p>Wir passen diese Datenschutzerklärung an, wenn sich die App oder die rechtlichen Anforderungen ändern – zum Beispiel, wenn neue Funktionen wie der Barcode-Scanner hinzukommen. Die aktuelle Fassung findest du immer unter <a href="https://www.spielolympiade.de/datenschutz.html">www.spielolympiade.de/datenschutz.html</a>.</p>
   </div>
 
   <footer>
