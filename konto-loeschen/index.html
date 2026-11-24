@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Spielolympiade – Konto löschen</title>
-  <meta name="description" content="So löschst du dein Spielolympiade-Konto – in der App oder direkt hier auf der Website.">
+  <title>Game Fever – Konto löschen</title>
+  <meta name="description" content="So löschst du dein Game-Fever-Konto – in der App oder direkt hier auf der Website.">
   <link rel="icon" type="image/png" href="../favicon.png">
   <link rel="stylesheet" href="../fonts/fonts.css">
   <script src="../vendor/supabase-js-2.119.2.js"></script>
@@ -326,7 +326,7 @@
   <nav>
     <a href="/" class="nav-logo">
       <img src="../logo.webp" alt="Logo">
-      Spielolympiade
+      Game Fever
     </a>
   </nav>
 
@@ -345,7 +345,7 @@
       <a href="../datenschutz.html">Datenschutzerklärung</a>
       <a href="./">Konto löschen</a>
     </div>
-    <p class="footer-copy">© 2026 Spielolympiade. Alle Rechte vorbehalten.</p>
+    <p class="footer-copy">© 2026 Game Fever. Alle Rechte vorbehalten.</p>
   </footer>
 
   <script>
@@ -448,7 +448,7 @@
       const email = document.getElementById('email').value.trim();
       if (!email) return meldung('Gib zuerst deine E-Mail-Adresse ein.');
       const { error } = await client.auth.resetPasswordForEmail(email, {
-        redirectTo: 'https://www.spielolympiade.de/reset-password',
+        redirectTo: 'https://www.gamefeverapp.de/reset-password',
       });
       if (error) return meldung(fehlertext(error));
       meldung('Falls ein Konto zu dieser Adresse existiert, haben wir dir einen Link zum Zurücksetzen geschickt.', 'ok');
@@ -493,7 +493,7 @@
         <div class="invalid-state">
           <div class="card-icon">✅</div>
           <h1>Konto gelöscht</h1>
-          <p class="card-sub">Dein Spielolympiade-Konto wurde gelöscht. Wenn die App noch auf deinem Handy installiert ist, kannst du sie einfach deinstallieren.</p>
+          <p class="card-sub">Dein Game-Fever-Konto wurde gelöscht. Wenn die App noch auf deinem Handy installiert ist, kannst du sie einfach deinstallieren.</p>
         </div>`);
     }
 
