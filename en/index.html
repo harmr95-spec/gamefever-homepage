@@ -79,11 +79,7 @@
       background: var(--gruen-hell); color: var(--gruen-dunkel);
       padding: 7px 14px; border-radius: 100px; font-size: 13px; font-weight: 800; white-space: nowrap;
     }
-    .nav-sprache {
-      color: var(--gruen-dunkel); font-size: 13px; font-weight: 800; text-decoration: none;
-      padding: 7px 10px; border-radius: 100px; border: 1.5px solid var(--gruen-hell); white-space: nowrap;
-    }
-    .nav-sprache:hover { background: var(--gruen-hell); }
+    .nav-sprache-platz { color: var(--gruen-dunkel); white-space: nowrap; }
 
     /* ── Kopf ── */
     .kopf {
@@ -262,7 +258,7 @@
         <li><a href="#stand">Status</a></li>
       </ul>
       <span class="nav-status">In development</span>
-      <a href="../?lang=de" class="nav-sprache" hreflang="de" lang="de">DE</a>
+      <span data-sprachwahl data-aktuell="en" data-de="../?lang=de" data-en="./?lang=en" class="nav-sprache-platz"></span>
     </div>
   </nav>
 
@@ -577,7 +573,7 @@
         <a href="legal-notice.html">Legal notice</a>
         <a href="privacy.html">Privacy</a>
         <a href="../konto-loeschen/?lang=en">Delete account</a>
-        <a href="../?lang=de" hreflang="de">Deutsch</a>
+        <span data-sprachwahl data-aktuell="en" data-de="../?lang=de" data-en="./?lang=en"></span>
       </div>
       <div>© 2026 Game Fever · Screenshots with sample data (in German)</div>
     </div>

@@ -22,6 +22,45 @@
   };
 
   /**
+   * Sprachauswahl als Liste: <span data-sprachwahl data-de="…" data-en="…" data-aktuell="de"></span>
+   * (ohne data-aktuell gilt die erkannte Sprache). Beim Wechsel wird die Wahl gemerkt und die Seite der Sprache geöffnet.
+   */
+  var NAMEN = { de: 'Deutsch', en: 'English' };
+  var stil = document.createElement('style');
+  stil.textContent =
+    '.sprachwahl{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;color:inherit}' +
+    '.sprachwahl select{font:inherit;color:inherit;background:transparent;border:1.5px solid currentColor;border-radius:100px;' +
+    'padding:5px 28px 5px 12px;cursor:pointer;appearance:none;-webkit-appearance:none;opacity:.85;' +
+    'background-image:linear-gradient(45deg,transparent 50%,currentColor 50%),linear-gradient(135deg,currentColor 50%,transparent 50%);' +
+    'background-position:calc(100% - 15px) 55%,calc(100% - 10px) 55%;background-size:5px 5px;background-repeat:no-repeat}' +
+    '.sprachwahl select:hover,.sprachwahl select:focus{opacity:1}.sprachwahl option{color:#111;background:#fff}';
+  document.head.appendChild(stil);
+  function sprachwahlBauen() {
+    document.querySelectorAll('[data-sprachwahl]').forEach(function (el) {
+      var aktuell = el.getAttribute('data-aktuell') || window.SPRACHE;
+      var html = '<span aria-hidden="true">🌐</span><select aria-label="Sprache / Language">';
+      erlaubt.forEach(function (sp) {
+        html += '<option value="' + sp + '"' + (sp === aktuell ? ' selected' : '') + ' lang="' + sp + '">' + NAMEN[sp] + '</option>';
+      });
+      el.className = 'sprachwahl';
+      el.innerHTML = html + '</select>';
+      el.querySelector('select').addEventListener('change', function (e) {
+        var sp = e.target.value;
+        window.spracheMerken(sp);
+        window.location.href = el.getAttribute('data-' + sp) + window.location.hash;
+      });
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', sprachwahlBauen);
+  else sprachwahlBauen();
+  // Zurück-Taste des Browsers: Liste wieder auf die Sprache dieser Seite stellen
+  window.addEventListener('pageshow', function () {
+    document.querySelectorAll('[data-sprachwahl] select').forEach(function (s) {
+      s.value = s.parentNode.getAttribute('data-aktuell') || window.SPRACHE;
+    });
+  });
+
+  /**
    * Übersetzungsfunktion für eine Seite: texte = { de: {...}, en: {...} }.
    * L('schluessel', { name: 'x' }) ersetzt {name}. Elemente mit data-t="schluessel" werden beim Laden gefüllt.
    */
@@ -42,14 +81,6 @@
         el.setAttribute('href', L(el.getAttribute('data-t-href')));
       });
       if (t.seitenTitel) document.title = t.seitenTitel;
-      // Umschalter zur jeweils anderen Sprache
-      document.querySelectorAll('[data-sprachwechsel]').forEach(function (el) {
-        var andere = window.SPRACHE === 'de' ? 'en' : 'de';
-        el.textContent = andere === 'de' ? 'Deutsch' : 'English';
-        var p = new URLSearchParams(window.location.search);
-        p.set('lang', andere);
-        el.setAttribute('href', window.location.pathname + '?' + p.toString() + window.location.hash);
-      });
     };
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fuellen);
     else fuellen();
