@@ -9,6 +9,13 @@
   <meta property="og:title" content="Game Fever: The Game Night Planner – Spieleabende planen, spielen, gewinnen">
   <meta property="og:description" content="Die App für eure Spielerunde: planen, wer bringt was mit, Wettbewerbe mit Live-Punktestand.">
   <meta property="og:image" content="https://www.gamefeverapp.de/screenshots/app/start.webp">
+  <link rel="alternate" hreflang="de" href="https://www.gamefeverapp.de/">
+  <link rel="alternate" hreflang="en" href="https://www.gamefeverapp.de/en/">
+  <script src="sprache.js"></script>
+  <script>
+    // Nicht-deutscher Browser (ohne gemerkte Wahl) → englische Startseite
+    if (window.SPRACHE === 'en') window.location.replace('en/' + window.location.hash);
+  </script>
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="stylesheet" href="fonts/fonts.css">
@@ -76,6 +83,11 @@
       background: var(--gruen-hell); color: var(--gruen-dunkel);
       padding: 7px 14px; border-radius: 100px; font-size: 13px; font-weight: 800; white-space: nowrap;
     }
+    .nav-sprache {
+      color: var(--gruen-dunkel); font-size: 13px; font-weight: 800; text-decoration: none;
+      padding: 7px 10px; border-radius: 100px; border: 1.5px solid var(--gruen-hell); white-space: nowrap;
+    }
+    .nav-sprache:hover { background: var(--gruen-hell); }
 
     /* ── Kopf ── */
     .kopf {
@@ -254,6 +266,7 @@
         <li><a href="#stand">Stand</a></li>
       </ul>
       <span class="nav-status">In Entwicklung</span>
+      <a href="en/?lang=en" class="nav-sprache" hreflang="en" lang="en">EN</a>
     </div>
   </nav>
 
@@ -568,6 +581,7 @@
         <a href="impressum.html">Impressum</a>
         <a href="datenschutz.html">Datenschutz</a>
         <a href="konto-loeschen/">Konto löschen</a>
+        <a href="en/?lang=en" hreflang="en" lang="en">English</a>
       </div>
       <div>© 2026 Game Fever · Screenshots mit Beispieldaten</div>
     </div>

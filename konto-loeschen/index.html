@@ -7,6 +7,7 @@
   <meta name="description" content="So löschst du dein Game-Fever-Konto – in der App oder direkt hier auf der Website.">
   <link rel="icon" type="image/png" href="../favicon.png">
   <link rel="stylesheet" href="../fonts/fonts.css">
+  <script src="../sprache.js"></script>
   <script src="../vendor/supabase-js-2.119.2.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -333,19 +334,21 @@
   <main>
     <div class="card" id="card">
       <noscript>
-        <h1>Konto löschen</h1>
+        <h1>Konto löschen · Delete account</h1>
         <p class="card-sub">Du kannst dein Konto in der App löschen: Profil → „Konto löschen“. Für das Löschen auf dieser Seite wird JavaScript benötigt.</p>
+        <p class="card-sub">You can delete your account in the app: Profile → “Delete account”. Deleting on this page requires JavaScript.</p>
       </noscript>
     </div>
   </main>
 
   <footer>
     <div class="footer-links">
-      <a href="../impressum.html">Impressum</a>
-      <a href="../datenschutz.html">Datenschutzerklärung</a>
-      <a href="./">Konto löschen</a>
+      <a href="../impressum.html" data-t="fussImpressum" data-t-href="fussImpressumLink">Impressum</a>
+      <a href="../datenschutz.html" data-t="fussDatenschutz" data-t-href="fussDatenschutzLink">Datenschutzerklärung</a>
+      <a href="./" data-t="fussLoeschen">Konto löschen</a>
+      <a href="?lang=en" data-sprachwechsel>English</a>
     </div>
-    <p class="footer-copy">© 2026 Game Fever. Alle Rechte vorbehalten.</p>
+    <p class="footer-copy" data-t="fussCopy">© 2026 Game Fever. Alle Rechte vorbehalten.</p>
   </footer>
 
   <script>
@@ -353,6 +356,95 @@
     // 1. Anmelden mit E-Mail und Passwort (Sitzung nur im sessionStorage, nur für diesen Vorgang).
     // 2. Ausdrücklich bestätigen.
     // 3. Dieselbe Edge Function wie die App aufrufen (delete-user) – Löschkonzept siehe Datenschutzerklärung, Abschnitt 12.
+    const L = texteFuer({
+      de: {
+        seitenTitel: "Game Fever – Konto löschen",
+        falsch: "E-Mail oder Passwort stimmen nicht.",
+        unbestaetigt: "Diese E-Mail-Adresse wurde noch nicht bestätigt. Ein unbestätigtes Konto kannst du über die Adresse im Impressum löschen lassen.",
+        zuViele: "Zu viele Versuche. Bitte warte einen Moment und versuche es dann erneut.",
+        keineVerbindung: "Keine Verbindung. Bitte prüfe deine Internetverbindung.",
+        sonst: "Etwas ist schiefgelaufen. Bitte versuche es erneut.",
+        wasPassiert: "Was dabei passiert",
+        geloescht: "<strong>Gelöscht:</strong> E-Mail, Passwort, Alias, Name, Profilbild, Freundschaften und deine Spielesammlung.",
+        ersetzt: "<strong>Ersetzt:</strong> Deine Chat-Nachrichten, Bewertungs- und Empfehlungstexte lauten danach nur noch „User gelöscht“.",
+        anonym: "<strong>Anonymisiert:</strong> In Wettbewerben und vergangenen Spieleabenden deiner Mitspieler erscheinst du als „Gelöschter User“.",
+        details: "Alle Einzelheiten stehen in der <a href=\"{link}\">Datenschutzerklärung</a>.",
+        detailsLink: "../datenschutz.html#loeschung",
+        titel: "Konto löschen",
+        inApp: "Am einfachsten geht es in der App: <strong>Profil → „Konto löschen“</strong>. Du kannst dein Konto aber auch hier löschen.",
+        hierLoeschen: "Hier löschen",
+        email: "E-Mail",
+        emailPlatzhalter: "name@beispiel.de",
+        passwort: "Passwort",
+        passwortPlatzhalter: "Dein Passwort",
+        anzeigen: "Passwort anzeigen",
+        verbergen: "Passwort verbergen",
+        vergessen: "Passwort vergessen?",
+        weiter: "Anmelden und weiter",
+        keinZugang: "Kein Zugang mehr zu deinem Konto? Schreib uns über die Adresse im <a href=\"{link}\">Impressum</a> – wir löschen es dann für dich, spätestens innerhalb eines Monats.",
+        impressumLink: "../impressum.html",
+        leer: "Bitte gib E-Mail und Passwort ein.",
+        prueft: "Wird geprüft…",
+        emailZuerst: "Gib zuerst deine E-Mail-Adresse ein.",
+        linkGeschickt: "Falls ein Konto zu dieser Adresse existiert, haben wir dir einen Link zum Zurücksetzen geschickt.",
+        wirklich: "Wirklich löschen?",
+        angemeldetAls: "Angemeldet als <span class=\"konto\" id=\"konto\"></span>. Das Löschen kann nicht rückgängig gemacht werden.",
+        endgueltigCheck: "Ich möchte mein Konto endgültig löschen.",
+        endgueltig: "Konto endgültig löschen",
+        abbrechen: "Abbrechen",
+        loescht: "Wird gelöscht…",
+        loeschFehler: "Das Löschen hat nicht geklappt. Bitte versuche es erneut oder schreib uns über die Adresse im Impressum.",
+        erledigt: "Konto gelöscht",
+        erledigtText: "Dein Game-Fever-Konto wurde gelöscht. Wenn die App noch auf deinem Handy installiert ist, kannst du sie einfach deinstallieren.",
+      fussImpressum: 'Impressum', fussImpressumLink: '../impressum.html',
+      fussDatenschutz: 'Datenschutzerklärung', fussDatenschutzLink: '../datenschutz.html',
+      fussLoeschen: 'Konto löschen', fussCopy: '© 2026 Game Fever. Alle Rechte vorbehalten.',
+      },
+      en: {
+        seitenTitel: "Game Fever – Delete account",
+        falsch: "Email or password is incorrect.",
+        unbestaetigt: "This email address has not been confirmed yet. You can have an unconfirmed account deleted via the address in the legal notice.",
+        zuViele: "Too many attempts. Please wait a moment and try again.",
+        keineVerbindung: "No connection. Please check your internet connection.",
+        sonst: "Something went wrong. Please try again.",
+        wasPassiert: "What happens",
+        geloescht: "<strong>Deleted:</strong> email, password, alias, name, profile picture, friendships and your game collection.",
+        ersetzt: "<strong>Replaced:</strong> your chat messages, review and recommendation texts will then only read “User deleted”.",
+        anonym: "<strong>Anonymised:</strong> in competitions and past game nights of your fellow players you will appear as “Deleted user”.",
+        details: "All details are in the <a href=\"{link}\">privacy policy</a>.",
+        detailsLink: "../en/privacy.html#loeschung",
+        titel: "Delete account",
+        inApp: "The easiest way is in the app: <strong>Profile → “Delete account”</strong>. But you can also delete your account here.",
+        hierLoeschen: "Delete here",
+        email: "Email",
+        emailPlatzhalter: "name@example.com",
+        passwort: "Password",
+        passwortPlatzhalter: "Your password",
+        anzeigen: "Show password",
+        verbergen: "Hide password",
+        vergessen: "Forgot password?",
+        weiter: "Sign in and continue",
+        keinZugang: "No longer have access to your account? Write to us via the address in the <a href=\"{link}\">legal notice</a> – we will then delete it for you within one month at the latest.",
+        impressumLink: "../en/legal-notice.html",
+        leer: "Please enter email and password.",
+        prueft: "Checking…",
+        emailZuerst: "Enter your email address first.",
+        linkGeschickt: "If an account exists for this address, we have sent you a link to reset your password.",
+        wirklich: "Really delete?",
+        angemeldetAls: "Signed in as <span class=\"konto\" id=\"konto\"></span>. Deleting cannot be undone.",
+        endgueltigCheck: "I want to delete my account permanently.",
+        endgueltig: "Delete account permanently",
+        abbrechen: "Cancel",
+        loescht: "Deleting…",
+        loeschFehler: "Deleting did not work. Please try again or write to us via the address in the legal notice.",
+        erledigt: "Account deleted",
+        erledigtText: "Your Game Fever account has been deleted. If the app is still installed on your phone, you can simply uninstall it.",
+      fussImpressum: 'Legal notice', fussImpressumLink: '../en/legal-notice.html',
+      fussDatenschutz: 'Privacy policy', fussDatenschutzLink: '../en/privacy.html',
+      fussLoeschen: 'Delete account', fussCopy: '© 2026 Game Fever. All rights reserved.',
+      },
+    });
+
     const client = supabase.createClient(
       'https://ytouhihzxqyyyfsakgym.supabase.co',
       'sb_publishable_Dd1WBx9H8M5DwidvoP5-Iw__dSaBz3P',
@@ -365,14 +457,14 @@
       const code = error?.code ?? '';
       const msg = (error?.message ?? '').toLowerCase();
       if (code === 'invalid_credentials' || msg.includes('invalid login'))
-        return 'E-Mail oder Passwort stimmen nicht.';
+        return L('falsch');
       if (code === 'email_not_confirmed' || msg.includes('not confirmed'))
-        return 'Diese E-Mail-Adresse wurde noch nicht bestätigt. Ein unbestätigtes Konto kannst du über die Adresse im Impressum löschen lassen.';
+        return L('unbestaetigt');
       if (msg.includes('rate limit') || msg.includes('too many'))
-        return 'Zu viele Versuche. Bitte warte einen Moment und versuche es dann erneut.';
+        return L('zuViele');
       if (msg.includes('fetch') || msg.includes('network'))
-        return 'Keine Verbindung. Bitte prüfe deine Internetverbindung.';
-      return 'Etwas ist schiefgelaufen. Bitte versuche es erneut.';
+        return L('keineVerbindung');
+      return L('sonst');
     }
 
     function meldung(text, art) {
@@ -383,46 +475,46 @@
 
     const WAS_PASSIERT = `
       <div class="info">
-        <h2>Was dabei passiert</h2>
+        <h2>${L('wasPassiert')}</h2>
         <ul>
-          <li><strong>Gelöscht:</strong> E-Mail, Passwort, Alias, Name, Profilbild, Freundschaften und deine Spielesammlung.</li>
-          <li><strong>Ersetzt:</strong> Deine Chat-Nachrichten, Bewertungs- und Empfehlungstexte lauten danach nur noch „User gelöscht“.</li>
-          <li><strong>Anonymisiert:</strong> In Wettbewerben und vergangenen Spieleabenden deiner Mitspieler erscheinst du als „Gelöschter User“.</li>
+          <li>${L('geloescht')}</li>
+          <li>${L('ersetzt')}</li>
+          <li>${L('anonym')}</li>
         </ul>
-        <p style="margin-top:8px">Alle Einzelheiten stehen in der <a href="../datenschutz.html#loeschung">Datenschutzerklärung</a>.</p>
+        <p style="margin-top:8px">${L('details', { link: L('detailsLink') })}</p>
       </div>`;
 
     function zeigeAnmelden() {
       zeige(`
         <div class="card-icon">🗑️</div>
-        <h1>Konto löschen</h1>
-        <p class="card-sub">Am einfachsten geht es in der App: <strong>Profil → „Konto löschen“</strong>. Du kannst dein Konto aber auch hier löschen.</p>
+        <h1>${L('titel')}</h1>
+        <p class="card-sub">${L('inApp')}</p>
         ${WAS_PASSIERT}
-        <div class="divider">Hier löschen</div>
+        <div class="divider">${L('hierLoeschen')}</div>
         <form id="anmelden" novalidate>
           <div class="field">
-            <label for="email">E-Mail</label>
-            <input type="email" id="email" autocomplete="email" placeholder="name@beispiel.de" />
+            <label for="email">${L('email')}</label>
+            <input type="email" id="email" autocomplete="email" placeholder="${L('emailPlatzhalter')}" />
           </div>
           <div class="field">
-            <label for="pw">Passwort</label>
+            <label for="pw">${L('passwort')}</label>
             <div class="input-wrap">
-              <input type="password" id="pw" autocomplete="current-password" placeholder="Dein Passwort" />
-              <button class="toggle-pw" type="button" aria-label="Passwort anzeigen">👁</button>
+              <input type="password" id="pw" autocomplete="current-password" placeholder="${L('passwortPlatzhalter')}" />
+              <button class="toggle-pw" type="button" aria-label="${L('anzeigen')}">👁</button>
             </div>
           </div>
-          <div class="link-row"><button class="link-btn" id="vergessen" type="button">Passwort vergessen?</button></div>
-          <button class="btn-submit" id="weiter" type="submit">Anmelden und weiter</button>
+          <div class="link-row"><button class="link-btn" id="vergessen" type="button">${L('vergessen')}</button></div>
+          <button class="btn-submit" id="weiter" type="submit">${L('weiter')}</button>
           <div class="msg" id="msg" role="alert"></div>
         </form>
-        <p class="klein">Kein Zugang mehr zu deinem Konto? Schreib uns über die Adresse im <a href="../impressum.html">Impressum</a> – wir löschen es dann für dich, spätestens innerhalb eines Monats.</p>`);
+        <p class="klein">${L('keinZugang', { link: L('impressumLink') })}</p>`);
 
       const pw = document.getElementById('pw');
       document.querySelector('.toggle-pw').addEventListener('click', (e) => {
         const verdeckt = pw.type === 'password';
         pw.type = verdeckt ? 'text' : 'password';
         e.currentTarget.textContent = verdeckt ? '🙈' : '👁';
-        e.currentTarget.setAttribute('aria-label', verdeckt ? 'Passwort verbergen' : 'Passwort anzeigen');
+        e.currentTarget.setAttribute('aria-label', verdeckt ? L('verbergen') : L('anzeigen'));
       });
       document.getElementById('vergessen').addEventListener('click', passwortVergessen);
       document.getElementById('anmelden').addEventListener('submit', (e) => { e.preventDefault(); anmelden(); });
@@ -431,14 +523,14 @@
     async function anmelden() {
       const email = document.getElementById('email').value.trim();
       const password = document.getElementById('pw').value;
-      if (!email || !password) return meldung('Bitte gib E-Mail und Passwort ein.');
+      if (!email || !password) return meldung(L('leer'));
       const btn = document.getElementById('weiter');
       btn.disabled = true;
-      btn.textContent = 'Wird geprüft…';
+      btn.textContent = L('prueft');
       const { data, error } = await client.auth.signInWithPassword({ email, password });
       if (error) {
         btn.disabled = false;
-        btn.textContent = 'Anmelden und weiter';
+        btn.textContent = L('weiter');
         return meldung(fehlertext(error));
       }
       zeigeBestaetigen(data.user.email);
@@ -446,23 +538,23 @@
 
     async function passwortVergessen() {
       const email = document.getElementById('email').value.trim();
-      if (!email) return meldung('Gib zuerst deine E-Mail-Adresse ein.');
+      if (!email) return meldung(L('emailZuerst'));
       const { error } = await client.auth.resetPasswordForEmail(email, {
         redirectTo: 'https://www.gamefeverapp.de/reset-password',
       });
       if (error) return meldung(fehlertext(error));
-      meldung('Falls ein Konto zu dieser Adresse existiert, haben wir dir einen Link zum Zurücksetzen geschickt.', 'ok');
+      meldung(L('linkGeschickt'), 'ok');
     }
 
     function zeigeBestaetigen(email) {
       zeige(`
         <div class="card-icon">⚠️</div>
-        <h1>Wirklich löschen?</h1>
-        <p class="card-sub">Angemeldet als <span class="konto" id="konto"></span>. Das Löschen kann nicht rückgängig gemacht werden.</p>
+        <h1>${L('wirklich')}</h1>
+        <p class="card-sub">${L('angemeldetAls')}</p>
         ${WAS_PASSIERT}
-        <label class="check"><input type="checkbox" id="ok" /> <span>Ich möchte mein Konto endgültig löschen.</span></label>
-        <button class="btn-submit btn-danger" id="loeschen" type="button" disabled>Konto endgültig löschen</button>
-        <button class="btn-secondary" id="abbrechen" type="button">Abbrechen</button>
+        <label class="check"><input type="checkbox" id="ok" /> <span>${L('endgueltigCheck')}</span></label>
+        <button class="btn-submit btn-danger" id="loeschen" type="button" disabled>${L('endgueltig')}</button>
+        <button class="btn-secondary" id="abbrechen" type="button">${L('abbrechen')}</button>
         <div class="msg" id="msg" role="alert"></div>`);
       document.getElementById('konto').textContent = email;
       const ok = document.getElementById('ok');
@@ -478,22 +570,22 @@
     async function loeschen() {
       const btn = document.getElementById('loeschen');
       btn.disabled = true;
-      btn.textContent = 'Wird gelöscht…';
+      btn.textContent = L('loescht');
       document.getElementById('abbrechen').disabled = true;
       const { error } = await client.functions.invoke('delete-user', { method: 'POST' });
       if (error) {
         btn.disabled = false;
-        btn.textContent = 'Konto endgültig löschen';
+        btn.textContent = L('endgueltig');
         document.getElementById('abbrechen').disabled = false;
-        return meldung('Das Löschen hat nicht geklappt. Bitte versuche es erneut oder schreib uns über die Adresse im Impressum.');
+        return meldung(L('loeschFehler'));
       }
       // Die Sitzung gehört zu einem Konto, das es nicht mehr gibt – nur im Browser vergessen
       sessionStorage.clear();
       zeige(`
         <div class="invalid-state">
           <div class="card-icon">✅</div>
-          <h1>Konto gelöscht</h1>
-          <p class="card-sub">Dein Game-Fever-Konto wurde gelöscht. Wenn die App noch auf deinem Handy installiert ist, kannst du sie einfach deinstallieren.</p>
+          <h1>${L('erledigt')}</h1>
+          <p class="card-sub">${L('erledigtText')}</p>
         </div>`);
     }
 

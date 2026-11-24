@@ -6,6 +6,7 @@
   <title>Game Fever – Passwort zurücksetzen</title>
   <link rel="icon" type="image/png" href="../favicon.png">
   <link rel="stylesheet" href="../fonts/fonts.css">
+  <script src="../sprache.js"></script>
   <script src="../vendor/supabase-js-2.119.2.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -282,11 +283,12 @@
 
   <footer>
     <div class="footer-links">
-      <a href="../impressum.html">Impressum</a>
-      <a href="../datenschutz.html">Datenschutzerklärung</a>
-      <a href="../konto-loeschen/">Konto löschen</a>
+      <a href="../impressum.html" data-t="fussImpressum" data-t-href="fussImpressumLink">Impressum</a>
+      <a href="../datenschutz.html" data-t="fussDatenschutz" data-t-href="fussDatenschutzLink">Datenschutzerklärung</a>
+      <a href="../konto-loeschen/" data-t="fussLoeschen">Konto löschen</a>
+      
     </div>
-    <p class="footer-copy">© 2026 Game Fever. Alle Rechte vorbehalten.</p>
+    <p class="footer-copy" data-t="fussCopy">© 2026 Game Fever. Alle Rechte vorbehalten.</p>
   </footer>
 
   <script>
@@ -295,6 +297,71 @@
     // 2. Formular zeigen, neues Passwort setzen (updateUser).
     // 3. Abmelden: Die Anmeldung im Browser wird nur für diesen Vorgang gebraucht.
     // Die Sitzung liegt nur im sessionStorage, damit ein Neuladen der Seite nicht den Link „verbraucht“.
+    const L = texteFuer({
+      de: {
+        seitenTitel: "Game Fever – Passwort zurücksetzen",
+        abgelaufen: "Dieser Link ist abgelaufen oder wurde schon benutzt. Bitte fordere in der App über „Passwort vergessen?“ einen neuen Link an.",
+        gleich: "Das neue Passwort muss sich von deinem bisherigen unterscheiden.",
+        schwach: "Das Passwort ist zu schwach. Bitte wähle ein längeres oder weniger gängiges Passwort.",
+        zuViele: "Zu viele Versuche. Bitte warte einen Moment und versuche es dann erneut.",
+        keineVerbindung: "Keine Verbindung. Bitte prüfe deine Internetverbindung.",
+        sonst: "Etwas ist schiefgelaufen. Bitte fordere in der App einen neuen Link an.",
+        laedt: "Link wird geprüft…",
+        moment: "Einen Moment bitte.",
+        ungueltig: "Link ungültig",
+        geaendert: "Passwort geändert",
+        geaendertText: "Du kannst dich jetzt in der Game-Fever-App mit deinem neuen Passwort anmelden. Dieses Fenster kannst du schließen.",
+        neu: "Neues Passwort",
+        neuText: "Wähle ein sicheres Passwort für dein Game-Fever-Konto.",
+        mind8: "Mindestens 8 Zeichen",
+        wiederholen: "Passwort wiederholen",
+        bestaetigen: "Passwort bestätigen",
+        anzeigen: "Passwort anzeigen",
+        verbergen: "Passwort verbergen",
+        klein: "Kleinbuchstabe (a–z)",
+        gross: "Großbuchstabe (A–Z)",
+        ziffer: "Ziffer (0–9)",
+        gleichPw: "Passwörter stimmen überein",
+        speichern: "Passwort speichern",
+        speichert: "Wird gespeichert…",
+        unvollstaendig: "Dieser Link ist unvollständig. Bitte fordere in der App über „Passwort vergessen?“ einen neuen Link an.",
+      fussImpressum: 'Impressum', fussImpressumLink: '../impressum.html',
+      fussDatenschutz: 'Datenschutzerklärung', fussDatenschutzLink: '../datenschutz.html',
+      fussLoeschen: 'Konto löschen', fussCopy: '© 2026 Game Fever. Alle Rechte vorbehalten.',
+      },
+      en: {
+        seitenTitel: "Game Fever – Reset password",
+        abgelaufen: "This link has expired or has already been used. Please request a new link in the app via “Forgot password?”.",
+        gleich: "The new password must be different from your current one.",
+        schwach: "The password is too weak. Please choose a longer or less common password.",
+        zuViele: "Too many attempts. Please wait a moment and try again.",
+        keineVerbindung: "No connection. Please check your internet connection.",
+        sonst: "Something went wrong. Please request a new link in the app.",
+        laedt: "Checking link…",
+        moment: "One moment please.",
+        ungueltig: "Invalid link",
+        geaendert: "Password changed",
+        geaendertText: "You can now sign in to the Game Fever app with your new password. You can close this window.",
+        neu: "New password",
+        neuText: "Choose a secure password for your Game Fever account.",
+        mind8: "At least 8 characters",
+        wiederholen: "Repeat password",
+        bestaetigen: "Confirm password",
+        anzeigen: "Show password",
+        verbergen: "Hide password",
+        klein: "Lowercase letter (a–z)",
+        gross: "Uppercase letter (A–Z)",
+        ziffer: "Digit (0–9)",
+        gleichPw: "Passwords match",
+        speichern: "Save password",
+        speichert: "Saving…",
+        unvollstaendig: "This link is incomplete. Please request a new link in the app via “Forgot password?”.",
+      fussImpressum: 'Legal notice', fussImpressumLink: '../en/legal-notice.html',
+      fussDatenschutz: 'Privacy policy', fussDatenschutzLink: '../en/privacy.html',
+      fussLoeschen: 'Delete account', fussCopy: '© 2026 Game Fever. All rights reserved.',
+      },
+    });
+
     const client = supabase.createClient(
       'https://ytouhihzxqyyyfsakgym.supabase.co',
       'sb_publishable_Dd1WBx9H8M5DwidvoP5-Iw__dSaBz3P',
@@ -317,16 +384,16 @@
       const code = error?.code ?? '';
       const msg = (error?.message ?? '').toLowerCase();
       if (code === 'otp_expired' || msg.includes('expired') || msg.includes('invalid'))
-        return 'Dieser Link ist abgelaufen oder wurde schon benutzt. Bitte fordere in der App über „Passwort vergessen?“ einen neuen Link an.';
+        return L('abgelaufen');
       if (code === 'same_password' || msg.includes('different from the old'))
-        return 'Das neue Passwort muss sich von deinem bisherigen unterscheiden.';
+        return L('gleich');
       if (code === 'weak_password' || msg.includes('weak'))
-        return 'Das Passwort ist zu schwach. Bitte wähle ein längeres oder weniger gängiges Passwort.';
+        return L('schwach');
       if (msg.includes('rate limit') || msg.includes('too many'))
-        return 'Zu viele Versuche. Bitte warte einen Moment und versuche es dann erneut.';
+        return L('zuViele');
       if (msg.includes('fetch') || msg.includes('network'))
-        return 'Keine Verbindung. Bitte prüfe deine Internetverbindung.';
-      return 'Etwas ist schiefgelaufen. Bitte fordere in der App einen neuen Link an.';
+        return L('keineVerbindung');
+      return L('sonst');
     }
 
     function zeige(html) { card.innerHTML = html; }
@@ -335,8 +402,8 @@
       zeige(`
         <div class="invalid-state">
           <div class="spinner"></div>
-          <h1>Link wird geprüft…</h1>
-          <p class="card-sub">Einen Moment bitte.</p>
+          <h1>${L('laedt')}</h1>
+          <p class="card-sub">${L('moment')}</p>
         </div>`);
     }
 
@@ -344,7 +411,7 @@
       zeige(`
         <div class="invalid-state">
           <div class="card-icon">🔒</div>
-          <h1>Link ungültig</h1>
+          <h1>${L('ungueltig')}</h1>
           <p class="card-sub" id="grund"></p>
         </div>`);
       document.getElementById('grund').textContent = text;
@@ -354,43 +421,43 @@
       zeige(`
         <div class="invalid-state">
           <div class="card-icon">✅</div>
-          <h1>Passwort geändert</h1>
-          <p class="card-sub">Du kannst dich jetzt in der Game-Fever-App mit deinem neuen Passwort anmelden. Dieses Fenster kannst du schließen.</p>
+          <h1>${L('geaendert')}</h1>
+          <p class="card-sub">${L('geaendertText')}</p>
         </div>`);
     }
 
     function zeigeFormular() {
       zeige(`
         <div class="card-icon">🔑</div>
-        <h1>Neues Passwort</h1>
-        <p class="card-sub">Wähle ein sicheres Passwort für dein Game-Fever-Konto.</p>
+        <h1>${L('neu')}</h1>
+        <p class="card-sub">${L('neuText')}</p>
 
         <form id="formular" novalidate>
           <div class="field">
-            <label for="pw">Neues Passwort</label>
+            <label for="pw">${L('neu')}</label>
             <div class="input-wrap">
-              <input type="password" id="pw" placeholder="Mindestens 8 Zeichen" autocomplete="new-password" />
-              <button class="toggle-pw" data-feld="pw" type="button" aria-label="Passwort anzeigen">👁</button>
+              <input type="password" id="pw" placeholder="${L('mind8')}" autocomplete="new-password" />
+              <button class="toggle-pw" data-feld="pw" type="button" aria-label="${L('anzeigen')}">👁</button>
             </div>
           </div>
 
           <div class="field">
-            <label for="pw2">Passwort wiederholen</label>
+            <label for="pw2">${L('wiederholen')}</label>
             <div class="input-wrap">
-              <input type="password" id="pw2" placeholder="Passwort bestätigen" autocomplete="new-password" />
-              <button class="toggle-pw" data-feld="pw2" type="button" aria-label="Passwort anzeigen">👁</button>
+              <input type="password" id="pw2" placeholder="${L('bestaetigen')}" autocomplete="new-password" />
+              <button class="toggle-pw" data-feld="pw2" type="button" aria-label="${L('anzeigen')}">👁</button>
             </div>
           </div>
 
           <div class="requirements" aria-live="polite">
-            <div class="req" id="req-len"><div class="req-dot"></div>Mindestens 8 Zeichen</div>
-            <div class="req" id="req-lower"><div class="req-dot"></div>Kleinbuchstabe (a–z)</div>
-            <div class="req" id="req-upper"><div class="req-dot"></div>Großbuchstabe (A–Z)</div>
-            <div class="req" id="req-digit"><div class="req-dot"></div>Ziffer (0–9)</div>
-            <div class="req" id="req-match"><div class="req-dot"></div>Passwörter stimmen überein</div>
+            <div class="req" id="req-len"><div class="req-dot"></div>${L('mind8')}</div>
+            <div class="req" id="req-lower"><div class="req-dot"></div>${L('klein')}</div>
+            <div class="req" id="req-upper"><div class="req-dot"></div>${L('gross')}</div>
+            <div class="req" id="req-digit"><div class="req-dot"></div>${L('ziffer')}</div>
+            <div class="req" id="req-match"><div class="req-dot"></div>${L('gleichPw')}</div>
           </div>
 
-          <button class="btn-submit" id="submit-btn" type="submit" disabled>Passwort speichern</button>
+          <button class="btn-submit" id="submit-btn" type="submit" disabled>${L('speichern')}</button>
           <div class="msg" id="msg" role="alert"></div>
         </form>`);
 
@@ -404,7 +471,7 @@
           const verdeckt = input.type === 'password';
           input.type = verdeckt ? 'text' : 'password';
           btn.textContent = verdeckt ? '🙈' : '👁';
-          btn.setAttribute('aria-label', verdeckt ? 'Passwort verbergen' : 'Passwort anzeigen');
+          btn.setAttribute('aria-label', verdeckt ? L('verbergen') : L('anzeigen'));
         }));
       document.getElementById('formular').addEventListener('submit', (e) => {
         e.preventDefault();
@@ -433,14 +500,14 @@
       const btn = document.getElementById('submit-btn');
       const msgEl = document.getElementById('msg');
       btn.disabled = true;
-      btn.textContent = 'Wird gespeichert…';
+      btn.textContent = L('speichert');
       msgEl.className = 'msg';
 
       const { error } = await client.auth.updateUser({ password: document.getElementById('pw').value });
       if (error) {
         msgEl.textContent = fehlertext(error);
         msgEl.className = 'msg show error-msg';
-        btn.textContent = 'Passwort speichern';
+        btn.textContent = L('speichern');
         btn.disabled = false;
         return;
       }
@@ -454,7 +521,7 @@
       if (data.session) return zeigeFormular();
 
       if (!tokenHash) {
-        return zeigeUngueltig('Dieser Link ist unvollständig. Bitte fordere in der App über „Passwort vergessen?“ einen neuen Link an.');
+        return zeigeUngueltig(L('unvollstaendig'));
       }
       zeigeLaden();
       const { error } = await client.auth.verifyOtp({ token_hash: tokenHash, type: 'recovery' });

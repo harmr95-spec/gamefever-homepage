@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Fever – Privacy policy</title>
+  <script src="../sprache.js"></script>
+  <link rel="alternate" hreflang="de" href="https://www.gamefeverapp.de/datenschutz.html">
+  <link rel="alternate" hreflang="en" href="https://www.gamefeverapp.de/en/privacy.html">
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <link rel="stylesheet" href="../fonts/fonts.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --green: #1D9E75; --black: #0a0a0a; --white: #fafaf8; --grey: #888; --border: #e8e8e5; }
+    body { font-family: 'Nunito', system-ui, sans-serif; background: var(--white); color: var(--black); line-height: 1.7; }
+    nav { display: flex; justify-content: space-between; align-items: center; padding: 18px 32px; border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: 'Nunito', system-ui, sans-serif; font-size: 18px; font-weight: 700; color: var(--black); text-decoration: none; }
+    .nav-back { font-size: 14px; color: var(--grey); text-decoration: none; }
+    .nav-back:hover { color: var(--black); }
+    .wrap { max-width: 720px; margin: 0 auto; padding: 64px 24px 100px; }
+    .label { font-size: 12px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--green); margin-bottom: 12px; }
+    h1 { font-family: 'Nunito', system-ui, sans-serif; font-size: clamp(32px, 6vw, 52px); font-weight: 700; line-height: 1.1; letter-spacing: -0.5px; margin-bottom: 8px; }
+    .updated { font-size: 13px; color: var(--grey); margin-bottom: 48px; padding-bottom: 32px; border-bottom: 1px solid var(--border); }
+    h2 { font-family: 'Nunito', system-ui, sans-serif; font-size: 22px; font-weight: 800; margin-top: 48px; margin-bottom: 12px; }
+    h3 { font-family: 'Nunito', system-ui, sans-serif; font-size: 16px; font-weight: 700; color: var(--black); margin-top: 24px; margin-bottom: 8px; }
+    p { font-size: 15px; color: #333; margin-bottom: 14px; }
+    ul { margin: 0 0 14px 0; padding-left: 20px; }
+    ul li { font-size: 15px; color: #333; margin-bottom: 6px; }
+    a { color: var(--green); text-decoration: none; word-break: break-all; }
+    a:hover { text-decoration: underline; }
+    strong { color: var(--black); font-weight: 700; }
+    .placeholder { background: #f0f0f0; border: 1.5px dashed #ccc; border-radius: 10px; padding: 16px 20px; font-size: 14px; color: var(--grey); font-style: italic; margin-bottom: 14px; line-height: 1.9; }
+    .toc { background: #f5f5f3; border-radius: 12px; padding: 24px 28px; margin-bottom: 48px; }
+    .toc-title { font-size: 12px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: var(--grey); margin-bottom: 14px; }
+    .toc ol { padding-left: 18px; }
+    .toc ol li { font-size: 14px; color: #555; margin-bottom: 6px; }
+    .toc ol li a { color: #555; }
+    .toc ol li a:hover { color: var(--green); text-decoration: none; }
+    footer { background: var(--black); color: #888; padding: 36px 24px; display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center; }
+    .footer-logo { font-family: 'Nunito', system-ui, sans-serif; font-size: 18px; color: white; font-weight: 700; }
+    .footer-links { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+    .footer-links a { color: #888; font-size: 14px; text-decoration: none; }
+    .footer-links a:hover { color: white; }
+    .footer-copy { font-size: 12px; color: #555; }
+    @media (max-width: 640px) { nav { padding: 14px 20px; } .wrap { padding: 40px 20px 80px; } }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="nav-logo"><img src="../logo.webp" style="width:28px;height:28px;object-fit:contain;"> Game Fever</a>
+    <a href="index.html" class="nav-back">← Back</a>
+  </nav>
+
+  <div class="wrap">
+    <p class="label">Legal</p>
+    <h1>Privacy policy</h1>
+    <p class="updated">Last updated: November 2026</p>
+    <p>This is a translation for convenience. The legally binding version is the German <a href="../datenschutz.html?lang=de" hreflang="de">Datenschutzerklärung</a>.</p>
+
+    <div class="toc">
+      <p class="toc-title">Contents</p>
+      <ol>
+        <li><a href="#verantwortlicher">Controller</a></li>
+        <li><a href="#ueberblick">The key points in brief</a></li>
+        <li><a href="#geltungsbereich">Scope</a></li>
+        <li><a href="#konto">Account and sign-in</a></li>
+        <li><a href="#inhalte">What you create in the app – and who sees it</a></li>
+        <li><a href="#bilder">Profile picture, game photos and camera</a></li>
+        <li><a href="#ort">Location and radius search</a></li>
+        <li><a href="#bgg">Game data from BoardGameGeek</a></li>
+        <li><a href="#supabase">Servers and data processing (Supabase)</a></li>
+        <li><a href="#geraet">Storage on your device</a></li>
+        <li><a href="#testphase">Testing phase with Expo Go and Google Play</a></li>
+        <li><a href="#loeschung">Deleting your account</a></li>
+        <li><a href="#weitergabe">No sharing, no tracking, no advertising</a></li>
+        <li><a href="#sicherheit">Data security</a></li>
+        <li><a href="#website">Website gamefeverapp.de</a></li>
+        <li><a href="#email">Contacting us by email</a></li>
+        <li><a href="#rechte">Your rights</a></li>
+        <li><a href="#beschwerde">Right to lodge a complaint</a></li>
+        <li><a href="#aenderungen">Changes to this privacy policy</a></li>
+      </ol>
+    </div>
+
+    <h2 id="verantwortlicher">1. Controller</h2>
+    <p>Responsible for data processing within the meaning of the General Data Protection Regulation (GDPR):</p>
+    <div class="placeholder">[First name and last name]<br>[Street, house number]<br>[Postcode, town]<br>Email: <a href="mailto:contact@gamefeverapp.de">contact@gamefeverapp.de</a></div>
+
+    <h2 id="ueberblick">2. The key points in brief</h2>
+    <ul>
+      <li>To use the app you need an account with an email address, a password and an alias of your choice. You do not need to give your real name.</li>
+      <li>What you create (collection, game nights, chats, results) is only visible to the people it is meant for – details in <a href="#inhalte">section 5</a>.</li>
+      <li>The data is stored with our service provider Supabase on servers in Frankfurt am Main, Germany.</li>
+      <li>No tracking, no advertising, no analytics services.</li>
+      <li>You can delete your account yourself in the app at any time.</li>
+    </ul>
+
+    <h2 id="geltungsbereich">3. Scope</h2>
+    <p>This privacy policy applies to:</p>
+    <ul>
+      <li>the app “Game Fever: The Game Night Planner” (“Game Fever” for short) – currently in a testing phase and not yet published in an app store,</li>
+      <li>the website <a href="https://www.gamefeverapp.de">www.gamefeverapp.de</a>, including the pages for confirming your email address and resetting your password.</li>
+    </ul>
+
+    <h2 id="konto">4. Account and sign-in</h2>
+    <p>The app can only be used with an account. We process:</p>
+    <ul>
+      <li><strong>Email address</strong> – for signing in, confirming your account and resetting your password. Other users cannot see your email address.</li>
+      <li><strong>Password</strong> – stored only in encrypted form (as a hash); nobody, including us, can read it in plain text.</li>
+      <li><strong>Alias and display name</strong> – under this name you are visible and can be found by others in the app. You may use a pseudonym.</li>
+      <li><strong>Profile picture</strong> – optional, see <a href="#bilder">section 6</a>.</li>
+      <li><strong>Language</strong> – the language chosen in the app (or “like device”), so we can show you texts and game names in your language. The app sends the current language with every request to the server.</li>
+    </ul>
+    <p>We send you emails to confirm your account and to reset your password. They are sent via Supabase (see <a href="#supabase">section 9</a>).</p>
+    <p>The legal basis is Art. 6 (1) (b) GDPR (providing the app you want to use).</p>
+
+    <h2 id="inhalte">5. What you create in the app – and who sees it</h2>
+    <p>The app is made for game nights with friends. What you create is stored so that you and your fellow players can see it on all devices. It is only visible to signed-in users of the app – and even then only to the following extent:</p>
+    <ul>
+      <li><strong>Profile</strong> (display name, alias, profile picture): to all signed-in users, so you can be found and invited.</li>
+      <li><strong>Friendships, requests and blocks:</strong> only to the people involved.</li>
+      <li><strong>Game collection and editions</strong> (which games you own): to you, your friends and people you attend a game night with.</li>
+      <li><strong>Game nights:</strong> depending on your setting, only to invitees, to your friends or publicly. For public evenings, all signed-in users see the title, description, time, town and approximate distance. <strong>Only the host and people who have accepted see the exact address.</strong></li>
+      <li><strong>Chat messages:</strong> to the participants of the respective game night or competition.</li>
+      <li><strong>Competitions, results and statistics:</strong> to the players and the participants of the associated game night.</li>
+      <li><strong>Game reviews and recommendations for fellow players:</strong> to all signed-in users, together with your display name.</li>
+      <li><strong>Contributions to the game catalogue</strong> (games created, names, editions with barcodes, photos, “correct / wrong” votes): public games are visible to all signed-in users, private ones only to you and your friends or fellow players.</li>
+      <li><strong>Reports</strong> (e.g. “wrong details” or “inappropriate content”): only to the app’s administrators, who review them.</li>
+    </ul>
+    <p>The legal basis is Art. 6 (1) (b) GDPR. Reports are additionally reviewed on the basis of our legitimate interest in a safe and accurate service (Art. 6 (1) (f) GDPR).</p>
+
+    <h2 id="bilder">6. Profile picture, game photos and camera</h2>
+    <p>You can optionally choose a profile picture or a photo for a game from your device’s photo library. The picture is resized and converted to WebP format <strong>on your device</strong>; only this new picture is uploaded. Additional information from the original photo (e.g. where it was taken) is not transferred.</p>
+    <p>Profile pictures and game photos are stored with Supabase and can be retrieved via a non-guessable web address so they can be displayed quickly in the app.</p>
+    <p>The app only uses the camera when you scan another person’s QR code to become friends. No pictures are stored or transferred. The app only accesses your photos when you choose a picture yourself, and only uses the camera after your permission.</p>
+
+    <h2 id="ort">7. Location and radius search</h2>
+    <p>The app does not ask for your location and does not track it. To search for game nights near you, you enter a country and a town yourself. Approximate coordinates (rounded to about 1 km) are determined from this. <strong>Your search location is only stored on your device.</strong></p>
+    <p>When you create a game night, the approximate coordinates of the town and postcode are determined and stored with the evening so others can find it in the radius search. The street is not used for this.</p>
+    <p>To determine the coordinates, the location you entered is sent:</p>
+    <ul>
+      <li>on an iPhone to Apple’s location service, on Android devices to the device’s location service (usually Google), if the app already has location permission there;</li>
+      <li>otherwise (and in the web version) to the Nominatim service of the OpenStreetMap Foundation (St John’s Innovation Centre, Cambridge, United Kingdom). Town, postcode and country and, for technical reasons, your IP address are transmitted. The European Commission has issued an adequacy decision for the United Kingdom.</li>
+    </ul>
+    <p>The legal basis is Art. 6 (1) (b) GDPR, as the radius search is a feature you actively use.</p>
+
+    <h2 id="bgg">8. Game data from BoardGameGeek</h2>
+    <p>The game catalogue contains details and pictures from <a href="https://boardgamegeek.com" rel="noopener">BoardGameGeek</a> (BoardGameGeek, LLC, USA). Our server retrieves the game data; no data about you is sent to BoardGameGeek. If you explicitly search BoardGameGeek for a game in the app, our server only forwards your search term – without any information about you.</p>
+    <p>Pictures from BoardGameGeek, however, are loaded <strong>directly from BoardGameGeek’s servers</strong> when you view such a game. For technical reasons, BoardGameGeek receives your IP address and information about your device or browser. The legal basis is our legitimate interest in displaying game pictures in accordance with BoardGameGeek’s terms of use (Art. 6 (1) (f) GDPR). BoardGameGeek’s privacy policy applies.</p>
+    <p>If you open a link to another website in the app (e.g. to BoardGameGeek or a stored game link), the privacy provisions of the respective provider apply there.</p>
+
+    <h2 id="supabase">9. Servers and data processing (Supabase)</h2>
+    <p>For accounts, database, file storage, live updates and sending account emails we use the service Supabase (Supabase, Inc., San Francisco, USA). We have a data processing agreement with Supabase in accordance with Art. 28 GDPR. The data is stored in the region eu-central-1 (Frankfurt am Main, Germany).</p>
+    <p>When the app accesses the server, log data is generated for technical reasons (e.g. IP address, time, interface accessed). It serves secure operation and is only kept by Supabase for a short time (Art. 6 (1) (f) GDPR).</p>
+    <p>Supabase may use sub-processors; you can find a current list at <a href="https://supabase.com/privacy" rel="noopener">supabase.com/privacy</a>. Where data is transferred to the USA, this is safeguarded by EU standard contractual clauses (Art. 46 (2) (c) GDPR) or – where the providers are certified – by the EU-U.S. Data Privacy Framework (Art. 45 GDPR).</p>
+
+    <h2 id="geraet">10. Storage on your device</h2>
+    <p>The app only stores on your device what it needs to work:</p>
+    <ul>
+      <li>your sign-in, so you do not have to enter your password every time you start it,</li>
+      <li>your search location for the radius search (see <a href="#ort">section 7</a>),</li>
+      <li>your language choice,</li>
+      <li>cached pictures and data, so the app loads faster.</li>
+    </ul>
+    <p>Signing out removes the sign-in. You can delete everything else by uninstalling the app or clearing its data in your device settings.</p>
+
+    <h2 id="testphase">11. Testing phase with Expo Go and Google Play</h2>
+    <p>During the testing phase, the app runs inside the app “Expo Go” by Expo (650 Industries, Inc., Palo Alto, USA). Expo’s privacy policy applies to Expo Go itself (<a href="https://expo.dev/privacy" rel="noopener">expo.dev/privacy</a>).</p>
+    <p>Once the app is published on the Google Play Store, Google processes data such as your Google account and the time of the download when you download it. We have no influence on this; Google’s privacy policy applies (<a href="https://policies.google.com/privacy" rel="noopener">policies.google.com/privacy</a>).</p>
+
+    <h2 id="loeschung">12. Deleting your account</h2>
+    <p>You can delete your account yourself at any time: in the app (Profile → “Delete account”) or without the app at <a href="../konto-loeschen/?lang=en">gamefeverapp.de/konto-loeschen</a>, after signing in there with your email and password. If you no longer have access, write to us at the address in the legal notice; we will then delete the account within one month. In any case, the following happens immediately:</p>
+    <h3>Deleted</h3>
+    <ul>
+      <li>email address, password, alias, display name and profile picture,</li>
+      <li>all connections to others: friendships, requests, blocks, invitations and recommendations others have written for you,</li>
+      <li>your game collection, including editions,</li>
+      <li>games you created yourself – unless others now have them in their collection or they have been played in a competition (then they stay in the catalogue without any reference to you),</li>
+      <li>your participation in future game nights and the future evenings you created.</li>
+    </ul>
+    <h3>Replaced</h3>
+    <p>The content of your chat messages, reviews and recommendations is completely replaced with “User deleted”, because it could contain personal information. Your star ratings continue to count towards a game’s average without text. For past game nights you created, the description and street are removed and the title then only reads “Game night”.</p>
+    <h3>Kept anonymised</h3>
+    <p>Competitions, results and participation in past game nights are kept so that your fellow players’ rankings and histories stay complete. There you only appear as “Deleted user”, without any reference to you (Art. 6 (1) (f) GDPR).</p>
+    <p>Data contained in backups is overwritten as part of the regular backup cycle.</p>
+
+    <h2 id="weitergabe">13. No sharing, no tracking, no advertising</h2>
+    <p>We do not sell data and do not share it for advertising purposes. Data only goes to the services named in this policy, to the extent necessary for the respective feature.</p>
+    <p>The app and the website do not use any tracking, analytics or advertising services (e.g. no Google Analytics, no Firebase Analytics, no Facebook SDK) and no cookies for tracking purposes.</p>
+
+    <h2 id="sicherheit">14. Data security</h2>
+    <p>All connections between the app, the website and the servers are encrypted (HTTPS/TLS). In the database, access rules for every table determine who may read and change which data; they apply independently of the app. In addition, we take technical and organisational measures in accordance with Art. 32 GDPR.</p>
+
+    <h2 id="website">15. Website gamefeverapp.de</h2>
+    <h3>15.1 Hosting</h3>
+    <p>The website is provided via GitHub Pages (GitHub, Inc., San Francisco, USA); the domain is operated via Strato AG (Berlin, Germany). When the site is accessed, GitHub automatically records server logs that may contain the following data:</p>
+    <ul>
+      <li>IP address of the requesting device</li>
+      <li>date and time of access</li>
+      <li>address accessed</li>
+      <li>browser type and operating system</li>
+      <li>referrer URL</li>
+    </ul>
+    <p>The legal basis is Art. 6 (1) (f) GDPR (legitimate interest in secure and stable operation). According to GitHub, these logs are stored for up to 90 days. Where data is transferred to the USA, this is safeguarded by EU standard contractual clauses or the EU-U.S. Data Privacy Framework. More information: <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener">GitHub privacy statement</a>.</p>
+    <h3>15.2 No cookies, no external content</h3>
+    <p>The website does not set cookies and does not use tracking. Fonts, scripts and images are loaded directly from gamefeverapp.de, not from third-party servers (e.g. no Google Fonts).</p>
+    <p>The website is available in German and English. Without your own choice, it follows your browser’s language. If you switch the language yourself, this choice is remembered in your browser’s local storage (not a cookie); it is not sent to us and can be deleted in your browser settings. The legal basis is § 25 (2) no. 2 TDDDG (German Telecommunications Digital Services Data Protection Act), as storing it is necessary for the language selection you requested.</p>
+    <h3>15.3 Confirming your email, resetting your password, deleting your account</h3>
+    <p>The links in the account emails lead to pages on this website. There, the code from the link is sent to Supabase to confirm your email address or save your new password. On the “Delete account” page, your email and password are sent to Supabase to sign you in and delete the account. The sign-in only applies to this process and is kept at most until the tab is closed in the browser’s session storage (not a cookie). The legal basis is Art. 6 (1) (b) GDPR.</p>
+
+    <h2 id="email">16. Contacting us by email</h2>
+    <p>If you contact us by email, we process your email address and the content of your message to answer your request (Art. 6 (1) (f) GDPR, or (b) if it concerns your account). The data is deleted once the request has been dealt with and no statutory retention obligations apply.</p>
+
+    <h2 id="rechte">17. Your rights</h2>
+    <p>You have the right to:</p>
+    <ul>
+      <li>access the data stored about you (Art. 15 GDPR)</li>
+      <li>rectification of inaccurate data (Art. 16 GDPR)</li>
+      <li>erasure (Art. 17 GDPR)</li>
+      <li>restriction of processing (Art. 18 GDPR)</li>
+      <li>data portability (Art. 20 GDPR)</li>
+      <li>object to processing based on legitimate interest (Art. 21 GDPR)</li>
+    </ul>
+    <p>Simply write to us at the email address given in <a href="#verantwortlicher">section 1</a>.</p>
+
+    <h2 id="beschwerde">18. Right to lodge a complaint with a supervisory authority</h2>
+    <p>You have the right to lodge a complaint with a data protection supervisory authority, in particular in the federal state (Bundesland) where you live or where the controller is based.</p>
+
+    <h2 id="aenderungen">19. Changes to this privacy policy</h2>
+    <p>We adapt this privacy policy when the app or the legal requirements change – for example, when new features such as the barcode scanner are added. You can always find the current version at <a href="https://www.gamefeverapp.de/en/privacy.html">www.gamefeverapp.de/en/privacy.html</a>.</p>
+  </div>
+
+  <footer>
+    <div class="footer-logo" style="display:flex;align-items:center;gap:8px;"><img src="../logo.webp" style="width:24px;height:24px;object-fit:contain;"> Game Fever</div>
+    <div class="footer-links">
+      <a href="legal-notice.html">Legal notice</a>
+      <a href="privacy.html">Privacy policy</a>
+      <a href="../konto-loeschen/?lang=en">Delete account</a>
+      <a href="../datenschutz.html?lang=de" hreflang="de">Deutsch</a>
+    </div>
+    <p class="footer-copy">© 2026 Game Fever. All rights reserved.</p>
+  </footer>
+</body>
+</html>

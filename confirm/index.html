@@ -6,6 +6,7 @@
   <title>Game Fever – E-Mail bestätigen</title>
   <link rel="icon" type="image/png" href="../favicon.png">
   <link rel="stylesheet" href="../fonts/fonts.css">
+  <script src="../sprache.js"></script>
   <script src="../vendor/supabase-js-2.119.2.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -146,23 +147,59 @@
   <main>
     <div class="card" id="card">
       <div class="spinner"></div>
-      <h1>Wird bestätigt…</h1>
-      <p>Einen Moment bitte.</p>
+      <h1 data-t="laedtTitel">Wird bestätigt…</h1>
+      <p data-t="laedtText">Einen Moment bitte.</p>
     </div>
   </main>
 
   <footer>
     <div class="footer-links">
-      <a href="../impressum.html">Impressum</a>
-      <a href="../datenschutz.html">Datenschutzerklärung</a>
-      <a href="../konto-loeschen/">Konto löschen</a>
+      <a href="../impressum.html" data-t="fussImpressum" data-t-href="fussImpressumLink">Impressum</a>
+      <a href="../datenschutz.html" data-t="fussDatenschutz" data-t-href="fussDatenschutzLink">Datenschutzerklärung</a>
+      <a href="../konto-loeschen/" data-t="fussLoeschen">Konto löschen</a>
+      
     </div>
-    <p class="footer-copy">© 2026 Game Fever. Alle Rechte vorbehalten.</p>
+    <p class="footer-copy" data-t="fussCopy">© 2026 Game Fever. Alle Rechte vorbehalten.</p>
   </footer>
 
   <script>
     // Die Bestätigungsmail von Supabase verlinkt hierher mit ?token_hash=…&type=signup (bzw. email / email_change).
     // Die Sitzung wird im Browser nicht gespeichert – angemeldet wird man danach in der App.
+    const L = texteFuer({
+      de: {
+        seitenTitel: 'Game Fever – E-Mail bestätigen',
+        laedtTitel: 'Wird bestätigt…', laedtText: 'Einen Moment bitte.',
+        unvollstaendigTitel: 'Link unvollständig',
+        unvollstaendigText: 'Dieser Link ist nicht vollständig. Öffne den Link direkt aus der Mail oder registriere dich erneut in der App.',
+        fehlerTitel: 'Bestätigung fehlgeschlagen',
+        abgelaufenText: 'Der Link ist abgelaufen oder wurde schon benutzt. Wenn du dich in der App anmelden kannst, ist alles in Ordnung. Sonst melde dich in der App an – dort kannst du dir die Bestätigungsmail erneut schicken lassen.',
+        fehlerText: 'Die Bestätigung hat nicht geklappt. Bitte versuche es später erneut oder lass dir in der App eine neue Bestätigungsmail schicken.',
+        abgelaufenBadge: 'Link abgelaufen oder bereits verwendet',
+        neueEmailText: 'Deine neue E-Mail-Adresse ist bestätigt. Du kannst dieses Fenster schließen.',
+        aktiviertText: 'Dein Konto ist aktiviert. Öffne die Game-Fever-App und melde dich an.',
+        bestaetigtTitel: 'E-Mail bestätigt!', bestaetigtBadge: '✓ Erfolgreich bestätigt',
+      fussImpressum: 'Impressum', fussImpressumLink: '../impressum.html',
+      fussDatenschutz: 'Datenschutzerklärung', fussDatenschutzLink: '../datenschutz.html',
+      fussLoeschen: 'Konto löschen', fussCopy: '© 2026 Game Fever. Alle Rechte vorbehalten.',
+      },
+      en: {
+        seitenTitel: 'Game Fever – Confirm email',
+        laedtTitel: 'Confirming…', laedtText: 'One moment please.',
+        unvollstaendigTitel: 'Incomplete link',
+        unvollstaendigText: 'This link is incomplete. Open the link directly from the email or sign up again in the app.',
+        fehlerTitel: 'Confirmation failed',
+        abgelaufenText: 'The link has expired or has already been used. If you can sign in to the app, everything is fine. Otherwise sign in to the app – you can have the confirmation email sent again there.',
+        fehlerText: 'The confirmation did not work. Please try again later or have a new confirmation email sent from the app.',
+        abgelaufenBadge: 'Link expired or already used',
+        neueEmailText: 'Your new email address is confirmed. You can close this window.',
+        aktiviertText: 'Your account is activated. Open the Game Fever app and sign in.',
+        bestaetigtTitel: 'Email confirmed!', bestaetigtBadge: '✓ Successfully confirmed',
+      fussImpressum: 'Legal notice', fussImpressumLink: '../en/legal-notice.html',
+      fussDatenschutz: 'Privacy policy', fussDatenschutzLink: '../en/privacy.html',
+      fussLoeschen: 'Delete account', fussCopy: '© 2026 Game Fever. All rights reserved.',
+      },
+    });
+
     const client = supabase.createClient(
       'https://ytouhihzxqyyyfsakgym.supabase.co',
       'sb_publishable_Dd1WBx9H8M5DwidvoP5-Iw__dSaBz3P',
@@ -192,22 +229,15 @@
 
     async function start() {
       if (!tokenHash) {
-        return zeige('🔒', 'Link unvollständig',
-          'Dieser Link ist nicht vollständig. Öffne den Link direkt aus der Mail oder registriere dich erneut in der App.');
+        return zeige('🔒', L('unvollstaendigTitel'), L('unvollstaendigText'));
       }
       const { error } = await client.auth.verifyOtp({ token_hash: tokenHash, type });
       if (error) {
         const abgelaufen = error.code === 'otp_expired' || /expired|invalid/i.test(error.message ?? '');
-        return zeige('⏰', 'Bestätigung fehlgeschlagen',
-          abgelaufen
-            ? 'Der Link ist abgelaufen oder wurde schon benutzt. Wenn du dich in der App anmelden kannst, ist alles in Ordnung. Sonst melde dich in der App an – dort kannst du dir die Bestätigungsmail erneut schicken lassen.'
-            : 'Die Bestätigung hat nicht geklappt. Bitte versuche es später erneut oder lass dir in der App eine neue Bestätigungsmail schicken.',
-          { text: 'Link abgelaufen oder bereits verwendet', art: 'error' });
+        return zeige('⏰', L('fehlerTitel'), abgelaufen ? L('abgelaufenText') : L('fehlerText'), { text: L('abgelaufenBadge'), art: 'error' });
       }
-      const text = type === 'email_change'
-        ? 'Deine neue E-Mail-Adresse ist bestätigt. Du kannst dieses Fenster schließen.'
-        : 'Dein Konto ist aktiviert. Öffne die Game-Fever-App und melde dich an.';
-      zeige('🏆', 'E-Mail bestätigt!', text, { text: '✓ Erfolgreich bestätigt', art: 'success' });
+      const text = type === 'email_change' ? L('neueEmailText') : L('aktiviertText');
+      zeige('🏆', L('bestaetigtTitel'), text, { text: L('bestaetigtBadge'), art: 'success' });
     }
 
     start();
