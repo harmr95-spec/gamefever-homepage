@@ -132,7 +132,7 @@
     <h2 id="bilder">6. Profile picture, game photos and camera</h2>
     <p>You can optionally choose a profile picture or a photo for a game from your device’s photo library. The picture is resized and converted to WebP format <strong>on your device</strong>; only this new picture is uploaded. Additional information from the original photo (e.g. where it was taken) is not transferred.</p>
     <p>Profile pictures and game photos are stored with Supabase and can be retrieved via a non-guessable web address so they can be displayed quickly in the app.</p>
-    <p>The app only uses the camera when you scan another person’s QR code to become friends. No pictures are stored or transferred. The app only accesses your photos when you choose a picture yourself, and only uses the camera after your permission.</p>
+    <p>The app only uses the camera when you scan another person’s QR code to become friends, or the barcode of a game box. No pictures are stored or transferred – only the recognised number: for a barcode, it is sent to our server to find the game. If you assign an unknown barcode to an edition, we store it with the edition together with the note that it came from you (so others can confirm it). The app only accesses your photos when you choose a picture yourself, and only uses the camera after your permission.</p>
 
     <h2 id="ort">7. Location and radius search</h2>
     <p>The app does not ask for your location and does not track it. To search for game nights near you, you enter a country and a town yourself. Approximate coordinates (rounded to about 1 km) are determined from this. <strong>Your search location is only stored on your device.</strong></p>
