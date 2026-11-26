@@ -67,7 +67,7 @@
         <li><a href="#bilder">Profilbild, Spielfotos und Kamera</a></li>
         <li><a href="#ort">Ort und Umkreissuche</a></li>
         <li><a href="#bgg">Spieledaten von BoardGameGeek</a></li>
-        <li><a href="#supabase">Server und Auftragsverarbeitung (Supabase)</a></li>
+        <li><a href="#supabase">Server und Auftragsverarbeitung (Supabase, Strato)</a></li>
         <li><a href="#uebersetzung">Übersetzung von Spielbeschreibungen (Microsoft)</a></li>
         <li><a href="#geraet">Speicherung auf deinem Gerät</a></li>
         <li><a href="#testphase">Testphase mit Expo Go und Google Play</a></li>
@@ -112,7 +112,7 @@
       <li><strong>Profilbild</strong> – freiwillig, siehe <a href="#bilder">Abschnitt 6</a>.</li>
       <li><strong>Sprache</strong> – die in der App gewählte Sprache (oder „wie Gerät“), damit wir dir Texte und Spielnamen in deiner Sprache anzeigen können. Die App übermittelt die aktuelle Sprache bei jeder Anfrage an den Server.</li>
     </ul>
-    <p>Für die Bestätigung des Kontos und das Zurücksetzen des Passworts senden wir dir E-Mails. Der Versand erfolgt über Supabase (siehe <a href="#supabase">Abschnitt 9</a>).</p>
+    <p>Für die Bestätigung des Kontos und das Zurücksetzen des Passworts senden wir dir E-Mails. Der Versand erfolgt über den E-Mail-Server der Strato AG (Berlin, Deutschland) als Auftragsverarbeiter; dazu werden deine E-Mail-Adresse und der Inhalt der E-Mail (z. B. der Bestätigungslink) an Strato übermittelt (siehe <a href="#supabase">Abschnitt 9</a>).</p>
     <p>Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Bereitstellung der App, die du nutzen möchtest).</p>
 
     <h2 id="inhalte">5. Was du in der App anlegst – und wer es sieht</h2>
@@ -128,10 +128,10 @@
       <li><strong>Beiträge zum Spielekatalog</strong> (angelegte Spiele, Namen, Ausgaben mit Barcode, Fotos, Stimmen „stimmt / stimmt nicht“): Öffentliche Spiele sind für alle angemeldeten Nutzer sichtbar, private nur für dich und deine Freunde bzw. Mitspieler.</li>
       <li><strong>Beschreibungen von Spielen</strong> („Worum geht’s?“ und „So geht’s“): für alle angemeldeten Nutzer, die das Spiel sehen können. Jeder kann sie ergänzen oder ändern; jede Fassung speichern wir mit Verfasser und Zeitpunkt, damit eine frühere wiederhergestellt werden kann. Den Verfasser sehen nur die Administratoren. Bitte schreib keine persönlichen Angaben hinein. Zur automatischen Übersetzung siehe <a href="#uebersetzung">Abschnitt 10</a>.</li>
       <li><strong>Benachrichtigungen</strong> (z. B. Einladungen, Freundschaftsanfragen, Erinnerungen an Spieleabende, Hinweise der Administratoren): nur für dich. Gelesene Benachrichtigungen löschen wir nach 90 Tagen, alle anderen spätestens nach einem Jahr.</li>
-      <li><strong>Meldungen</strong> (z. B. „falsche Angaben“, „unpassender Inhalt“ oder eine gemeldete Person mit Grund und Begründung): nur für die Administratoren der App, die sie prüfen. Wer gemeldet hat, erfährt nur, dass die Meldung bearbeitet wurde.</li>
+      <li><strong>Meldungen</strong> (z. B. „falsche Angaben“, „unpassender Inhalt“ oder eine gemeldete Person mit Grund und Begründung): nur für die Administratoren der App, die sie prüfen. Gemeldet werden können Spiele, Ausgaben und Profile, aber auch einzelne Inhalte anderer Nutzer: <strong>Chat-Nachrichten, Bewertungen, Empfehlungen und öffentliche Spieleabende</strong>. Bei der Meldung eines solchen Inhalts speichern wir zusätzlich eine <strong>Kopie des gemeldeten Inhalts</strong> zum Zeitpunkt der Meldung (bei Spieleabenden Titel und Beschreibung) und verknüpfen die Meldung mit dem Profil der Person, die ihn verfasst hat – damit die Administratoren die Meldung auch dann prüfen können, wenn der Inhalt inzwischen geändert wurde. Die Kopie sehen nur die Administratoren; sie wird <strong>sechs Monate nach Abschluss der Meldung gelöscht</strong>. Wer gemeldet hat, erfährt nur, dass die Meldung bearbeitet wurde; die gemeldete Person erfährt nicht, wer sie gemeldet hat.</li>
     </ul>
     <p>Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO. Die Prüfung von Meldungen erfolgt zusätzlich auf Grundlage unseres berechtigten Interesses an einem sicheren und korrekten Angebot (Art. 6 Abs. 1 lit. f DSGVO).</p>
-    <p><strong>Maßnahmen bei Verstößen:</strong> Verhält sich jemand anderen gegenüber nicht fair (z. B. Belästigung, anstößiges Profil, Spam), können die Administratoren das Konto ermahnen, Anzeigename, Profilbild oder Alias zurücksetzen oder das Konto befristet oder dauerhaft sperren. Dazu speichern wir die Maßnahme mit Grund, Zeitpunkt, Dauer und dem bearbeitenden Administrator; die betroffene Person wird in der App informiert. Ein gesperrtes Konto kann die App nicht mehr nutzen und wird anderen in Suchen nicht mehr angezeigt; das Konto zu löschen bleibt jederzeit möglich. Die Angaben bewahren wir auf, bis das Konto gelöscht wird. Rechtsgrundlage ist unser berechtigtes Interesse an einem respektvollen und sicheren Miteinander (Art. 6 Abs. 1 lit. f DSGVO).</p>
+    <p><strong>Maßnahmen bei Verstößen:</strong> Verstößt ein einzelner Inhalt gegen ein respektvolles Miteinander, können die Administratoren ihn entfernen: Eine Chat-Nachricht wird durch „Von der Moderation entfernt“ ersetzt, bei einer Bewertung wird der Text entfernt (die Sterne bleiben), eine Empfehlung wird gelöscht, ein öffentlicher Spieleabend wird aus „Entdecken“ genommen (für die Gruppe bleibt er erhalten), ein Foto eines Spiels wird gelöscht. Wer den Inhalt verfasst hat, wird in der App darüber und über den Grund informiert. Verhält sich jemand anderen gegenüber nicht fair (z. B. Belästigung, anstößiges Profil, Spam), können die Administratoren außerdem das Konto ermahnen, Anzeigename, Profilbild oder Alias zurücksetzen oder das Konto befristet oder dauerhaft sperren. Automatische Sperren aufgrund von Meldungen gibt es nicht; jede Maßnahme entscheidet ein Mensch. Dazu speichern wir die Maßnahme mit Grund, Zeitpunkt, Dauer und dem bearbeitenden Administrator; die betroffene Person wird in der App informiert. Ein gesperrtes Konto kann die App nicht mehr nutzen und wird anderen in Suchen nicht mehr angezeigt; das Konto zu löschen bleibt jederzeit möglich. Die Angaben bewahren wir auf, bis das Konto gelöscht wird. Rechtsgrundlage ist unser berechtigtes Interesse an einem respektvollen und sicheren Miteinander (Art. 6 Abs. 1 lit. f DSGVO).</p>
 
     <h2 id="bilder">6. Profilbild, Spielfotos und Kamera</h2>
     <p>Ein Profilbild oder ein Foto für ein Spiel kannst du freiwillig aus der Fotogalerie deines Geräts auswählen. Das Bild wird <strong>auf deinem Gerät</strong> verkleinert und in das Format WebP umgewandelt; nur dieses neue Bild wird hochgeladen. Zusatzinformationen des Originalfotos (z. B. Aufnahmeort) werden dabei nicht übertragen.</p>
@@ -153,10 +153,11 @@
     <p>Bilder von BoardGameGeek werden jedoch <strong>direkt von den Servern von BoardGameGeek</strong> geladen, wenn du ein solches Spiel ansiehst. Dabei erhält BoardGameGeek technisch bedingt deine IP-Adresse und Informationen über dein Gerät bzw. deinen Browser. Rechtsgrundlage ist unser berechtigtes Interesse, Spielbilder entsprechend den Nutzungsbedingungen von BoardGameGeek anzuzeigen (Art. 6 Abs. 1 lit. f DSGVO). Es gilt die Datenschutzerklärung von BoardGameGeek.</p>
     <p>Öffnest du in der App einen Link zu einer anderen Website (z. B. zu BoardGameGeek oder einem hinterlegten Spiel-Link), gelten dort die Datenschutzbestimmungen des jeweiligen Anbieters.</p>
 
-    <h2 id="supabase">9. Server und Auftragsverarbeitung (Supabase)</h2>
-    <p>Für Konten, Datenbank, Dateispeicher, Live-Aktualisierungen und den Versand der Konto-E-Mails nutzen wir den Dienst Supabase (Supabase, Inc., San Francisco, USA). Mit Supabase besteht ein Auftragsverarbeitungsvertrag gemäß Art. 28 DSGVO. Die Daten werden in der Region eu-central-1 (Frankfurt am Main, Deutschland) gespeichert.</p>
+    <h2 id="supabase">9. Server und Auftragsverarbeitung (Supabase, Strato)</h2>
+    <p>Für Konten, Datenbank, Dateispeicher und Live-Aktualisierungen nutzen wir den Dienst Supabase (Supabase, Inc., San Francisco, USA). Mit Supabase besteht ein Auftragsverarbeitungsvertrag gemäß Art. 28 DSGVO. Die Daten werden in der Region eu-central-1 (Frankfurt am Main, Deutschland) gespeichert.</p>
     <p>Beim Zugriff der App auf den Server fallen technisch bedingt Protokolldaten an (z. B. IP-Adresse, Zeitpunkt, aufgerufene Schnittstelle). Sie dienen dem sicheren Betrieb und werden von Supabase nur für kurze Zeit aufbewahrt (Art. 6 Abs. 1 lit. f DSGVO).</p>
     <p>Supabase kann Unterauftragsverarbeiter einsetzen; eine aktuelle Liste findest du unter <a href="https://supabase.com/privacy" rel="noopener">supabase.com/privacy</a>. Soweit dabei Daten in die USA übermittelt werden, ist dies durch EU-Standardvertragsklauseln (Art. 46 Abs. 2 lit. c DSGVO) bzw. – soweit die Anbieter zertifiziert sind – durch das EU-U.S. Data Privacy Framework (Art. 45 DSGVO) abgesichert.</p>
+    <p><strong>E-Mail (Strato):</strong> Die Konto-E-Mails (Bestätigung des Kontos, Zurücksetzen des Passworts) versenden wir über den E-Mail-Server der Strato AG, Otto-Ostrowski-Straße 7, 10249 Berlin, Deutschland. Dabei werden deine E-Mail-Adresse und der Inhalt der E-Mail an Strato übermittelt. Bei Strato liegen auch unsere Postfächer für <a href="mailto:contact@gamefeverapp.de">contact@gamefeverapp.de</a> und <a href="mailto:support@gamefeverapp.de">support@gamefeverapp.de</a> (siehe <a href="#email">Abschnitt 17</a>). Strato verarbeitet die Daten als Auftragsverarbeiter ausschließlich in Rechenzentren in Deutschland; mit Strato besteht ein Auftragsverarbeitungsvertrag gemäß Art. 28 DSGVO. Rechtsgrundlage für den Versand der Konto-E-Mails ist Art. 6 Abs. 1 lit. b DSGVO, für die Postfächer Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse, Anfragen beantworten zu können) bzw. lit. b, wenn es um dein Konto geht.</p>
 
     <h2 id="uebersetzung">10. Übersetzung von Spielbeschreibungen (Microsoft)</h2>
     <p>Beschreibungen von Spielen („Worum geht’s?“ und „So geht’s“) schreiben Nutzer in einer Sprache. Damit sie auch in den anderen Sprachen der App lesbar sind, schickt unser Server den Text nach dem Speichern an den Dienst <strong>Azure AI Translator</strong> der Microsoft Ireland Operations Limited (One Microsoft Place, South County Business Park, Leopardstown, Dublin 18, Irland) und speichert die Übersetzung bei uns. In der App ist sie als „Automatisch übersetzt“ gekennzeichnet; das Original lässt sich jederzeit anzeigen.</p>
@@ -191,7 +192,9 @@
       <li>deine Spielesammlung einschließlich der Ausgaben,</li>
       <li>Spiele, die du selbst angelegt hast – außer, andere haben sie inzwischen in ihrer Sammlung oder sie wurden in einem Wettbewerb gespielt (dann bleiben sie ohne Bezug zu dir im Katalog),</li>
       <li>deine Teilnahme an künftigen Spieleabenden und die künftigen Abende, die du angelegt hast,</li>
-      <li>deine Benachrichtigungen sowie Ermahnungen, Sperren und andere Maßnahmen, die dein Konto betreffen.</li>
+      <li>deine Benachrichtigungen sowie Ermahnungen, Sperren und andere Maßnahmen, die dein Konto betreffen,</li>
+      <li>Meldungen anderer über dich oder deine Inhalte einschließlich der Kopien gemeldeter Inhalte,</li>
+      <li>die Begründungen in Meldungen, die du selbst geschickt hast. Noch offene Meldungen bleiben ohne Begründung bestehen, bis die Administratoren sie geprüft haben, weil sie eine andere Person betreffen; die Kopie des gemeldeten Inhalts wird wie immer sechs Monate nach Abschluss gelöscht.</li>
     </ul>
     <h3>Ersetzt wird</h3>
     <p>Der Inhalt deiner Chat-Nachrichten, Bewertungen und Empfehlungen wird vollständig durch „User gelöscht“ ersetzt, weil darin persönliche Angaben stehen könnten. Deine Sterne-Bewertungen fließen ohne Text weiter in den Durchschnitt eines Spiels ein. Bei vergangenen Spieleabenden, die du angelegt hast, werden Beschreibung und Straße entfernt, der Titel lautet dann nur noch „Spieleabend“.</p>
@@ -224,7 +227,7 @@
     <p>Die Links in den Konto-E-Mails führen auf Seiten dieser Website. Dort wird der Code aus dem Link an Supabase übermittelt, um deine E-Mail-Adresse zu bestätigen bzw. dein neues Passwort zu speichern. Auf der Seite „Konto löschen“ werden E-Mail und Passwort an Supabase übermittelt, um dich anzumelden und das Konto zu löschen. Die Anmeldung gilt nur für diesen Vorgang und wird höchstens bis zum Schließen des Tabs im Sitzungsspeicher des Browsers gehalten (kein Cookie). Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO.</p>
 
     <h2 id="email">17. Kontaktaufnahme per E-Mail</h2>
-    <p>Wenn du uns per E-Mail kontaktierst, verarbeiten wir deine E-Mail-Adresse und den Inhalt der Nachricht, um deine Anfrage zu beantworten (Art. 6 Abs. 1 lit. f DSGVO bzw. lit. b, wenn es um dein Konto geht). Die Daten werden gelöscht, sobald die Anfrage erledigt ist und keine gesetzlichen Aufbewahrungspflichten entgegenstehen.</p>
+    <p>Wenn du uns per E-Mail kontaktierst, verarbeiten wir deine E-Mail-Adresse und den Inhalt der Nachricht, um deine Anfrage zu beantworten (Art. 6 Abs. 1 lit. f DSGVO bzw. lit. b, wenn es um dein Konto geht). Unser Postfach liegt bei der Strato AG (Berlin, Deutschland), die es als Auftragsverarbeiter betreibt (siehe <a href="#supabase">Abschnitt 9</a>). Die Daten werden gelöscht, sobald die Anfrage erledigt ist und keine gesetzlichen Aufbewahrungspflichten entgegenstehen.</p>
 
     <h2 id="rechte">18. Deine Rechte</h2>
     <p>Du hast das Recht auf:</p>
@@ -242,7 +245,7 @@
     <p>Du hast das Recht, dich bei einer Datenschutz-Aufsichtsbehörde zu beschweren, insbesondere in dem Bundesland, in dem du wohnst, oder am Sitz des Verantwortlichen.</p>
 
     <h2 id="aenderungen">20. Änderungen dieser Datenschutzerklärung</h2>
-    <p>Wir passen diese Datenschutzerklärung an, wenn sich die App oder die rechtlichen Anforderungen ändern – zum Beispiel, wenn neue Funktionen wie der Barcode-Scanner hinzukommen. Die aktuelle Fassung findest du immer unter <a href="https://www.gamefeverapp.de/datenschutz.html">www.gamefeverapp.de/datenschutz.html</a>.</p>
+    <p>Wir passen diese Datenschutzerklärung an, wenn sich die App oder die rechtlichen Anforderungen ändern – zum Beispiel, wenn neue Funktionen wie Push-Nachrichten hinzukommen. Die aktuelle Fassung findest du immer unter <a href="https://www.gamefeverapp.de/datenschutz.html">www.gamefeverapp.de/datenschutz.html</a>.</p>
   </div>
 
   <footer>

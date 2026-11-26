@@ -68,7 +68,7 @@
         <li><a href="#bilder">Profile picture, game photos and camera</a></li>
         <li><a href="#ort">Location and radius search</a></li>
         <li><a href="#bgg">Game data from BoardGameGeek</a></li>
-        <li><a href="#supabase">Servers and data processing (Supabase)</a></li>
+        <li><a href="#supabase">Servers and data processing (Supabase, Strato)</a></li>
         <li><a href="#uebersetzung">Translation of game descriptions (Microsoft)</a></li>
         <li><a href="#geraet">Storage on your device</a></li>
         <li><a href="#testphase">Testing phase with Expo Go and Google Play</a></li>
@@ -113,7 +113,7 @@
       <li><strong>Profile picture</strong> – optional, see <a href="#bilder">section 6</a>.</li>
       <li><strong>Language</strong> – the language chosen in the app (or “like device”), so we can show you texts and game names in your language. The app sends the current language with every request to the server.</li>
     </ul>
-    <p>We send you emails to confirm your account and to reset your password. They are sent via Supabase (see <a href="#supabase">section 9</a>).</p>
+    <p>We send you emails to confirm your account and to reset your password. They are sent via the email server of Strato AG (Berlin, Germany) as our processor; for this, your email address and the content of the email (e.g. the confirmation link) are transmitted to Strato (see <a href="#supabase">section 9</a>).</p>
     <p>The legal basis is Art. 6 (1) (b) GDPR (providing the app you want to use).</p>
 
     <h2 id="inhalte">5. What you create in the app – and who sees it</h2>
@@ -129,10 +129,10 @@
       <li><strong>Contributions to the game catalogue</strong> (games created, names, editions with barcodes, photos, “correct / wrong” votes): public games are visible to all signed-in users, private ones only to you and your friends or fellow players.</li>
       <li><strong>Game descriptions</strong> (“What’s it about?” and “How to play”): to all signed-in users who can see the game. Anyone can add to or change them; we store every version with its author and time so that an earlier one can be restored. Only the administrators see the author. Please don’t include personal information. For the automatic translation see <a href="#uebersetzung">section 10</a>.</li>
       <li><strong>Notifications</strong> (e.g. invitations, friend requests, reminders of game nights, notices from the administrators): only to you. We delete read notifications after 90 days and all others after one year at the latest.</li>
-      <li><strong>Reports</strong> (e.g. “wrong details”, “inappropriate content” or a reported person with reason and explanation): only to the app’s administrators, who review them. The person who reported only learns that the report has been dealt with.</li>
+      <li><strong>Reports</strong> (e.g. “wrong details”, “inappropriate content” or a reported person with reason and explanation): only to the app’s administrators, who review them. Games, editions and profiles can be reported, and so can individual content by other users: <strong>chat messages, reviews, recommendations and public game nights</strong>. When such content is reported, we additionally store a <strong>copy of the reported content</strong> as it was at the time of the report (for game nights: title and description) and link the report to the profile of the person who wrote it – so the administrators can review the report even if the content has been changed in the meantime. Only the administrators can see the copy; it is <strong>deleted six months after the report has been closed</strong>. The person who reported only learns that the report has been dealt with; the reported person does not learn who reported them.</li>
     </ul>
     <p>The legal basis is Art. 6 (1) (b) GDPR. Reports are additionally reviewed on the basis of our legitimate interest in a safe and accurate service (Art. 6 (1) (f) GDPR).</p>
-    <p><strong>Action in case of violations:</strong> If someone does not treat others fairly (e.g. harassment, offensive profile, spam), the administrators can warn the account, reset its display name, profile picture or alias, or suspend the account temporarily or permanently. For this we store the action with its reason, time, duration and the administrator who took it; the person concerned is informed in the app. A suspended account can no longer use the app and is no longer shown to others in searches; deleting the account remains possible at any time. We keep this information until the account is deleted. The legal basis is our legitimate interest in respectful and safe interaction (Art. 6 (1) (f) GDPR).</p>
+    <p><strong>Action in case of violations:</strong> If an individual piece of content is not respectful towards others, the administrators can remove it: a chat message is replaced by “Removed by the moderators”, the text of a review is removed (the stars remain), a recommendation is deleted, a public game night is taken out of “Discover” (the group keeps it), a photo of a game is deleted. The person who wrote the content is informed in the app, including the reason. If someone does not treat others fairly (e.g. harassment, offensive profile, spam), the administrators can also warn the account, reset its display name, profile picture or alias, or suspend the account temporarily or permanently. There are no automatic suspensions based on reports; every action is decided by a human. For this we store the action with its reason, time, duration and the administrator who took it; the person concerned is informed in the app. A suspended account can no longer use the app and is no longer shown to others in searches; deleting the account remains possible at any time. We keep this information until the account is deleted. The legal basis is our legitimate interest in respectful and safe interaction (Art. 6 (1) (f) GDPR).</p>
 
     <h2 id="bilder">6. Profile picture, game photos and camera</h2>
     <p>You can optionally choose a profile picture or a photo for a game from your device’s photo library. The picture is resized and converted to WebP format <strong>on your device</strong>; only this new picture is uploaded. Additional information from the original photo (e.g. where it was taken) is not transferred.</p>
@@ -154,10 +154,11 @@
     <p>Pictures from BoardGameGeek, however, are loaded <strong>directly from BoardGameGeek’s servers</strong> when you view such a game. For technical reasons, BoardGameGeek receives your IP address and information about your device or browser. The legal basis is our legitimate interest in displaying game pictures in accordance with BoardGameGeek’s terms of use (Art. 6 (1) (f) GDPR). BoardGameGeek’s privacy policy applies.</p>
     <p>If you open a link to another website in the app (e.g. to BoardGameGeek or a stored game link), the privacy provisions of the respective provider apply there.</p>
 
-    <h2 id="supabase">9. Servers and data processing (Supabase)</h2>
-    <p>For accounts, database, file storage, live updates and sending account emails we use the service Supabase (Supabase, Inc., San Francisco, USA). We have a data processing agreement with Supabase in accordance with Art. 28 GDPR. The data is stored in the region eu-central-1 (Frankfurt am Main, Germany).</p>
+    <h2 id="supabase">9. Servers and data processing (Supabase, Strato)</h2>
+    <p>For accounts, database, file storage and live updates we use the service Supabase (Supabase, Inc., San Francisco, USA). We have a data processing agreement with Supabase in accordance with Art. 28 GDPR. The data is stored in the region eu-central-1 (Frankfurt am Main, Germany).</p>
     <p>When the app accesses the server, log data is generated for technical reasons (e.g. IP address, time, interface accessed). It serves secure operation and is only kept by Supabase for a short time (Art. 6 (1) (f) GDPR).</p>
     <p>Supabase may use sub-processors; you can find a current list at <a href="https://supabase.com/privacy" rel="noopener">supabase.com/privacy</a>. Where data is transferred to the USA, this is safeguarded by EU standard contractual clauses (Art. 46 (2) (c) GDPR) or – where the providers are certified – by the EU-U.S. Data Privacy Framework (Art. 45 GDPR).</p>
+    <p><strong>Email (Strato):</strong> We send the account emails (account confirmation, password reset) via the email server of Strato AG, Otto-Ostrowski-Straße 7, 10249 Berlin, Germany. Your email address and the content of the email are transmitted to Strato. Our mailboxes for <a href="mailto:contact@gamefeverapp.de">contact@gamefeverapp.de</a> and <a href="mailto:support@gamefeverapp.de">support@gamefeverapp.de</a> are also hosted by Strato (see <a href="#email">section 17</a>). Strato processes the data as our processor exclusively in data centres in Germany; we have a data processing agreement with Strato in accordance with Art. 28 GDPR. The legal basis for sending account emails is Art. 6 (1) (b) GDPR; for the mailboxes it is Art. 6 (1) (f) GDPR (legitimate interest in being able to answer requests), or (b) if it concerns your account.</p>
 
     <h2 id="uebersetzung">10. Translation of game descriptions (Microsoft)</h2>
     <p>Game descriptions (“What’s it about?” and “How to play”) are written by users in one language. So that they can also be read in the app’s other languages, our server sends the text to the <strong>Azure AI Translator</strong> service of Microsoft Ireland Operations Limited (One Microsoft Place, South County Business Park, Leopardstown, Dublin 18, Ireland) after it has been saved, and stores the translation with us. In the app it is marked as “Automatically translated”; the original can be shown at any time.</p>
@@ -192,7 +193,9 @@
       <li>your game collection, including editions,</li>
       <li>games you created yourself – unless others now have them in their collection or they have been played in a competition (then they stay in the catalogue without any reference to you),</li>
       <li>your participation in future game nights and the future evenings you created,</li>
-      <li>your notifications as well as warnings, suspensions and other actions concerning your account.</li>
+      <li>your notifications as well as warnings, suspensions and other actions concerning your account,</li>
+      <li>reports by others about you or your content, including the copies of reported content,</li>
+      <li>the explanations in reports you sent yourself. Reports that are still open remain without the explanation until the administrators have reviewed them, because they concern another person; the copy of the reported content is deleted six months after the report has been closed, as always.</li>
     </ul>
     <h3>Replaced</h3>
     <p>The content of your chat messages, reviews and recommendations is completely replaced with “User deleted”, because it could contain personal information. Your star ratings continue to count towards a game’s average without text. For past game nights you created, the description and street are removed and the title then only reads “Game night”.</p>
@@ -225,7 +228,7 @@
     <p>The links in the account emails lead to pages on this website. There, the code from the link is sent to Supabase to confirm your email address or save your new password. On the “Delete account” page, your email and password are sent to Supabase to sign you in and delete the account. The sign-in only applies to this process and is kept at most until the tab is closed in the browser’s session storage (not a cookie). The legal basis is Art. 6 (1) (b) GDPR.</p>
 
     <h2 id="email">17. Contacting us by email</h2>
-    <p>If you contact us by email, we process your email address and the content of your message to answer your request (Art. 6 (1) (f) GDPR, or (b) if it concerns your account). The data is deleted once the request has been dealt with and no statutory retention obligations apply.</p>
+    <p>If you contact us by email, we process your email address and the content of your message to answer your request (Art. 6 (1) (f) GDPR, or (b) if it concerns your account). Our mailbox is hosted by Strato AG (Berlin, Germany) as our processor (see <a href="#supabase">section 9</a>). The data is deleted once the request has been dealt with and no statutory retention obligations apply.</p>
 
     <h2 id="rechte">18. Your rights</h2>
     <p>You have the right to:</p>
@@ -243,7 +246,7 @@
     <p>You have the right to lodge a complaint with a data protection supervisory authority, in particular in the federal state (Bundesland) where you live or where the controller is based.</p>
 
     <h2 id="aenderungen">20. Changes to this privacy policy</h2>
-    <p>We adapt this privacy policy when the app or the legal requirements change – for example, when new features such as the barcode scanner are added. You can always find the current version at <a href="https://www.gamefeverapp.de/en/privacy.html">www.gamefeverapp.de/en/privacy.html</a>.</p>
+    <p>We adapt this privacy policy when the app or the legal requirements change – for example, when new features such as push notifications are added. You can always find the current version at <a href="https://www.gamefeverapp.de/en/privacy.html">www.gamefeverapp.de/en/privacy.html</a>.</p>
   </div>
 
   <footer>
