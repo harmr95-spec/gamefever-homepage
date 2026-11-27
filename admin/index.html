@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Game Fever – Moderation</title>
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <link rel="stylesheet" href="../fonts/fonts.css">
+  <script src="../vendor/supabase-js-2.119.2.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green: #1D9E75; --green-light: #E1F5EE; --black: #0a0a0a; --white: #fafaf8; --grey: #777; --grey-light: #f0f0ee;
+      --border: #e3e3e0; --red: #D93F3E; --red-light: #FDECEC; --yellow-light: #FFF6DB;
+    }
+    body { font-family: 'Nunito', system-ui, sans-serif; background: var(--white); color: var(--black); font-size: 14px; line-height: 1.5; }
+    header { display: flex; align-items: center; gap: 12px; padding: 10px 20px; border-bottom: 1px solid var(--border); background: white; position: sticky; top: 0; z-index: 2; }
+    header .logo { font-weight: 800; font-size: 16px; display: flex; align-items: center; gap: 8px; }
+    header .rechts { margin-left: auto; display: flex; gap: 12px; align-items: center; color: var(--grey); }
+    button { font: inherit; cursor: pointer; border-radius: 8px; border: 1px solid var(--border); background: white; padding: 6px 12px; }
+    button:hover:not(:disabled) { border-color: #bbb; }
+    button:disabled { opacity: .5; cursor: default; }
+    button.primaer { background: var(--green); border-color: var(--green); color: white; font-weight: 700; }
+    button.gefahr { background: var(--red); border-color: var(--red); color: white; font-weight: 700; }
+    button.text { border: none; background: none; color: var(--green); padding: 4px 6px; }
+    input, textarea, select { font: inherit; border: 1px solid var(--border); border-radius: 8px; padding: 7px 10px; width: 100%; background: white; }
+    textarea { min-height: 64px; resize: vertical; }
+    .anmelden { max-width: 360px; margin: 80px auto; display: grid; gap: 10px; padding: 24px; border: 1px solid var(--border); border-radius: 14px; background: white; }
+    .anmelden h1 { font-size: 20px; }
+    .fehler { color: var(--red); }
+    .hinweis { color: var(--grey); font-size: 13px; }
+    main { display: grid; grid-template-columns: minmax(320px, 420px) 1fr; height: calc(100vh - 53px); }
+    @media (max-width: 860px) { main { grid-template-columns: 1fr; height: auto; } .liste { max-height: 45vh; } }
+    .liste { border-right: 1px solid var(--border); overflow-y: auto; background: white; }
+    .filter { display: flex; gap: 6px; padding: 10px 12px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: white; align-items: center; }
+    .chip { border-radius: 999px; padding: 3px 10px; font-size: 13px; }
+    .chip.aktiv { background: var(--green-light); border-color: var(--green); color: var(--green); font-weight: 700; }
+    .zeile { padding: 10px 14px; border-bottom: 1px solid var(--border); cursor: pointer; display: grid; gap: 2px; }
+    .zeile:hover { background: var(--grey-light); }
+    .zeile.gewaehlt { background: var(--green-light); }
+    .zeile .oben { display: flex; gap: 8px; align-items: baseline; }
+    .zeile .grund { font-weight: 700; }
+    .zeile .wann { margin-left: auto; color: var(--grey); font-size: 12px; white-space: nowrap; }
+    .zeile .zitat { color: #444; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+    .etikett { display: inline-block; white-space: nowrap; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--grey); background: var(--grey-light); border-radius: 6px; padding: 1px 6px; }
+    .etikett.rot { color: var(--red); background: var(--red-light); }
+    .detail { overflow-y: auto; padding: 20px 24px 60px; }
+    .detail h2 { font-size: 20px; margin-bottom: 4px; }
+    .block { border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; margin-top: 14px; background: white; display: grid; gap: 8px; }
+    .block h3 { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--grey); }
+    .zitatblock { border-left: 3px solid var(--border); padding-left: 12px; white-space: pre-wrap; color: #333; }
+    .reihe { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .gruende button { border-radius: 999px; padding: 3px 10px; font-size: 13px; }
+    .gruende button.aktiv { background: var(--green-light); border-color: var(--green); color: var(--green); font-weight: 700; }
+    .verlauf li { list-style: none; color: #444; }
+    .leer { color: var(--grey); padding: 40px; text-align: center; }
+    img.foto { max-width: 320px; border-radius: 10px; border: 1px solid var(--border); }
+    label.haken { display: inline-flex; gap: 4px; align-items: center; width: auto; }
+    label.haken input { width: auto; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo"><img src="../logo.webp" alt="" style="width:24px;height:24px;object-fit:contain;"> Moderation</div>
+    <div class="rechts" id="kopf"></div>
+  </header>
+  <div id="inhalt"></div>
+
+  <script>
+    // Moderation im Browser: Übersicht aller Meldungen (links) und Bearbeiten (rechts) auf einem Bildschirm.
+    // Nicht verlinkt, `noindex`. Ohne Admin-Konto zeigt die Datenbank nichts (RLS, private.ist_admin()).
+    // Nutzt dieselben Server-Funktionen wie der Admin-Bereich der App (src/app/(app)/admin.tsx, src/api/admin.ts):
+    // admin_massnahme, admin_inhalt_entfernen, admin_spielbild_entfernen, spiele_zusammenfuehren, Status per Update.
+    // Sitzung nur im sessionStorage (endet mit dem Tab), wie auf der Seite „Konto löschen“.
+
+    // ── Bezeichnungen ── bewusste Kopie der deutschen Texte der App (src/sprachen/de.json: meldung.*, meldungProfil.*,
+    // meldungInhalt.unpassend) und der Gründe-Listen aus src/logik/meldung.ts. Neue Gründe dort UND hier ergänzen.
+    const GRUND = {
+      duplikat: 'Doppelt vorhanden', falsche_angaben: 'Falsche Angaben', unpassend: 'Unpassender Inhalt', bild: 'Unpassendes Bild',
+      spam: 'Spam / Werbung', sonstiges: 'Etwas anderes', belaestigung: 'Belästigung oder Beleidigung', fake_profil: 'Falsches Profil',
+      rechtswidrig: 'Rechtswidrig',
+    };
+    const GRUND_PROFIL = { unpassend: 'Unpassendes Profil' };
+    /** Gründe für Maßnahmen (= PROFIL_GRUENDE in src/logik/meldung.ts) */
+    const MASSNAHME_GRUENDE = ['belaestigung', 'unpassend', 'fake_profil', 'spam', 'rechtswidrig', 'sonstiges'];
+    const INHALT = { nachricht: 'Chat-Nachricht', rezension: 'Rezension', empfehlung: 'Empfehlung', event: 'Spieleabend' };
+    const VERLAUF = { ermahnung: 'Ermahnung', zurueckgesetzt: 'Zurückgesetzt', gesperrt: 'Gesperrt', entsperrt: 'Entsperrt', inhalt_entfernt: 'Inhalt entfernt' };
+
+    const URL_BASIS = 'https://ytouhihzxqyyyfsakgym.supabase.co';
+    const client = supabase.createClient(URL_BASIS, 'sb_publishable_Dd1WBx9H8M5DwidvoP5-Iw__dSaBz3P', {
+      auth: { storage: window.sessionStorage, persistSession: true, autoRefreshToken: true, detectSessionInUrl: false },
+    });
+    const AUSWAHL = `*, melder:profil!meldung_von_profil_fkey(anzeigename, alias),
+      spiel:spielpool!meldung_spiel_id_fkey(id, name, bild_version, bild_url),
+      ziel:spielpool!meldung_ziel_spiel_id_fkey(id, name),
+      ausgabe:spiel_ausgabe!meldung_ausgabe_id_fkey(id, verlag, jahr, barcode, spiel_id),
+      profil:profil!meldung_profil_id_fkey(id, anzeigename, alias, gesperrt_bis, avatar_version)`;
+
+    // ── kleine Helfer (Inhalte immer als Text, nie als HTML – sie stammen von Nutzern) ──
+    function el(tag, eig = {}, ...kinder) {
+      const e = document.createElement(tag);
+      for (const [k, v] of Object.entries(eig)) {
+        if (v === undefined || v === null || v === false) continue;
+        if (k.startsWith('on')) e.addEventListener(k.slice(2), v);
+        else if (k === 'class') e.className = v;
+        else e.setAttribute(k, v === true ? '' : v);
+      }
+      for (const k of kinder.flat()) if (k !== null && k !== undefined && k !== false) e.append(k instanceof Node ? k : String(k));
+      return e;
+    }
+    const $ = (id) => document.getElementById(id);
+    const datum = (iso) => new Date(iso).toLocaleString('de-DE', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+    const grundTitel = (m) => (m.profil_id && !m.inhalt_art && GRUND_PROFIL[m.art]) || GRUND[m.art] || m.art;
+    const bezugArt = (m) => (m.inhalt_art ? INHALT[m.inhalt_art] : m.spiel_id ? 'Spiel' : m.ausgabe_id ? 'Ausgabe' : m.profil_id ? 'Profil' : '–');
+    const ausgabeText = (a) => [a.verlag, a.jahr, a.barcode].filter(Boolean).join(' · ') || 'Ausgabe';
+    const bezugName = (m) =>
+      m.inhalt_art ? `von ${m.profil?.anzeigename ?? '?'}`
+      : m.spiel ? m.spiel.name : m.ausgabe ? ausgabeText(m.ausgabe) : m.profil ? `${m.profil.anzeigename} (@${m.profil.alias ?? '–'})` : 'gelöscht';
+    const gesperrtBis = (p) => (p?.gesperrt_bis && (p.gesperrt_bis === 'infinity' || new Date(p.gesperrt_bis) > new Date()) ? p.gesperrt_bis : null);
+
+    // ── Zustand ──
+    let ich = null;
+    let filter = 'offen';
+    let meldungen = [];
+    let gewaehlt = null;
+    let laeuft = false;
+
+    async function start() {
+      const { data } = await client.auth.getSession();
+      if (!data.session) return anmeldenZeigen();
+      ich = data.session.user;
+      const { data: admin } = await client.rpc('ist_admin');
+      if (!admin) {
+        $('inhalt').replaceChildren(el('div', { class: 'anmelden' }, el('h1', {}, 'Kein Admin-Konto'),
+          el('p', { class: 'hinweis' }, 'Mit diesem Konto lässt sich nichts moderieren.'),
+          el('button', { onclick: abmelden }, 'Abmelden')));
+        return;
+      }
+      $('kopf').replaceChildren(el('span', {}, ich.email), el('button', { onclick: abmelden }, 'Abmelden'));
+      $('inhalt').replaceChildren(el('main', {}, el('section', { class: 'liste', id: 'liste' }), el('section', { class: 'detail', id: 'detail' })));
+      await laden();
+    }
+
+    function anmeldenZeigen(fehler) {
+      $('kopf').replaceChildren();
+      const email = el('input', { type: 'email', placeholder: 'E-Mail', autocomplete: 'username' });
+      const pw = el('input', { type: 'password', placeholder: 'Passwort', autocomplete: 'current-password' });
+      const los = async (e) => {
+        e.preventDefault();
+        const { error } = await client.auth.signInWithPassword({ email: email.value.trim(), password: pw.value });
+        if (error) return anmeldenZeigen('Anmeldung fehlgeschlagen.');
+        start();
+      };
+      $('inhalt').replaceChildren(el('form', { class: 'anmelden', onsubmit: los },
+        el('h1', {}, 'Moderation'), el('p', { class: 'hinweis' }, 'Nur für Admins von Game Fever.'),
+        email, pw, fehler && el('p', { class: 'fehler' }, fehler), el('button', { class: 'primaer', type: 'submit' }, 'Anmelden')));
+      email.focus();
+    }
+
+    async function abmelden() {
+      await client.auth.signOut();
+      sessionStorage.clear();
+      anmeldenZeigen();
+    }
+
+    // ── Liste ──
+    async function laden(nachId) {
+      let abfrage = client.from('meldung').select(AUSWAHL);
+      abfrage = filter === 'offen'
+        ? abfrage.eq('status', 'offen').order('created_at')
+        : abfrage.neq('status', 'offen').order('bearbeitet_at', { ascending: false }).limit(50);
+      const { data, error } = await abfrage;
+      if (error) {
+        $('liste').replaceChildren(el('p', { class: 'leer fehler' }, `Laden fehlgeschlagen: ${error.message}`));
+        return;
+      }
+      meldungen = data;
+      gewaehlt = meldungen.find((m) => m.id === nachId) ?? meldungen[0] ?? null;
+      listeZeigen();
+      detailZeigen();
+    }
+
+    function listeZeigen() {
+      const chip = (wert, titel) =>
+        el('button', { class: `chip${filter === wert ? ' aktiv' : ''}`, onclick: () => { filter = wert; laden(); } }, titel);
+      $('liste').replaceChildren(
+        el('div', { class: 'filter' }, chip('offen', `Offen${filter === 'offen' ? ` (${meldungen.length})` : ''}`), chip('fertig', 'Bearbeitet'),
+          el('button', { class: 'text', style: 'margin-left:auto', onclick: () => laden(gewaehlt?.id) }, 'Neu laden')),
+        ...(meldungen.length === 0
+          ? [el('p', { class: 'leer' }, filter === 'offen' ? 'Keine offenen Meldungen 🎉' : 'Noch nichts bearbeitet.')]
+          : meldungen.map((m) =>
+              el('div', { class: `zeile${m.id === gewaehlt?.id ? ' gewaehlt' : ''}`, onclick: () => { gewaehlt = m; listeZeigen(); detailZeigen(); } },
+                el('div', { class: 'oben' }, el('span', { class: 'grund' }, grundTitel(m)), el('span', { class: `etikett${m.art === 'rechtswidrig' ? ' rot' : ''}` }, bezugArt(m)),
+                  el('span', { class: 'wann' }, datum(m.created_at))),
+                el('div', {}, bezugName(m)),
+                (m.inhalt_text || m.text) && el('div', { class: 'zitat' }, m.inhalt_text ? `„${m.inhalt_text}“` : m.text),
+                filter !== 'offen' && el('div', { class: 'hinweis' }, m.status === 'erledigt' ? '✓ erledigt' : '✗ abgelehnt')))),
+      );
+    }
+
+    // ── Detail und Aktionen ──
+    async function detailZeigen() {
+      const d = $('detail');
+      const m = gewaehlt;
+      if (!m) return d.replaceChildren(el('p', { class: 'leer' }, 'Links eine Meldung wählen.'));
+      const offen = m.status === 'offen';
+
+      // Grund und Begründung gelten für alle Maßnahmen dieser Meldung
+      let grund = MASSNAHME_GRUENDE.includes(m.art) ? m.art : null;
+      const begruendung = el('textarea', { maxlength: 500, placeholder: 'Optional, kurz und sachlich: Was ist passiert?' });
+      const gruende = el('div', { class: 'reihe gruende' });
+      const gruendeZeigen = () => gruende.replaceChildren(...MASSNAHME_GRUENDE.map((g) =>
+        el('button', { class: grund === g ? 'aktiv' : '', onclick: () => { grund = g; gruendeZeigen(); } }, GRUND_PROFIL[g] && !m.inhalt_art ? GRUND_PROFIL[g] : GRUND[g])));
+      gruendeZeigen();
+      const meldungFehler = el('p', { class: 'fehler' });
+
+      const aktion = async (fn, frage) => {
+        if (laeuft || (frage && !confirm(frage))) return;
+        laeuft = true;
+        meldungFehler.textContent = '';
+        try {
+          await fn();
+          const naechste = meldungen[meldungen.indexOf(m) + 1]?.id;
+          await laden(naechste);
+        } catch (e) {
+          meldungFehler.textContent = e.message ?? String(e);
+        } finally {
+          laeuft = false;
+        }
+      };
+      const pruefe = ({ error }) => { if (error) throw new Error(error.message); };
+      const brauchtGrund = () => { if (!grund) throw new Error('Bitte erst einen Grund wählen.'); };
+
+      const kopf = el('div', {},
+        el('div', { class: 'reihe' }, el('span', { class: `etikett${m.art === 'rechtswidrig' ? ' rot' : ''}` }, bezugArt(m)),
+          !offen && el('span', { class: 'etikett' }, m.status)),
+        el('h2', {}, grundTitel(m)),
+        el('p', { class: 'hinweis' }, `Gemeldet von ${m.melder?.anzeigename ?? 'gelöschtem Konto'} am ${datum(m.created_at)}`));
+
+      const worum = el('div', { class: 'block' }, el('h3', {}, 'Worum geht es'), el('div', {}, bezugName(m)),
+        m.inhalt_art && el('div', { class: 'zitatblock' }, m.inhalt_text ?? '(Kopie schon gelöscht)'),
+        m.text && el('div', {}, el('strong', {}, 'Begründung der meldenden Person: '), m.text),
+        m.ziel && el('div', {}, `Dasselbe wie: ${m.ziel.name}`),
+        m.art === 'bild' && m.spiel && (m.spiel.bild_version && !m.spiel.bild_url
+          ? el('img', { class: 'foto', alt: 'Spielfoto', src: `${URL_BASIS}/storage/v1/object/public/spielbilder/${m.spiel.id}/banner.webp?v=${m.spiel.bild_version}` })
+          : el('p', { class: 'hinweis' }, 'Das Spiel hat kein eigenes Foto (mehr).')));
+
+      const bloecke = [kopf, worum];
+
+      // Profil der betroffenen Person mit Verlauf
+      if (m.profil) {
+        const { data: verlauf } = await client.from('moderation').select('*').eq('profil_id', m.profil.id).order('created_at', { ascending: false }).limit(8);
+        const gesperrt = gesperrtBis(m.profil);
+        bloecke.push(el('div', { class: 'block' }, el('h3', {}, 'Betroffenes Profil'),
+          el('div', {}, `${m.profil.anzeigename} (@${m.profil.alias ?? '–'})`,
+            gesperrt && el('span', { class: 'etikett rot', style: 'margin-left:8px' }, gesperrt === 'infinity' ? 'dauerhaft gesperrt' : `gesperrt bis ${datum(gesperrt)}`)),
+          el('ul', { class: 'verlauf' }, (verlauf ?? []).length === 0 ? el('li', { class: 'hinweis' }, 'Noch keine Maßnahmen.')
+            : verlauf.map((v) => el('li', {}, `${datum(v.created_at)} · ${VERLAUF[v.massnahme] ?? v.massnahme}${v.grund ? ` · ${GRUND[v.grund] ?? v.grund}` : ''}${v.begruendung ? ` – ${v.begruendung}` : ''}`)))));
+      }
+
+      // Maßnahmen
+      if (offen) {
+        const knoepfe = [];
+        if (m.inhalt_art) knoepfe.push(el('button', { class: 'gefahr', onclick: () => aktion(async () => { brauchtGrund();
+          pruefe(await client.rpc('admin_inhalt_entfernen', { p_meldung: m.id, p_grund: grund, p_begruendung: begruendung.value.trim() || null })); },
+          `${INHALT[m.inhalt_art]} entfernen? Die verfassende Person wird mit Grund informiert.`) }, 'Inhalt entfernen'));
+        if (m.art === 'bild' && m.spiel?.bild_version && !m.spiel.bild_url) knoepfe.push(el('button', { class: 'gefahr', onclick: () => aktion(async () => {
+          await client.storage.from('spielbilder').remove(['banner.webp', 'kachel.webp', 'banner.jpg', 'kachel.jpg'].map((f) => `${m.spiel.id}/${f}`));
+          pruefe(await client.rpc('admin_spielbild_entfernen', { p_spiel: m.spiel.id, p_meldung: m.id })); }, 'Foto des Spiels entfernen?') }, 'Foto entfernen'));
+        if (m.art === 'duplikat' && m.spiel && m.ziel) {
+          for (const [behalten, weg] of [[m.ziel, m.spiel], [m.spiel, m.ziel]]) knoepfe.push(el('button', { onclick: () => aktion(async () => {
+            pruefe(await client.rpc('spiele_zusammenfuehren', { p_behalten: behalten.id, p_weg: weg.id })); },
+            `„${weg.name}“ in „${behalten.name}“ zusammenführen?`) }, `„${behalten.name}“ behalten`));
+        }
+
+        let massnahmen = null;
+        if (m.profil) {
+          const p = m.profil;
+          const massnahme = (art, extra = {}, frage) => aktion(async () => {
+            if (art !== 'entsperrt') brauchtGrund();
+            pruefe(await client.rpc('admin_massnahme', { p_profil: p.id, p_massnahme: art, p_grund: art === 'entsperrt' ? null : grund, p_meldung: m.id,
+              p_begruendung: begruendung.value.trim() || null, p_bis: extra.bis ?? null, p_teile: extra.teile ?? null }));
+            if (extra.teile?.includes('bild')) {
+              await client.storage.from('avatare').remove(['gross.webp', 'klein.webp', 'gross.jpg', 'klein.jpg'].map((f) => `${p.id}/${f}`));
+            }
+          }, frage);
+          const teile = ['name', 'bild', 'alias'].map((t) => ({ t, box: el('input', { type: 'checkbox', checked: t !== 'alias' }) }));
+          const dauer = el('select', { style: 'width:auto' }, el('option', { value: '1' }, '1 Tag'), el('option', { value: '7', selected: true }, '7 Tage'),
+            el('option', { value: '30' }, '30 Tage'), el('option', { value: 'immer' }, 'Dauerhaft'));
+          massnahmen = el('div', { class: 'block' }, el('h3', {}, `Maßnahme gegen ${p.anzeigename}`),
+            el('div', { class: 'reihe' }, el('button', { onclick: () => massnahme('ermahnung') }, 'Ermahnen')),
+            el('div', { class: 'reihe' }, ...teile.map(({ t, box }) => el('label', { class: 'haken' }, box, { name: 'Name', bild: 'Profilbild', alias: 'Alias' }[t])),
+              el('button', { onclick: () => massnahme('zurueckgesetzt', { teile: teile.filter((x) => x.box.checked).map((x) => x.t) }, 'Profil zurücksetzen?') }, 'Zurücksetzen')),
+            el('div', { class: 'reihe' }, dauer, el('button', { class: 'gefahr', onclick: () => massnahme('gesperrt',
+              { bis: dauer.value === 'immer' ? null : new Date(Date.now() + Number(dauer.value) * 86400000).toISOString() },
+              `${p.anzeigename} sperren (${dauer.selectedOptions[0].textContent})?`) }, 'Sperren'),
+              gesperrtBis(p) && el('button', { onclick: () => massnahme('entsperrt', {}, 'Sperre aufheben?') }, 'Entsperren')),
+            el('p', { class: 'hinweis' }, 'Jede Maßnahme schließt diese Meldung (die meldende Person erfährt: „etwas unternommen“).'));
+        }
+
+        bloecke.push(el('div', { class: 'block' }, el('h3', {}, 'Grund und Begründung (sieht die betroffene Person)'), gruende, begruendung,
+          knoepfe.length > 0 && el('div', { class: 'reihe' }, ...knoepfe)));
+        if (massnahmen) bloecke.push(massnahmen);
+
+        const status = (s) => aktion(async () => {
+          pruefe(await client.from('meldung').update({ status: s, bearbeitet_von: ich.id, bearbeitet_at: new Date().toISOString() }).eq('id', m.id));
+        });
+        bloecke.push(el('div', { class: 'block' }, el('h3', {}, 'Meldung abschließen ohne Maßnahme'),
+          el('div', { class: 'reihe' }, el('button', { class: 'primaer', onclick: () => status('erledigt') }, 'Erledigt'),
+            el('button', { onclick: () => status('abgelehnt') }, 'Ablehnen')),
+          el('p', { class: 'hinweis' }, '„Erledigt“: Die meldende Person erfährt, dass wir etwas unternommen haben (z. B. Angaben korrigiert). „Ablehnen“: Sie erfährt, dass kein Verstoß festgestellt wurde.')));
+      } else {
+        bloecke.push(el('p', { class: 'hinweis', style: 'margin-top:14px' }, `${m.status === 'erledigt' ? 'Erledigt' : 'Abgelehnt'} am ${datum(m.bearbeitet_at)}.`));
+      }
+      bloecke.push(meldungFehler);
+      d.replaceChildren(...bloecke);
+    }
+
+    start();
+  </script>
+</body>
+</html>
