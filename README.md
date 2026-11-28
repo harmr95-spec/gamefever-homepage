@@ -5,8 +5,9 @@ Homepage von Game Fever: The Game Night Planner – www.gamefeverapp.de (GitHub 
 
 - `abend/?id=<Event-ID>` – geteilter Spieleabend. Mit installierter App öffnen iPhone/Android direkt die App.
 - `.well-known/apple-app-site-association` (iPhone) und `.well-known/assetlinks.json` (Android) erlauben das.
-  **Platzhalter:** `TEAMID` (Apple-Team-ID aus developer.apple.com) und der SHA-256-Fingerabdruck des Android-
-  Signierschlüssels (Play Console → App-Integrität bzw. `eas credentials`). Erst mit dem ersten Store-Build nötig.
+  Android: Fingerabdruck des EAS-Signierschlüssels ist eingetragen (28.11.); mit dem Play Store kommt der Fingerabdruck
+  von Googles App-Signaturschlüssel dazu (Play Console → App-Integrität). iPhone: **Platzhalter** `TEAMID`
+  (Apple-Team-ID aus developer.apple.com).
 - `.well-known` wird über `_config.yml` (`include`) mit veröffentlicht.
 
 ## Gemeinsame Bausteine (Jekyll)

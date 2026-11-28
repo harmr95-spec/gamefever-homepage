@@ -4,7 +4,7 @@
     "target": {
       "namespace": "android_app",
       "package_name": "com.harmey.gamefever",
-      "sha256_cert_fingerprints": ["SHA256_FINGERPRINT_DES_SIGNIERSCHLUESSELS"]
+      "sha256_cert_fingerprints": ["5A:78:21:F0:5D:DA:57:56:44:2C:F1:AB:EB:9C:61:DA:2D:C2:C0:2B:91:77:40:22:32:D4:66:53:5A:02:B9:11"]
     }
   }
 ]
