@@ -8,6 +8,7 @@
   <link rel="icon" type="image/png" href="../favicon.png">
   <link rel="stylesheet" href="../fonts/fonts.css">
   <script src="../vendor/supabase-js-2.119.2.js"></script>
+  <script src="../captcha.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -146,15 +147,23 @@
       $('kopf').replaceChildren();
       const email = el('input', { type: 'email', placeholder: 'E-Mail', autocomplete: 'username' });
       const pw = el('input', { type: 'password', placeholder: 'Passwort', autocomplete: 'current-password' });
+      const feld = el('div', { class: 'captcha' });
       const los = async (e) => {
         e.preventDefault();
-        const { error } = await client.auth.signInWithPassword({ email: email.value.trim(), password: pw.value });
+        let captchaToken;
+        try {
+          captchaToken = await captcha.token();
+        } catch {
+          return anmeldenZeigen('Sicherheitsprüfung fehlgeschlagen – bitte Seite neu laden.');
+        }
+        const { error } = await client.auth.signInWithPassword({ email: email.value.trim(), password: pw.value, options: { captchaToken } });
         if (error) return anmeldenZeigen('Anmeldung fehlgeschlagen.');
         start();
       };
       $('inhalt').replaceChildren(el('form', { class: 'anmelden', onsubmit: los },
         el('h1', {}, 'Moderation'), el('p', { class: 'hinweis' }, 'Nur für Admins von Game Fever.'),
-        email, pw, fehler && el('p', { class: 'fehler' }, fehler), el('button', { class: 'primaer', type: 'submit' }, 'Anmelden')));
+        email, pw, feld, fehler && el('p', { class: 'fehler' }, fehler), el('button', { class: 'primaer', type: 'submit' }, 'Anmelden')));
+      const captcha = gfCaptcha(feld, { sprache: 'de', thema: 'light' });
       email.focus();
     }
 

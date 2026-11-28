@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="../fonts/fonts.css">
   <script src="../sprache.js"></script>
   <script src="../vendor/supabase-js-2.119.2.js"></script>
+  <script src="../captcha.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -113,6 +114,8 @@
     .input-wrap {
       position: relative;
     }
+
+    .captcha { margin: 4px 0 12px; min-height: 65px; }
 
     input[type="password"], input[type="email"], input[type="text"] {
       width: 100%;
@@ -378,6 +381,7 @@
         emailPlatzhalter: "name@beispiel.de",
         passwort: "Passwort",
         passwortPlatzhalter: "Dein Passwort",
+        captchaFehler: "Die Sicherheitsprüfung konnte nicht abgeschlossen werden. Bitte lade die Seite neu.",
         anzeigen: "Passwort anzeigen",
         verbergen: "Passwort verbergen",
         vergessen: "Passwort vergessen?",
@@ -422,6 +426,7 @@
         emailPlatzhalter: "name@example.com",
         passwort: "Password",
         passwortPlatzhalter: "Your password",
+        captchaFehler: "The security check could not be completed. Please reload the page.",
         anzeigen: "Show password",
         verbergen: "Hide password",
         vergessen: "Forgot password?",
@@ -507,6 +512,7 @@
             </div>
           </div>
           <div class="link-row"><button class="link-btn" id="vergessen" type="button">${L('vergessen')}</button></div>
+          <div class="captcha" id="captcha"></div>
           <button class="btn-submit" id="weiter" type="submit">${L('weiter')}</button>
           <div class="msg" id="msg" role="alert"></div>
         </form>
@@ -521,6 +527,18 @@
       });
       document.getElementById('vergessen').addEventListener('click', passwortVergessen);
       document.getElementById('anmelden').addEventListener('submit', (e) => { e.preventDefault(); anmelden(); });
+      captcha = gfCaptcha(document.getElementById('captcha'), { sprache: window.SPRACHE, thema: 'light' });
+    }
+
+    // Captcha (Cloudflare Turnstile) – jedes Token gilt nur für einen Versuch
+    let captcha = null;
+    async function captchaToken() {
+      try {
+        return await captcha.token();
+      } catch {
+        meldung(L('captchaFehler'));
+        return null;
+      }
     }
 
     async function anmelden() {
@@ -530,7 +548,14 @@
       const btn = document.getElementById('weiter');
       btn.disabled = true;
       btn.textContent = L('prueft');
-      const { data, error } = await client.auth.signInWithPassword({ email, password });
+      const token = await captchaToken();
+      if (!token) {
+        btn.disabled = false;
+        btn.textContent = L('weiter');
+        return;
+      }
+      const { data, error } = await client.auth.signInWithPassword({ email, password, options: { captchaToken: token } });
+      captcha.neu();
       if (error) {
         btn.disabled = false;
         btn.textContent = L('weiter');
@@ -542,9 +567,13 @@
     async function passwortVergessen() {
       const email = document.getElementById('email').value.trim();
       if (!email) return meldung(L('emailZuerst'));
+      const token = await captchaToken();
+      if (!token) return;
       const { error } = await client.auth.resetPasswordForEmail(email, {
         redirectTo: 'https://www.gamefeverapp.de/reset-password',
+        captchaToken: token,
       });
+      captcha.neu();
       if (error) return meldung(fehlertext(error));
       meldung(L('linkGeschickt'), 'ok');
     }

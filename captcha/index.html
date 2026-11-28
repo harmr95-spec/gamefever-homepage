@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Game Fever – Sicherheitsprüfung</title>
+  <!--
+    Wird in der App eingebettet (WebView auf dem Handy, iframe in der Web-Version) und zeigt nur das Captcha.
+    Das Ergebnis geht per Nachricht an die App: { gameFeverCaptcha: 'token' | 'abgelaufen' | 'fehler', token? }.
+    Parameter: ?sprache=de|en&thema=hell|dunkel
+  -->
+  <style>
+    html, body { margin: 0; padding: 0; background: transparent; overflow: hidden; }
+    #feld { display: flex; justify-content: center; }
+  </style>
+  <script src="../captcha.js"></script>
+</head>
+<body>
+  <div id="feld"></div>
+  <script>
+    var p = new URLSearchParams(location.search);
+
+    // Web-Version der App: nur an bekannte Seiten weitergeben (lokale Entwicklung, eigene Domain)
+    function erlaubterRahmen() {
+      try {
+        var o = new URL(document.referrer).origin;
+        return /^http:\/\/localhost(:\d+)?$/.test(o) || o === 'https://www.gamefeverapp.de' ? o : null;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function senden(art, token) {
+      var nachricht = { gameFeverCaptcha: art, token: token || null };
+      if (window.ReactNativeWebView) return window.ReactNativeWebView.postMessage(JSON.stringify(nachricht));
+      var ziel = erlaubterRahmen();
+      if (window.parent !== window && ziel) window.parent.postMessage(nachricht, ziel);
+    }
+
+    gfCaptcha(document.getElementById('feld'), {
+      sprache: p.get('sprache') || 'auto',
+      thema: p.get('thema') === 'dunkel' ? 'dark' : p.get('thema') === 'hell' ? 'light' : 'auto',
+      onToken: function (t) { senden('token', t); },
+      onAbgelaufen: function () { senden('abgelaufen'); },
+      onFehler: function () { senden('fehler'); },
+    });
+  </script>
+</body>
+</html>
