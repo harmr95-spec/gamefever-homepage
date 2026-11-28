@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -66,13 +68,10 @@
   <footer>
     <div class="footer-logo" style="display:flex;align-items:center;gap:8px;"><img src="logo.webp" style="width:24px;height:24px;object-fit:contain;"> Game Fever</div>
     <div class="footer-links">
-      <a href="impressum.html">Impressum</a>
-      <a href="datenschutz.html">Datenschutzerklärung</a>
-      <a href="nutzungsbedingungen.html">Nutzungsbedingungen</a>
-      <a href="konto-loeschen/">Konto löschen</a>
+      {% include fuss-links.html sprache="de" %}
       <span data-sprachwahl data-aktuell="de" data-de="impressum.html?lang=de" data-en="en/legal-notice.html?lang=en"></span>
     </div>
-    <p class="footer-copy">© 2026 Game Fever. Alle Rechte vorbehalten.</p>
+    {% include fuss-copy.html sprache="de" %}
   </footer>
 </body>
 </html>

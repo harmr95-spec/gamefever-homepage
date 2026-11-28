@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -159,13 +161,10 @@
   </main>
   <footer>
     <div class="footer-links">
-      <a href="../impressum.html" data-t="fussImpressum" data-t-href="fussImpressumLink">Impressum</a>
-      <a href="../datenschutz.html" data-t="fussDatenschutz" data-t-href="fussDatenschutzLink">Datenschutzerklärung</a>
-      <a href="../nutzungsbedingungen.html" data-t="fussNutzung" data-t-href="fussNutzungLink">Nutzungsbedingungen</a>
-      <a href="../konto-loeschen/" data-t="fussLoeschen">Konto löschen</a>
+      {% include fuss-links.html sprache="auto" %}
       
     </div>
-    <p class="footer-copy" data-t="fussCopy">© 2026 Game Fever. Alle Rechte vorbehalten.</p>
+    {% include fuss-copy.html sprache="auto" %}
   </footer>
   <script>
     // Geteilter Link aus der App: https://www.gamefeverapp.de/abend/?id=<Event-ID>. Ist die App installiert, öffnen
@@ -180,10 +179,6 @@
         oeffnen: 'In der App öffnen',
         keineApp: 'Noch keine App? Game Fever gibt es bald im App Store und bei Google Play. <a href="/">Mehr über Game Fever</a>',
         ungueltig: 'Dieser Link ist unvollständig. Bitte lass ihn dir noch einmal schicken.',
-      fussImpressum: 'Impressum', fussImpressumLink: '../impressum.html',
-      fussDatenschutz: 'Datenschutzerklärung', fussDatenschutzLink: '../datenschutz.html',
-      fussNutzung: 'Nutzungsbedingungen', fussNutzungLink: '../nutzungsbedingungen.html',
-      fussLoeschen: 'Konto löschen', fussCopy: '© 2026 Game Fever. Alle Rechte vorbehalten.',
       },
       en: {
         seitenTitel: 'Game Fever – Game night',
@@ -192,10 +187,6 @@
         oeffnen: 'Open in the app',
         keineApp: 'No app yet? Game Fever is coming soon to the App Store and Google Play. <a href="/">More about Game Fever</a>',
         ungueltig: 'This link is incomplete. Please ask for it to be sent again.',
-      fussImpressum: 'Legal notice', fussImpressumLink: '../en/legal-notice.html',
-      fussDatenschutz: 'Privacy policy', fussDatenschutzLink: '../en/privacy.html',
-      fussNutzung: 'Terms of use', fussNutzungLink: '../en/terms.html',
-      fussLoeschen: 'Delete account', fussCopy: '© 2026 Game Fever. All rights reserved.',
       },
     });
     const id = new URLSearchParams(location.search).get('id') ?? '';

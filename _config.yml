@@ -1,0 +1,7 @@
+# GitHub Pages veröffentlicht die Seite mit Jekyll. Genutzt wird es nur für Bausteine, die auf mehreren Seiten gleich sind
+# (_includes/, z. B. die Links im Fuß). Seiten mit Bausteinen beginnen mit einem leeren Kopf (--- / ---); alle anderen
+# Dateien werden unverändert veröffentlicht. Lokal ansehen: jekyll serve (oder jekyll build → _site/).
+include:
+  - .well-known
+exclude:
+  - README.md

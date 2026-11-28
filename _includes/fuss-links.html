@@ -1,0 +1,16 @@
+{%- comment -%}
+  Links im Fuß aller Seiten – NUR HIER pflegen (GitHub Pages setzt die Datei beim Veröffentlichen ein, die Links gehen also
+  auch ohne JavaScript). sprache: "de", "en" oder "auto" (Seiten, die sich selbst per JavaScript übersetzen: sprache.js
+  tauscht dort Text und Ziel gegen data-text-en/data-href-en).
+{%- endcomment -%}
+{%- if include.sprache == "en" -%}
+<a href="/en/legal-notice.html">Legal notice</a>
+      <a href="/en/privacy.html">Privacy policy</a>
+      <a href="/en/terms.html">Terms of use</a>
+      <a href="/konto-loeschen/?lang=en">Delete account</a>
+{%- else -%}
+<a href="/impressum.html" data-text-en="Legal notice" data-href-en="/en/legal-notice.html">Impressum</a>
+      <a href="/datenschutz.html" data-text-en="Privacy policy" data-href-en="/en/privacy.html">Datenschutzerklärung</a>
+      <a href="/nutzungsbedingungen.html" data-text-en="Terms of use" data-href-en="/en/terms.html">Nutzungsbedingungen</a>
+      <a href="/konto-loeschen/" data-text-en="Delete account" data-href-en="/konto-loeschen/?lang=en">Konto löschen</a>
+{%- endif -%}

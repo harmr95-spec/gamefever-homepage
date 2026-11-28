@@ -7,4 +7,12 @@ Homepage von Game Fever: The Game Night Planner – www.gamefeverapp.de (GitHub 
 - `.well-known/apple-app-site-association` (iPhone) und `.well-known/assetlinks.json` (Android) erlauben das.
   **Platzhalter:** `TEAMID` (Apple-Team-ID aus developer.apple.com) und der SHA-256-Fingerabdruck des Android-
   Signierschlüssels (Play Console → App-Integrität bzw. `eas credentials`). Erst mit dem ersten Store-Build nötig.
-- `.nojekyll`: GitHub Pages veröffentlicht die Seite unverändert, auch den Ordner `.well-known`.
+- `.well-known` wird über `_config.yml` (`include`) mit veröffentlicht.
+
+## Gemeinsame Bausteine (Jekyll)
+
+GitHub Pages baut die Seite mit Jekyll. Genutzt wird das nur für Teile, die auf mehreren Seiten gleich sind:
+`_includes/fuss-links.html` (Links im Fuß) und `_includes/fuss-copy.html` (© -Zeile), eingebunden mit
+`{% include fuss-links.html sprache="de|en|auto" %}`. Seiten mit Bausteinen beginnen mit einem leeren Kopf (`---` / `---`).
+`auto` = Seite übersetzt sich per JavaScript (`sprache.js` tauscht `data-text-en`/`data-href-en`). Lokal prüfen:
+`gem install jekyll -v '~> 3.10'`, dann `jekyll build` (Ergebnis in `_site/`) oder `jekyll serve`.

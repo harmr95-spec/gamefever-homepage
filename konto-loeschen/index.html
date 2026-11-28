@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -346,13 +348,10 @@
 
   <footer>
     <div class="footer-links">
-      <a href="../impressum.html" data-t="fussImpressum" data-t-href="fussImpressumLink">Impressum</a>
-      <a href="../datenschutz.html" data-t="fussDatenschutz" data-t-href="fussDatenschutzLink">Datenschutzerklärung</a>
-      <a href="../nutzungsbedingungen.html" data-t="fussNutzung" data-t-href="fussNutzungLink">Nutzungsbedingungen</a>
-      <a href="./" data-t="fussLoeschen">Konto löschen</a>
+      {% include fuss-links.html sprache="auto" %}
       <span data-sprachwahl data-de="?lang=de" data-en="?lang=en"></span>
     </div>
-    <p class="footer-copy" data-t="fussCopy">© 2026 Game Fever. Alle Rechte vorbehalten.</p>
+    {% include fuss-copy.html sprache="auto" %}
   </footer>
 
   <script>
@@ -401,10 +400,6 @@
         loeschFehler: "Das Löschen hat nicht geklappt. Bitte versuche es erneut oder schreib uns über die Adresse im Impressum.",
         erledigt: "Konto gelöscht",
         erledigtText: "Dein Game-Fever-Konto wurde gelöscht. Wenn die App noch auf deinem Handy installiert ist, kannst du sie einfach deinstallieren.",
-      fussImpressum: 'Impressum', fussImpressumLink: '../impressum.html',
-      fussDatenschutz: 'Datenschutzerklärung', fussDatenschutzLink: '../datenschutz.html',
-      fussNutzung: 'Nutzungsbedingungen', fussNutzungLink: '../nutzungsbedingungen.html',
-      fussLoeschen: 'Konto löschen', fussCopy: '© 2026 Game Fever. Alle Rechte vorbehalten.',
       },
       en: {
         seitenTitel: "Game Fever – Delete account",
@@ -446,10 +441,6 @@
         loeschFehler: "Deleting did not work. Please try again or write to us via the address in the legal notice.",
         erledigt: "Account deleted",
         erledigtText: "Your Game Fever account has been deleted. If the app is still installed on your phone, you can simply uninstall it.",
-      fussImpressum: 'Legal notice', fussImpressumLink: '../en/legal-notice.html',
-      fussDatenschutz: 'Privacy policy', fussDatenschutzLink: '../en/privacy.html',
-      fussNutzung: 'Terms of use', fussNutzungLink: '../en/terms.html',
-      fussLoeschen: 'Delete account', fussCopy: '© 2026 Game Fever. All rights reserved.',
       },
     });
 

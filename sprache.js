@@ -80,6 +80,15 @@
       document.querySelectorAll('[data-t-href]').forEach(function (el) {
         el.setAttribute('href', L(el.getAttribute('data-t-href')));
       });
+      // Bausteine aus _includes/ (z. B. Fuß) tragen ihre englische Fassung selbst mit
+      if (window.SPRACHE === 'en') {
+        document.querySelectorAll('[data-text-en]').forEach(function (el) {
+          el.textContent = el.getAttribute('data-text-en');
+        });
+        document.querySelectorAll('[data-href-en]').forEach(function (el) {
+          el.setAttribute('href', el.getAttribute('data-href-en'));
+        });
+      }
       if (t.seitenTitel) document.title = t.seitenTitel;
     };
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fuellen);
