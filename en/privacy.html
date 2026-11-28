@@ -96,6 +96,7 @@
       <li>The data is stored with our service provider Supabase on servers in Frankfurt am Main, Germany.</li>
       <li>Game descriptions written by users are translated automatically by Microsoft in the EU – only the text, without any information about you (<a href="#uebersetzung">section 10</a>).</li>
       <li>No tracking, no advertising, no analytics services.</li>
+      <li>You only receive push notifications if you allow them on your phone (<a href="#push">section 12</a>).</li>
       <li>You can delete your account yourself in the app at any time.</li>
     </ul>
 
@@ -162,7 +163,7 @@
     <p>For accounts, database, file storage and live updates we use the service Supabase (Supabase, Inc., San Francisco, USA). We have a data processing agreement with Supabase in accordance with Art. 28 GDPR. The data is stored in the region eu-central-1 (Frankfurt am Main, Germany). For live updates (e.g. a new chat message appears for everyone at once), Supabase keeps a copy of the transmitted message for a few days for technical reasons and then deletes it automatically – even if the message was deleted earlier.</p>
     <p>When the app accesses the server, log data is generated for technical reasons (e.g. IP address, time, interface accessed). It serves secure operation and is only kept by Supabase for a short time (Art. 6 (1) (f) GDPR).</p>
     <p>Supabase may use sub-processors; you can find a current list at <a href="https://supabase.com/privacy" rel="noopener">supabase.com/privacy</a>. Where data is transferred to the USA, this is safeguarded by EU standard contractual clauses (Art. 46 (2) (c) GDPR) or – where the providers are certified – by the EU-U.S. Data Privacy Framework (Art. 45 GDPR).</p>
-    <p><strong>Email (Strato):</strong> We send the account emails (account confirmation, password reset) via the email server of STRATO GmbH, Otto-Ostrowski-Straße 7, 10249 Berlin, Germany. Your email address and the content of the email are transmitted to Strato. Our mailboxes for <a href="mailto:contact@gamefeverapp.de">contact@gamefeverapp.de</a> and <a href="mailto:support@gamefeverapp.de">support@gamefeverapp.de</a> are also hosted by Strato (see <a href="#email">section 17</a>). Strato processes the data as our processor in its data centres in Germany; under the contract, processing generally takes place in the EU. We have a data processing agreement with Strato in accordance with Art. 28 GDPR. The legal basis for sending account emails is Art. 6 (1) (b) GDPR; for the mailboxes it is Art. 6 (1) (f) GDPR (legitimate interest in being able to answer requests), or (b) if it concerns your account.</p>
+    <p><strong>Email (Strato):</strong> We send the account emails (account confirmation, password reset) via the email server of STRATO GmbH, Otto-Ostrowski-Straße 7, 10249 Berlin, Germany. Your email address and the content of the email are transmitted to Strato. Our mailboxes for <a href="mailto:contact@gamefeverapp.de">contact@gamefeverapp.de</a> and <a href="mailto:support@gamefeverapp.de">support@gamefeverapp.de</a> are also hosted by Strato (see <a href="#email">section 18</a>). Strato processes the data as our processor in its data centres in Germany; under the contract, processing generally takes place in the EU. We have a data processing agreement with Strato in accordance with Art. 28 GDPR. The legal basis for sending account emails is Art. 6 (1) (b) GDPR; for the mailboxes it is Art. 6 (1) (f) GDPR (legitimate interest in being able to answer requests), or (b) if it concerns your account.</p>
 
     <h2 id="uebersetzung">10. Translation of game descriptions (Microsoft)</h2>
     <p>Game descriptions (“What’s it about?” and “How to play”) are written by users in one language. So that they can also be read in the app’s other languages, our server sends the text to the <strong>Azure AI Translator</strong> service of Microsoft Ireland Operations Limited (One Microsoft Place, South County Business Park, Leopardstown, Dublin 18, Ireland) after it has been saved, and stores the translation with us. In the app it is marked as “Automatically translated”; the original can be shown at any time.</p>
@@ -184,11 +185,20 @@
     </ul>
     <p>Signing out removes the sign-in. You can delete everything else by uninstalling the app or clearing its data in your device settings.</p>
 
-    <h2 id="testphase">12. Testing phase with Expo Go and Google Play</h2>
+    <h2 id="push">12. Push notifications</h2>
+    <p>If you allow it on your phone, the app sends you push notifications – for example about invitations and requests, who is coming or not, reminders of your game nights, friend requests and notices from the moderators. You choose which groups you receive in the app under Profile → “Push notifications”; notices from the moderators cannot be switched off. You can withdraw your permission at any time in your phone’s settings.</p>
+    <ul>
+      <li><strong>What we store:</strong> an identifier for delivery to your phone (push token), whether it is an iPhone or an Android device, the app’s language, date format and time zone (so the notification arrives in your language and with the correct time) and the groups you have switched off.</li>
+      <li><strong>Delivery:</strong> Our server passes the text and the push token to Expo’s push service (650 Industries, Inc., Palo Alto, USA). Expo forwards the notification to Google (Firebase Cloud Messaging, Android) or Apple (Apple Push Notification Service, iPhone), who deliver it to your phone. The text says what it is about – e.g. the name of the person inviting you and the title of the game night – and, depending on your phone’s settings, can also be seen on the lock screen.</li>
+      <li><strong>Deletion:</strong> We delete the push token when you sign out of the app, delete your account, uninstall the app (as soon as the push service reports this) or do not open the app for six months.</li>
+    </ul>
+    <p>The legal basis is your consent (Art. 6 (1) (a) GDPR, § 25 (1) TDDDG), which you give via your phone’s prompt and can withdraw there at any time. Where data is transferred to the USA, this is safeguarded by EU standard contractual clauses (Art. 46 (2) (c) GDPR) or – where the providers are certified – by the EU-U.S. Data Privacy Framework (Art. 45 GDPR). More information: <a href="https://expo.dev/privacy" rel="noopener">Expo privacy policy</a>.</p>
+
+    <h2 id="testphase">13. Testing phase with Expo Go and Google Play</h2>
     <p>During the testing phase, the app runs inside the app “Expo Go” by Expo (650 Industries, Inc., Palo Alto, USA). Expo’s privacy policy applies to Expo Go itself (<a href="https://expo.dev/privacy" rel="noopener">expo.dev/privacy</a>).</p>
     <p>Once the app is published on the Google Play Store, Google processes data such as your Google account and the time of the download when you download it. We have no influence on this; Google’s privacy policy applies (<a href="https://policies.google.com/privacy" rel="noopener">policies.google.com/privacy</a>).</p>
 
-    <h2 id="loeschung">13. Deleting your account</h2>
+    <h2 id="loeschung">14. Deleting your account</h2>
     <p>You can delete your account yourself at any time: in the app (Profile → “Delete account”) or without the app at <a href="../konto-loeschen/?lang=en">gamefeverapp.de/konto-loeschen</a>, after signing in there with your email and password. If you no longer have access, write to us at the address in the legal notice; we will then delete the account within one month. In any case, the following happens immediately:</p>
     <h3>Deleted</h3>
     <ul>
@@ -207,15 +217,15 @@
     <p>Competitions, results and participation in past game nights are kept so that your fellow players’ rankings and histories stay complete. The same applies to game descriptions you have written or changed: they are part of the shared game catalogue and are kept. There you only appear as “Deleted user”, without any reference to you (Art. 6 (1) (f) GDPR).</p>
     <p>Data contained in backups is overwritten as part of the regular backup cycle.</p>
 
-    <h2 id="weitergabe">14. No sharing, no tracking, no advertising</h2>
+    <h2 id="weitergabe">15. No sharing, no tracking, no advertising</h2>
     <p>We do not sell data and do not share it for advertising purposes. Data only goes to the services named in this policy, to the extent necessary for the respective feature.</p>
     <p>The app and the website do not use any tracking, analytics or advertising services (e.g. no Google Analytics, no Firebase Analytics, no Facebook SDK) and no cookies for tracking purposes.</p>
 
-    <h2 id="sicherheit">15. Data security</h2>
+    <h2 id="sicherheit">16. Data security</h2>
     <p>All connections between the app, the website and the servers are encrypted (HTTPS/TLS). In the database, access rules for every table determine who may read and change which data; they apply independently of the app. In addition, we take technical and organisational measures in accordance with Art. 32 GDPR.</p>
 
-    <h2 id="website">16. Website gamefeverapp.de</h2>
-    <h3>16.1 Hosting</h3>
+    <h2 id="website">17. Website gamefeverapp.de</h2>
+    <h3>17.1 Hosting</h3>
     <p>The website is provided via GitHub Pages (GitHub, Inc., San Francisco, USA); the domain is operated via STRATO GmbH (Berlin, Germany). When the site is accessed, GitHub automatically records server logs that may contain the following data:</p>
     <ul>
       <li>IP address of the requesting device</li>
@@ -225,16 +235,16 @@
       <li>referrer URL</li>
     </ul>
     <p>The legal basis is Art. 6 (1) (f) GDPR (legitimate interest in secure and stable operation). According to GitHub, these logs are stored for up to 90 days. Where data is transferred to the USA, this is safeguarded by EU standard contractual clauses or the EU-U.S. Data Privacy Framework. More information: <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener">GitHub privacy statement</a>.</p>
-    <h3>16.2 No cookies, no external content</h3>
+    <h3>17.2 No cookies, no external content</h3>
     <p>The website does not set cookies and does not use tracking. Fonts, scripts and images are loaded directly from gamefeverapp.de, not from third-party servers (e.g. no Google Fonts). The only exception is the Cloudflare Turnstile check box on pages with a sign-in (see <a href="#captcha">section 4</a>).</p>
     <p>The website is available in German and English. Without your own choice, it follows your browser’s language. If you switch the language yourself, this choice is remembered in your browser’s local storage (not a cookie); it is not sent to us and can be deleted in your browser settings. The legal basis is § 25 (2) no. 2 TDDDG (German Telecommunications Digital Services Data Protection Act), as storing it is necessary for the language selection you requested.</p>
-    <h3>16.3 Confirming your email, resetting your password, deleting your account</h3>
+    <h3>17.3 Confirming your email, resetting your password, deleting your account</h3>
     <p>The links in the account emails lead to pages on this website. There, the code from the link is sent to Supabase to confirm your email address or save your new password. On the “Delete account” page, your email and password are sent to Supabase to sign you in and delete the account; before that, the Cloudflare Turnstile security check runs (see <a href="#captcha">section 4</a>). The sign-in only applies to this process and is kept at most until the tab is closed in the browser’s session storage (not a cookie). The legal basis is Art. 6 (1) (b) GDPR.</p>
 
-    <h2 id="email">17. Contacting us by email</h2>
+    <h2 id="email">18. Contacting us by email</h2>
     <p>If you contact us by email, we process your email address and the content of your message to answer your request (Art. 6 (1) (f) GDPR, or (b) if it concerns your account). Our mailbox is hosted by STRATO GmbH (Berlin, Germany) as our processor (see <a href="#supabase">section 9</a>). The data is deleted once the request has been dealt with and no statutory retention obligations apply.</p>
 
-    <h2 id="rechte">18. Your rights</h2>
+    <h2 id="rechte">19. Your rights</h2>
     <p>You have the right to:</p>
     <ul>
       <li>access the data stored about you (Art. 15 GDPR)</li>
@@ -246,11 +256,11 @@
     </ul>
     <p>Simply write to us at the email address given in <a href="#verantwortlicher">section 1</a>.</p>
 
-    <h2 id="beschwerde">19. Right to lodge a complaint with a supervisory authority</h2>
+    <h2 id="beschwerde">20. Right to lodge a complaint with a supervisory authority</h2>
     <p>You have the right to lodge a complaint with a data protection supervisory authority, in particular in the federal state (Bundesland) where you live or where the controller is based.</p>
 
-    <h2 id="aenderungen">20. Changes to this privacy policy</h2>
-    <p>We adapt this privacy policy when the app or the legal requirements change – for example, when new features such as push notifications are added. You can always find the current version at <a href="https://www.gamefeverapp.de/en/privacy.html">www.gamefeverapp.de/en/privacy.html</a>.</p>
+    <h2 id="aenderungen">21. Changes to this privacy policy</h2>
+    <p>We adapt this privacy policy when the app or the legal requirements change – for example, when new features are added. You can always find the current version at <a href="https://www.gamefeverapp.de/en/privacy.html">www.gamefeverapp.de/en/privacy.html</a>.</p>
   </div>
 
   <footer>
